@@ -133,11 +133,6 @@ class BasePlanningService:
         
         if trim_unset_variables:
             links = self.remove_links_with_unset_variables(links)
-            if links:
-                pass
-            else:
-                print("!!!!!!!!!!!!")
-
         return self.sort_links(links + link_variants)
         
     
