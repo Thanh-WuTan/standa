@@ -133,6 +133,10 @@ class BasePlanningService:
         
         if trim_unset_variables:
             links = self.remove_links_with_unset_variables(links)
+            if links:
+                pass
+            else:
+                print("!!!!!!!!!!!!")
 
         return self.sort_links(links + link_variants)
         
@@ -145,8 +149,8 @@ class BasePlanningService:
         :param links:
         :return: updated list of links
         """
-        # links[:] = [s_link for s_link in links if not
-        #             BasePlanningService.re_variable.findall(b64decode(s_link.command).decode('utf-8'))]
+        links[:] = [s_link for s_link in links if not
+                    BasePlanningService.re_variable.findall(s_link.command)]
         return links
 
     @staticmethod

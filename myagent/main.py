@@ -1,12 +1,12 @@
 import os
 import yaml  
 
-from object.bps import *
-from object.agent import *
-from object.link import *
-from object.source import *
-from object.fact import *
-from object.executor import *
+from objects.bps import *
+from objects.agent import *
+from objects.link import *
+from objects.source import *
+from objects.fact import *
+from objects.executor import *
 
 
 ADV_ID = '4975696e-1d41-11eb-adc1-0242ac120002'
@@ -73,6 +73,7 @@ def main():
             
             if valid_links:
                 links = bps.sort_links(valid_links)
+                print("before: ", ex_link.command)
                 print(links[0].command)
                 break
 

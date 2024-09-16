@@ -12,6 +12,7 @@ class Executor:
     def replace_payload_dir(self, command, payload_dir):
         # for payload in self.payloads:
         #     command = command.replace(payload, os.path.join(payload_dir, payload))
+
         print("---------------")
         print("Command: ", command)
         print("Payloads: ", self.payloads)
