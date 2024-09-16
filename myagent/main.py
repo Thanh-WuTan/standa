@@ -35,13 +35,12 @@ def Init_Source():
 
 def Read_Abilities():
     abilities = []
-    print(ABILTIY_DIR)
-    # assert(os.path.exists(ABILTIY_DIR))
-    # for id in range(len(os.listdir(ABILTIY_DIR))):
-    #     filename = str(id + 1) + '.yml'
-    #     filepath = os.path.join(ABILTIY_DIR, filename)  
-    #     ability = read_yaml(filepath)
-    #     abilities.append(ability)
+    assert(os.path.exists(ABILTIY_DIR))
+    for id in range(len(os.listdir(ABILTIY_DIR))):
+        filename = str(id + 1) + '.yml'
+        filepath = os.path.join(ABILTIY_DIR, filename)  
+        ability = read_yaml(filepath)
+        abilities.append(ability)
     return abilities
 
 
@@ -76,17 +75,20 @@ def main():
             if valid_links:
                 links = bps.sort_links(valid_links)
                 break
-
+        ran_command = set()
         for link in links:
             ex = link.executor
             ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
-            stdout, stderr = ex.run_command()
+            if ex.command in ran_command:
+                continue
+            ran_command.add(ex.command)
+            # stdout, stderr = ex.run_command()
             print("---------------")
             print(cnt)
             print("Ability: ", ability['name'])
             print("Command: ", ex.command)
-            print("Stdout: ", stdout)
-            print("Stderr: ", stderr)       
+            # print("Stdout: ", stdout)
+            # print("Stderr: ", stderr)       
 
 if __name__ == '__main__':
     

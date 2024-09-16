@@ -1,0 +1,103 @@
+ability_id: 90c2efaa-8205-480d-8bb6-61d90dbaf81b
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: Locate files deemed sensitive
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: find /Users -name '*.#{file.sensitive.extension}' -type f -not -path '*/\.*'
+    -size -500k 2>/dev/null | head -5
+  language: null
+  name: sh
+  parsers:
+  - module: plugins.stockpile.app.parsers.basic
+    parserconfigs:
+    - custom_parser_vals: {}
+      edge: has_extension
+      source: host.file.path
+      target: file.sensitive.extension
+  payloads: []
+  platform: darwin
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Get-ChildItem C:\Users -Recurse -Include *.#{file.sensitive.extension}
+    -ErrorAction ''SilentlyContinue'' | foreach {$_.FullName} | Select-Object -first
+    5;
+
+    exit 0;'
+  language: null
+  name: psh
+  parsers:
+  - module: plugins.stockpile.app.parsers.basic
+    parserconfigs:
+    - custom_parser_vals: {}
+      edge: has_extension
+      source: host.file.path
+      target: file.sensitive.extension
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Get-ChildItem C:\Users -Recurse -Include *.#{file.sensitive.extension}
+    -ErrorAction ''SilentlyContinue'' | foreach {$_.FullName} | Select-Object -first
+    5;
+
+    exit 0;'
+  language: null
+  name: pwsh
+  parsers:
+  - module: plugins.stockpile.app.parsers.basic
+    parserconfigs:
+    - custom_parser_vals: {}
+      edge: has_extension
+      source: host.file.path
+      target: file.sensitive.extension
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: find / -name '*.#{file.sensitive.extension}' -type f -not -path '*/\.*'
+    -size -500k 2>/dev/null | head -5
+  language: null
+  name: sh
+  parsers:
+  - module: plugins.stockpile.app.parsers.basic
+    parserconfigs:
+    - custom_parser_vals: {}
+      edge: has_extension
+      source: host.file.path
+      target: file.sensitive.extension
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: Find files
+plugin: stockpile
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1005
+technique_name: Data from Local System

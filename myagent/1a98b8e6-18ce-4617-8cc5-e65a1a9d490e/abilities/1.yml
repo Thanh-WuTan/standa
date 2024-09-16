@@ -1,0 +1,99 @@
+ability_id: 6469befa-748a-4b9c-a96d-f191fde47d89
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: create a directory for exfil staging
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup:
+  - rm -rf staged
+  code: null
+  command: mkdir -p staged && echo $PWD/staged
+  language: null
+  name: sh
+  parsers:
+  - module: plugins.stockpile.app.parsers.basic
+    parserconfigs:
+    - custom_parser_vals: {}
+      edge: ''
+      source: host.dir.staged
+      target: ''
+  payloads: []
+  platform: darwin
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup:
+  - rm -rf staged
+  code: null
+  command: mkdir -p staged && echo $PWD/staged
+  language: null
+  name: sh
+  parsers:
+  - module: plugins.stockpile.app.parsers.basic
+    parserconfigs:
+    - custom_parser_vals: {}
+      edge: ''
+      source: host.dir.staged
+      target: ''
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup:
+  - Remove-Item -Path "staged" -recurse
+  code: null
+  command: New-Item -Path "." -Name "staged" -ItemType "directory" -Force | foreach
+    {$_.FullName} | Select-Object
+  language: null
+  name: psh
+  parsers:
+  - module: plugins.stockpile.app.parsers.basic
+    parserconfigs:
+    - custom_parser_vals: {}
+      edge: ''
+      source: host.dir.staged
+      target: ''
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup:
+  - Remove-Item -Path "staged" -recurse
+  code: null
+  command: New-Item -Path "." -Name "staged" -ItemType "directory" -Force | foreach
+    {$_.FullName} | Select-Object
+  language: null
+  name: pwsh
+  parsers:
+  - module: plugins.stockpile.app.parsers.basic
+    parserconfigs:
+    - custom_parser_vals: {}
+      edge: ''
+      source: host.dir.staged
+      target: ''
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Create staging directory
+plugin: stockpile
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1074.001
+technique_name: 'Data Staged: Local Data Staging'

