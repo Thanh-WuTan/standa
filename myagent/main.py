@@ -53,9 +53,9 @@ def main():
     cnt = 0
     for ability in Read_Abilities():
         cnt+= 1
-        print("---------------")
-        print(cnt)
-        print("Ability: ", ability['name'])
+        if cnt == 4:
+            break
+
         if not agent.is_capable_to_run(ability):
             continue
         
@@ -73,16 +73,18 @@ def main():
             
             if valid_links:
                 links = bps.sort_links(valid_links)
-                print("before: ", ex_link.command)
-                print(links[0].command)
                 break
 
         for link in links:
             ex = link.executor
-            # ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
-            # stdout, stderr = ex.run_command()
-            # print(link.command)
-       
+            ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
+            stdout, stderr = ex.run_command()
+            print("---------------")
+            print(cnt)
+            print("Ability: ", ability['name'])
+            print("Command: ", ex.command)
+            print("Stdout: ", stdout)
+            print("Stderr: ", stderr)       
 
 if __name__ == '__main__':
     
