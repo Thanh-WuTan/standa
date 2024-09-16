@@ -1,13 +1,13 @@
 import json
 from aiohttp_jinja2 import template, web 
 from app.service.auth_svc import check_authorization
-from plugins.myplugin.app.service import MypluginService
+from plugins.standa.app.service import StandaService
 
-class MypluginApi:
+class StandaApi:
     def __init__(self, services):
         self.services = services
         self.auth_svc = services.get('auth_svc')
-        self.myplugin_svc = MypluginService(services)
+        self.myplugin_svc = StandaService(services)
 
     @check_authorization
     async def download_adversary_profile(self, request):
@@ -68,7 +68,7 @@ class MypluginApi:
             return web.Response(text=str(e), status=500)
 
     @check_authorization
-    @template('myplugin.html')
+    @template('standa.html')
     async def splash(self, request):
         adversaries = await self.services.get('data_svc').locate('adversaries')
         return(dict(adversaries=[a.display for a in adversaries]))

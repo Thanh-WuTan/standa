@@ -7,7 +7,7 @@ import pathlib
 import re
 from aiohttp import web
 
-class MypluginService:
+class StandaService:
     def __init__(self, services):
         self.services = services
         self.data_svc = services.get('data_svc')
