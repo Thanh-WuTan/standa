@@ -1,0 +1,74 @@
+<div id="myplugin-new-section" class="section-profile">
+    <!-- PAGE DETAILS -->
+
+    <h1>My plugin</h1>
+    <hr>
+
+    <!-- ADVERSARY SELECTION -->
+    <form autocomplete="off">
+        <div id="select-adversary" class="field has-addons">
+            <label class="label" for="profile-select">Select a profile &nbsp;&nbsp;&nbsp;</label>
+            <div class="control is-expanded">
+                <div class="select is-fullwidth">
+                    <select id="profile-select" x-model="selectedAdversary">
+                        <option value="None">Select an adversary profile</option>
+                        {% for adv in adversaries %}
+                        <option value={{ adv.adversary_id }}> {{ adv.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+
+     <!-- DOWNLOAD BUTTON -->
+     <button id="downloadButton">Download Profile</button>
+</div>
+
+
+<style scoped>
+    .ability-row > td {
+        cursor: pointer;
+    }
+
+    .ability-row > th {
+        border: 0 !important;
+    }
+
+    #select-adversary {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .code {
+        font-family: monospace;
+    }
+
+    .control-buttons>.button {
+        margin: 0 10px 10px 0;
+    }
+
+    .drag {
+        cursor: grab;
+    }
+
+    .file-cta {
+        background-color: #262626;
+    }
+</style>
+ 
+
+
+<script>
+    document.getElementById('downloadButton').addEventListener('click', function() {
+        const selectElement = document.getElementById('profile-select');
+        const adversaryId = selectElement.value;
+
+        if (adversaryId !== "None") {
+            const url = `/plugin/myplugin/download/adversary_profile/${adversaryId}`;
+            window.location.href = url;
+        } else {
+            alert('Please select an adversary profile.');
+        }
+    });
+</script>
