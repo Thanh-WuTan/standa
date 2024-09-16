@@ -1,0 +1,49 @@
+ability_id: 45f18b58-c14f-4b61-a3da-41b67af21429
+access: {}
+additional_info: {}
+buckets:
+- persistence
+delete_payload: true
+description: Leverage modified Sysinternals
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Set-Location -path \"C:\\Program Files\\SysinternalsSuite\";\nif (Test-Path\
+    \ -path \"readme.ps1\") {\n  . .\\readme.ps1;\n  Invoke-Persistence -PersistStep\
+    \ 2;\n  write-host \"[+] Persistence 2 invoked.\";\n\n} else {\n  write-host \"\
+    [!] readme.ps1 not found.\";\n  return 1;\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Set-Location -path \"C:\\Program Files\\SysinternalsSuite\";\nif (Test-Path\
+    \ -path \"readme.ps1\") {\n  . .\\readme.ps1;\n  Invoke-Persistence -PersistStep\
+    \ 2;\n  write-host \"[+] Persistence 2 invoked.\";\n\n} else {\n  write-host \"\
+    [!] readme.ps1 not found.\";\n  return 1;\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Persistent Service 2
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: persistence
+technique_id: T1547.009
+technique_name: 'Boot or Logon Autostart Execution: Shortcut Modification'

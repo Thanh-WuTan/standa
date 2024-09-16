@@ -1,0 +1,31 @@
+ability_id: 35d95b64-c1f8-4ac7-a2f2-8959218239cd
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The native echo command is executed via cmd to enumerate local environment
+  variables associated with current user and domain.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: echo %USERDOMAIN%\%USERNAME%
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: System Owner / User Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1033
+technique_name: System Owner/User Discovery

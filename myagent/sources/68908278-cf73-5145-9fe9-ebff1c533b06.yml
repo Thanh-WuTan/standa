@@ -1,0 +1,25 @@
+facts:
+- trait: ad.domain.name
+  value: oz
+- trait: initial.target.host
+  value: 10.0.0.7
+- trait: initial.user.name
+  value: judy
+- trait: initial.user.password
+  value: Passw0rd!
+- trait: second.target.host
+  value: 10.0.0.8
+- trait: second_host.user.name
+  value: bill
+- trait: second_host.user.password
+  value: Fall2021
+- trait: ad.domain.full_name
+  value: oz.local
+- trait: dc.target.host
+  value: 10.0.0.4
+- trait: domain.admin.name
+  value: vfleming
+- trait: domain.admin.password
+  value: q27VYN8xflPcYumbLMit
+id: 68908278-cf73-5145-9fe9-ebff1c533b06
+name: Wizard Spider (Emu)

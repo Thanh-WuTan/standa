@@ -1,0 +1,49 @@
+ability_id: 1c8552c7-f7ed-4523-b640-72d65af5f855
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Get domain controller and current user SID for the domain
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\powerview.ps1;
+
+    get-netdomaincontroller;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - powerview.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\powerview.ps1;
+
+    get-netdomaincontroller;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - powerview.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Enumerate Domain Controller
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1018
+technique_name: Remote System Discovery

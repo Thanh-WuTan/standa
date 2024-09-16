@@ -1,0 +1,49 @@
+ability_id: 96140694-6d13-40b6-9553-0e63533469f3
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Domain triage
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepThirteen.ps1;
+
+    domain;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepThirteen.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepThirteen.ps1;
+
+    domain;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepThirteen.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Enumerate Domain Name
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1082
+technique_name: System Information Discovery

@@ -1,0 +1,49 @@
+ability_id: a42be479-fc26-4d7c-9e63-7a9b74e4c8d2
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Get domain user SID
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepSixteen_SID.ps1;
+
+    siduser;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepSixteen_SID.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepSixteen_SID.ps1;
+
+    siduser;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepSixteen_SID.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Enumerate Domain SID
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1033
+technique_name: System Owner/User Discovery

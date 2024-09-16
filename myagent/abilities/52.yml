@@ -1,0 +1,44 @@
+ability_id: d5170a60-3bdc-44e0-9870-a38db5c0cf81
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: PowerShell's Get-ChildItem alias 'ls' is used to enumerate files in a
+  remote file share.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'ls #{remote.file.share}'
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'ls #{remote.file.share}'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: File and Directory Discovery (T1083)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1083
+technique_name: File and Directory Discovery

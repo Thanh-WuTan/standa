@@ -1,0 +1,29 @@
+facts:
+- trait: initial.target.user
+  value: gosta
+- trait: second.target.host
+  value: WATERFALLS
+- trait: second.target.ip
+  value: 10.1.0.6
+- trait: initial.target.password
+  value: d0ntGoCH4ingW8trfalls
+- trait: network.domain.name
+  value: boom.box
+- trait: caldera.server.ip
+  value: 192.168.0.4
+- trait: caldera.user.password
+  value: ceKa#zUUc4^9yZ
+- trait: caldera.user.name
+  value: saka
+- trait: second.target.user
+  value: tous
+- trait: second.target.ntlm
+  value: 9b7ff4cc0878bee9f099a4a7dc7227c3
+- trait: third.target.ip
+  value: 10.1.0.7
+- trait: exfil.target.email
+  value: sistan@shirinfarhad.com
+- trait: server.api.key
+  value: ADMIN123
+id: fda0f88b-4cd7-5fb7-9424-ae23f61218be
+name: OilRig (Emu)

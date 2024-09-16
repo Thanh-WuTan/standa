@@ -1,0 +1,67 @@
+ability_id: 4bedbd9b-a570-4f9f-b78a-2f7f99ad5e92
+access: {}
+additional_info: {}
+buckets:
+- defensive-evasion
+delete_payload: true
+description: Delete file artifacts left from the operation.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Remove-Item -Path \"$env:USERPROFILE\\Downloads\\*.pfx\" -Force;\nRemove-Item\
+    \ -Path \"$env:USERPROFILE\\Downloads\\*.bmp\" -Force;\nRemove-Item -Path \"$env:USERPROFILE\\\
+    Downloads\\*.png\" -Force;\nif (test-path -path \"$env:APPDATA\\OfficeSupplies.7z\"\
+    ) {\n    Remove-Item -Path \"$env:APPDATA\\OfficeSupplies.7z\" -Force; write-host\
+    \ \"[+] Successfully removed OfficeSupplies.7z\";\n} else {\n    write-host \"\
+    [!] File did not exist to be removed!\";\n}\n\nif (get-job -name \"Keystrokes\"\
+    \ -ErrorAction SilentlyContinue) {\n    Remove-Job -Name \"Keystrokes\";\n   \
+    \ if ($?) {\n        write-host \"[+] Job \\\"Keystrokes\\\" was remove.\";\n\
+    \    }\n} else {\n    write-host \"[!] Job \\\"Keystrokes\\\" did not exist.\"\
+    ;\n}\n\nif (get-job -Name \"Screenshot\" -ErrorAction SilentlyContinue) {\n  \
+    \  Remove-Job -Name \"Screenshot\" -Force;\n    write-host \"[+] Job \\\"screenshot\\\
+    \" was removed.\";\n} else {\n    write-host \"[*] Job \\\"screenshot\\\" does\
+    \ not exist, thus was not removed.\";\n}\nremove-item upload.ps1 -Force;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Remove-Item -Path \"$env:USERPROFILE\\Downloads\\*.pfx\" -Force;\nRemove-Item\
+    \ -Path \"$env:USERPROFILE\\Downloads\\*.bmp\" -Force;\nRemove-Item -Path \"$env:USERPROFILE\\\
+    Downloads\\*.png\" -Force;\nif (test-path -path \"$env:APPDATA\\OfficeSupplies.7z\"\
+    ) {\n    Remove-Item -Path \"$env:APPDATA\\OfficeSupplies.7z\" -Force; write-host\
+    \ \"[+] Successfully removed OfficeSupplies.7z\";\n} else {\n    write-host \"\
+    [!] File did not exist to be removed!\";\n}\n\nif (get-job -name \"Keystrokes\"\
+    \ -ErrorAction SilentlyContinue) {\n    Remove-Job -Name \"Keystrokes\";\n   \
+    \ if ($?) {\n        write-host \"[+] Job \\\"Keystrokes\\\" was remove.\";\n\
+    \    }\n} else {\n    write-host \"[!] Job \\\"Keystrokes\\\" did not exist.\"\
+    ;\n}\n\nif (get-job -Name \"Screenshot\" -ErrorAction SilentlyContinue) {\n  \
+    \  Remove-Job -Name \"Screenshot\" -Force;\n    write-host \"[+] Job \\\"screenshot\\\
+    \" was removed.\";\n} else {\n    write-host \"[*] Job \\\"screenshot\\\" does\
+    \ not exist, thus was not removed.\";\n}\nremove-item upload.ps1 -Force;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Artifact Cleanup
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defensive-evasion
+technique_id: T1070.004
+technique_name: 'Indicator Removal on Host: File Deletion'

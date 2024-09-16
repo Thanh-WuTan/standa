@@ -1,0 +1,47 @@
+ability_id: 646be6c9-f27a-4f5f-be5d-b8a0317e215f
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: List running process on the machine via PowerShell.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '$ps = get-process;
+
+    write-output $ps;'
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '$ps = get-process;
+
+    write-output $ps;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Process Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1057
+technique_name: Process Discovery

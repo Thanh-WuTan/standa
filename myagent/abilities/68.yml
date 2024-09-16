@@ -1,0 +1,45 @@
+ability_id: 4ef6009d-2d62-4bb4-8de9-0458df2e9567
+access: {}
+additional_info: {}
+buckets:
+- credential-access
+delete_payload: true
+description: Dumping credentials via wmidump (Mimikatz)
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: . .\stepFourteen_credDump.ps1;
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepFourteen_credDump.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: . .\stepFourteen_credDump.ps1;
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepFourteen_credDump.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Credential Dumping
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: credential-access
+technique_id: T1003
+technique_name: Credential Dumping

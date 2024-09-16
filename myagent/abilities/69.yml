@@ -1,0 +1,45 @@
+ability_id: 1dba454c-0e4f-4fe0-8bc9-b17e8c5c9a24
+access: {}
+additional_info: {}
+buckets:
+- credential-access
+delete_payload: true
+description: Staging Mimikatz Binary for later execution
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: write-host "[+] Successfully downloaded m.exe";
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - m.exe
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: write-host "[+] Successfully downloaded m.exe";
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - m.exe
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Stage Mimikatz Binary
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: credential-access
+technique_id: T1003
+technique_name: Credential Dumping

@@ -1,0 +1,57 @@
+ability_id: f820b93d-6176-4a72-a138-a70b0b549c49
+access: {}
+additional_info: {}
+buckets:
+- impact
+delete_payload: true
+description: Securely delete previously staged files.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\wipe.ps1;
+
+    wipe "m.exe";
+
+    wipe "C:\Windows\Temp\WindowsParentalControlMigration.tmp";
+
+    wipe "C:\Windows\Temp\WindowsParentalControlMigration\MITRE-ATTACK-EVALS.HTML";'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - wipe.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\wipe.ps1;
+
+    wipe "m.exe";
+
+    wipe "C:\Windows\Temp\WindowsParentalControlMigration.tmp";
+
+    wipe "C:\Windows\Temp\WindowsParentalControlMigration\MITRE-ATTACK-EVALS.HTML";'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - wipe.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Data Wiping of staged files
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: impact
+technique_id: T1561.001
+technique_name: 'Disk Wipe: Disk Content Wipe'

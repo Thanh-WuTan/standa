@@ -1,0 +1,43 @@
+ability_id: 24ed020e-4730-4000-b6b4-6b5d3e95314f
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The net utility is executed via cmd to enumerate hosts within the domain.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: cmd.exe /c net group "Domain Computers" /domain
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: cmd.exe /c net group "Domain Computers" /domain
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Remote System Discovery (2)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1018
+technique_name: Remote System Discovery

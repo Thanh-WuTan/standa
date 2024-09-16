@@ -1,0 +1,30 @@
+ability_id: 41610306-087c-4c34-874b-37b8ed633a36
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The tasklist utility is executed via cmd to enumerate local running processes.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: tasklist /v
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Process Discovery (2)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1057
+technique_name: Process Discovery

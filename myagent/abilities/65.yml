@@ -1,0 +1,49 @@
+ability_id: f320eebd-e75b-4194-b529-79e64ad0b9ee
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: user triage
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepThirteen.ps1;
+
+    user;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepThirteen.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepThirteen.ps1;
+
+    user;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepThirteen.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Enumerate Username
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1033
+technique_name: System Owner/User Discovery
