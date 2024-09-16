@@ -1,12 +1,12 @@
 import os
 import yaml  
 
-from plugins.myplugin.myagent.object.bps import *
-from plugins.myplugin.myagent.object.agent import *
-from plugins.myplugin.myagent.object.link import *
-from plugins.myplugin.myagent.object.source import *
-from plugins.myplugin.myagent.object.fact import *
-from plugins.myplugin.myagent.object.executor import *
+from object.bps import *
+from object.agent import *
+from object.link import *
+from object.source import *
+from object.fact import *
+from object.executor import *
 
 
 ADV_ID = '4975696e-1d41-11eb-adc1-0242ac120002'
@@ -35,9 +35,9 @@ def Init_Source():
 def Read_Abilities():
     abilities = []
     assert(os.path.exists(ABILTIY_DIR))
-    for filename in os.listdir(ABILTIY_DIR):
-        assert(filename.endswith('.yml'))
-        filepath = os.path.join(ABILTIY_DIR, filename)
+    for id in range(len(os.listdir(ABILTIY_DIR))):
+        filename = str(id + 1) + '.yml'
+        filepath = os.path.join(ABILTIY_DIR, filename)  
         ability = read_yaml(filepath)
         abilities.append(ability)
     return abilities
@@ -46,11 +46,16 @@ def Read_Abilities():
 
 def main():
 
-    source = Init_Source()
+    source = Init_Source() 
     agent = Agent(platform="windows", username="Thanh", executors=["psh", "cmd"], privilege = 1) 
     bps = BasePlanningService()
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
+    cnt = 0
     for ability in Read_Abilities():
+        cnt+= 1
+        print("---------------")
+        print(cnt)
+        print("Ability: ", ability['name'])
         if not agent.is_capable_to_run(ability):
             continue
         
@@ -68,11 +73,12 @@ def main():
             
             if valid_links:
                 links = bps.sort_links(valid_links)
+                print(links[0].command)
                 break
 
         for link in links:
             ex = link.executor
-            ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
+            # ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
             # stdout, stderr = ex.run_command()
             # print(link.command)
        
