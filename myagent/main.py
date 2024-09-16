@@ -11,9 +11,10 @@ from objects.executor import *
 
 ADV_ID = '4975696e-1d41-11eb-adc1-0242ac120002'
 PWD = os.path.dirname(__file__)
-ABILTIY_DIR = os.path.join(PWD, 'abilities')
-SOURCE_DIR = os.path.join(PWD, 'sources')
-PAYLOAD_DIR = os.path.join(PWD, 'payloads')
+DIR = os.path.join(PWD, ADV_ID)
+SOURCE_DIR = os.path.join(DIR, 'sources')
+ABILTIY_DIR = os.path.join(DIR, 'abilities')
+PAYLOAD_DIR = os.path.join(DIR, 'payloads')
 
 def read_yaml(filepath):
     with open(filepath, 'r') as file:
@@ -34,12 +35,13 @@ def Init_Source():
 
 def Read_Abilities():
     abilities = []
-    assert(os.path.exists(ABILTIY_DIR))
-    for id in range(len(os.listdir(ABILTIY_DIR))):
-        filename = str(id + 1) + '.yml'
-        filepath = os.path.join(ABILTIY_DIR, filename)  
-        ability = read_yaml(filepath)
-        abilities.append(ability)
+    print(ABILTIY_DIR)
+    # assert(os.path.exists(ABILTIY_DIR))
+    # for id in range(len(os.listdir(ABILTIY_DIR))):
+    #     filename = str(id + 1) + '.yml'
+    #     filepath = os.path.join(ABILTIY_DIR, filename)  
+    #     ability = read_yaml(filepath)
+    #     abilities.append(ability)
     return abilities
 
 
