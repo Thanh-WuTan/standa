@@ -1,7 +1,7 @@
 import os
 import yaml  
 
-from objects.bps import *
+from objects.base_planning import *
 from objects.agent import *
 from objects.link import *
 from objects.source import *
