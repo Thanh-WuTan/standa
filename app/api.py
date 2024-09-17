@@ -59,10 +59,10 @@ class StandaApi:
             return web.Response(text=str(e), status=500)
 
     @check_authorization
-    async def get_payloads(self, request):
+    async def get_parsers(self, request):
         try:
-            payloads = await self.myplugin_svc.get_all_payloads()
-            return web.Response(text=json.dumps(payloads), content_type='application/json')
+            parsers = await self.myplugin_svc.get_all_parsers()
+            return web.Response(text=json.dumps(parsers), content_type='application/json')
         except Exception as e:
             print("Error: ", e)
             return web.Response(text=str(e), status=500)

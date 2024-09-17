@@ -1,0 +1,45 @@
+facts:
+- trait: first.target.ip
+  value: 10.20.20.102
+- trait: first.target.user
+  value: gunter
+- trait: first.target.password
+  value: Password1!
+- trait: network.domain.name
+  value: skt
+- trait: first.epic.id
+  value: 218780a0-870e-480e-b2c5dc
+- trait: second.epic.id
+  value: 51515228-8a7b-4226-e6e3f4
+- trait: first.carbon.id
+  value: 9b5ef515
+- trait: second.carbon.id
+  value: a3e63922
+- trait: third.carbon.id
+  value: c6f2aa03
+- trait: second.target.ip
+  value: 10.20.10.9
+- trait: second.target.user
+  value: frieda
+- trait: second.target.password
+  value: Password3!
+- trait: first.target.host
+  value: hobgoblin
+- trait: second.target.host
+  value: bannik
+- trait: third.target.user
+  value: adalwolfa
+- trait: third.target.ip
+  value: 10.20.20.104
+- trait: third.target.password
+  value: Password2!
+- trait: third.target.ntlm
+  value: 07d128430a6338f8d537f6b3ae1dc136
+- trait: third.target.host
+  value: khabibulin
+- trait: apache.server.ip
+  value: 10.20.10.23
+- trait: attacker.host.ip
+  value: 176.59.15.33
+id: 67282c29-93bc-543c-a53f-3b4ecac2ec42
+name: Turla - Carbon (Emu)

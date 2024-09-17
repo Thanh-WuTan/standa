@@ -12,4 +12,4 @@ async def enable(services):
     app.router.add_route('GET', '/plugin/standa/download/adversary_profile/{adversary_id}', fetcher.download_adversary_profile) 
     app.router.add_route('GET', '/plugin/standa/download/atomic_ordering/{adversary_id}', fetcher.download_atomic_ordering)
     app.router.add_route('GET', '/plugin/standa/something', fetcher.something)
-    app.router.add_route('GET', '/plugin/standa/get_all_payloads', fetcher.get_payloads)
+    app.router.add_route('GET', '/plugin/standa/get_all_payloads', fetcher.get_parsers)

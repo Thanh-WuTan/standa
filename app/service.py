@@ -108,16 +108,24 @@ class StandaService:
             return True
         return False
     
-    async def get_all_payloads(self):
-        file_svc= self.services.get('file_svc')
-        payloads = file_svc.get_all_payloads()
+    async def get_all_parsers(self):
         res = {}
-        for pl in payloads:
-            uuid = pl['id']
-            res[uuid] = {
-                'name': pl['name'],
-                'obfuscation': pl['obfuscation']
-            }
+    
+        abilities = await self.data_svc.locate('abilities')
+        abilities = [ab.display for ab in abilities]
+        for ab in abilities:
+            for exc in ab['executors']:
+                for parser in exc['parsers']:
+                    module = parser['module']
+                    components = module.split('.')
+                    plugin = components[1]
+                    parser_name = components[-1]
+                    if parser_name not in res:
+                        res[parser_name] = []
+                    if plugin not in res[parser_name]:
+                        res[parser_name].append(plugin)
+                    else:
+                        print("Plugin already in list")
         return res
 
     async def do_something(self):
