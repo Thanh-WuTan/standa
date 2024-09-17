@@ -1,6 +1,6 @@
-from app.utility.base_parser import BaseParser
-from app.objects.secondclass.c_fact import Fact
-from app.objects.secondclass.c_relationship import Relationship
+from objects.base_parser import *
+from objects.fact import *
+from objects.relationship import *
 
 
 class Parser(BaseParser):

@@ -2,9 +2,9 @@ import logging
 import re
 from collections import defaultdict
 
-from app.objects.secondclass.c_fact import Fact
-from app.objects.secondclass.c_relationship import Relationship
-from app.utility.base_parser import BaseParser
+from objects.fact import *
+from objects.relationship import *
+from objects.base_parser import *
 
 
 class MimikatzBlock(object):

@@ -1,5 +1,5 @@
 import logging
-from app.utility.base_parser import BaseParser, PARSER_SIGNALS_FAILURE
+from objects.base_parser import *, PARSER_SIGNALS_FAILURE
 
 
 class Parser(BaseParser):
