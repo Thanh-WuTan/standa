@@ -7,9 +7,9 @@ class Relationship:
     @property
     def shorthand(self):
         # compute a visual representation of a relationship for recording purposes
-        stub = f"{self.source.name}({self.source.value})"
+        stub = f"{self.source.trait}({self.source.value})"
         if self.edge:
             stub += f" : {self.edge}"
-            if self.target and self.target.name:
-                stub += f" : {self.target.name}({self.target.value})"
+            if self.target and self.target.trait:
+                stub += f" : {self.target.trait}({self.target.value})"
         return stub
