@@ -9,11 +9,11 @@ class Parser(BaseParser):
         relationships = []
         for match in self.line(blob):
             for mp in self.mappers:
-                source = self.set_value(mp.source, match, self.used_facts)
-                target = self.set_value(mp.target, match, self.used_facts)
+                source = self.set_value(mp['source'], match, self.used_facts)
+                target = self.set_value(mp['target'], match, self.used_facts)
                 relationships.append(
-                    Relationship(source=Fact(mp.source, source),
-                                 edge=mp.edge,
-                                 target=Fact(mp.target, target))
+                    Relationship(source=Fact(mp['source'], source),
+                                 edge=mp['edge'],
+                                 target=Fact(mp['target'], target))
                 )
         return relationships

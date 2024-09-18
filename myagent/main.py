@@ -83,10 +83,10 @@ def main():
             ran_command.add(ex.command)
             stdout, stderr = ex.run_command()
             if link.executor.parsers:
-                link.parse(result = stdout, source_facts = list(source.facts))
+                link.parse(result = stdout, source = source)
             else:
                 pass
-
+            
 if __name__ == '__main__':
 
     main()
