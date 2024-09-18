@@ -24,12 +24,12 @@ class Parser(BaseParser):
                     continue
                 json_type = mp.custom_parser_vals['json_type'] if 'json_type' in mp.custom_parser_vals.keys() else None
                 for match in self._get_vals_from_json(json_output, mp.custom_parser_vals['json_key'], json_type):
-                    source = self.set_value(mp.source, match, self.used_facts)
-                    target = self.set_value(mp.target, match, self.used_facts)
+                    source = self.set_value(mp['source'], match, self.used_facts)
+                    target = self.set_value(mp['target'], match, self.used_facts)
                     relationships.append(
-                        Relationship(source=Fact(mp.source, source),
-                                     edge=mp.edge,
-                                     target=Fact(mp.target, target))
+                        Relationship(source=Fact(mp['source'], source),
+                                     edge=mp['edge'],
+                                     target=Fact(mp['target'], target))
                     )
         return relationships
 

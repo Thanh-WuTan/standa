@@ -11,9 +11,9 @@ class Parser(BaseParser):
         for name in vm_names:
             for mp in self.mappers:
                 relationships.append(
-                    Relationship(source=Fact(mp.source, name),
-                                 edge=mp.edge,
-                                 target=Fact(mp.target, None))
+                    Relationship(source=Fact(mp['source'], name),
+                                 edge=mp['edge'],
+                                 target=Fact(mp['target'], None))
                 )
         return relationships
 

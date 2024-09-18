@@ -11,8 +11,8 @@ class Parser(BaseParser):
             values = match.split(':')
             for mp in self.mappers:
                 relationships.append(
-                    Relationship(source=Fact(mp.source, values[0]),
-                                 edge=mp.edge,
-                                 target=Fact(mp.target, values[1]))
+                    Relationship(source=Fact(mp['source'], values[0]),
+                                 edge=mp['edge'],
+                                 target=Fact(mp['target'], values[1]))
                 )
         return relationships

@@ -7,7 +7,11 @@ DIR = os.path.join(PWD, 'parsers')
 old_imports = {
     'from app.objects.secondclass.c_fact import Fact': 'from objects.fact import *',
     'from app.objects.secondclass.c_relationship import Relationship': 'from objects.relationship import *',
-    'from app.utility.base_parser import BaseParser': 'from objects.base_parser import *'
+    'from app.utility.base_parser import BaseParser': 'from objects.base_parser import *',
+    "mp.source": "mp['source']",
+    "mp.target": "mp['target']",
+    "mp.edge": "mp['edge']"
+
 }
 
 for plugin in os.listdir(DIR):

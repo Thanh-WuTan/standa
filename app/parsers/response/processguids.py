@@ -11,12 +11,12 @@ class Parser(BaseParser):
         relationships = []
         all_facts = self.used_facts
         for mp in self.mappers:
-            matches = self.parse_options[mp.target.split('.').pop()](blob)
+            matches = self.parse_options[mp['target'].split('.').pop()](blob)
             for match in matches:
-                src_fact_value = [f.value for f in all_facts if f.trait == mp.source].pop()
-                r = Relationship(source=Fact(mp.source, src_fact_value),
-                                 edge=mp.edge,
-                                 target=Fact(mp.target, match))
+                src_fact_value = [f.value for f in all_facts if f.trait == mp['source']].pop()
+                r = Relationship(source=Fact(mp['source'], src_fact_value),
+                                 edge=mp['edge'],
+                                 target=Fact(mp['target'], match))
                 relationships.append(r)
                 all_facts.append(r.target)
         return relationships

@@ -18,12 +18,12 @@ class Parser(BaseParser):
             file_size = " ".join(split_match[-2:])
 
             for mp in self.mappers:
-                source = self.set_value(mp.source, file_name, self.used_facts)
-                target = self.set_value(mp.target, file_size, self.used_facts)
+                source = self.set_value(mp['source'], file_name, self.used_facts)
+                target = self.set_value(mp['target'], file_size, self.used_facts)
                 relationships.append(
-                    Relationship(source=Fact(mp.source, source),
-                                 edge=mp.edge,
-                                 target=Fact(mp.target, target))
+                    Relationship(source=Fact(mp['source'], source),
+                                 edge=mp['edge'],
+                                 target=Fact(mp['target'], target))
                 )
 
         return relationships

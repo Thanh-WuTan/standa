@@ -43,9 +43,9 @@ class Parser(BaseParser):
             for match in parse_data:
                 for mp in self.mappers:
                     relationships.append(
-                        Relationship(source=Fact(mp.source, match),
-                                     edge=mp.edge,
-                                     target=Fact(mp.target, None)))
+                        Relationship(source=Fact(mp['source'], match),
+                                     edge=mp['edge'],
+                                     target=Fact(mp['target'], None)))
         except Exception as error:
             self.log.warning('Get-Domain parser encountered an error - {}. Continuing...'.format(error))
         return relationships

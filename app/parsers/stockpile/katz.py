@@ -79,14 +79,14 @@ class Parser(BaseParser):
                             else:
                                 username = '{}\\{}'.format(provider['Domain'], provider['Username']).lower()
                             for mp in self.mappers:
-                                target_key = self.target_mapping.get(mp.target.split('.')[-1],
+                                target_key = self.target_mapping.get(mp['target'].split('.')[-1],
                                                                      self.target_mapping['_default'])
                                 if target_key in provider and not (target_key == 'Password'
                                                                    and provider[target_key] == '(null)'):
                                     relationships.append(
-                                        Relationship(source=Fact(mp.source, username),
-                                                     edge=mp.edge,
-                                                     target=Fact(mp.target, provider[target_key]))
+                                        Relationship(source=Fact(mp['source'], username),
+                                                     edge=mp['edge'],
+                                                     target=Fact(mp['target'], provider[target_key]))
                                     )
         except Exception as error:
             self.log.warning('Mimikatz parser encountered an error - {}. Continuing...'.format(error))

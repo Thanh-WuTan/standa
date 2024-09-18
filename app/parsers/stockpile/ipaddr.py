@@ -16,9 +16,9 @@ class Parser(BaseParser):
         for ip in re.findall(r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b', blob):
             if self._is_valid_ip(ip):
                 for mp in self.mappers:
-                    IPs.append(Relationship(source=Fact(trait=mp.source, value=ip),
-                                            edge=mp.edge,
-                                            target=Fact(mp.target, '')))
+                    IPs.append(Relationship(source=Fact(trait=mp['source'], value=ip),
+                                            edge=mp['edge'],
+                                            target=Fact(mp['target'], '')))
         return IPs
 
     def _is_valid_ip(self, raw_ip):

@@ -25,9 +25,9 @@ class Parser(BaseParser):
             for match in parse_data:
                 for mp in self.mappers:
                     relationships.append(
-                        Relationship(source=Fact(mp.source, match),
-                                     edge=mp.edge,
-                                     target=Fact(mp.target, None)
+                        Relationship(source=Fact(mp['source'], match),
+                                     edge=mp['edge'],
+                                     target=Fact(mp['target'], None)
                                      )
                     )
         except Exception:

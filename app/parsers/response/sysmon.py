@@ -12,12 +12,12 @@ class Parser(BaseParser):
         events = [event for event in blob.split('\r\n\r\n') if event != '']
         for event in events:
             for mp in self.mappers:
-                match = self.parse_options[mp.target.split('.').pop()](event)
+                match = self.parse_options[mp['target'].split('.').pop()](event)
                 if match:
-                    guid = [f.value for f in self.used_facts if f.trait == mp.source].pop()
-                    relationships.append(Relationship(source=Fact(mp.source, guid),
-                                                      edge=mp.edge,
-                                                      target=Fact(mp.target, match.group(1))))
+                    guid = [f.value for f in self.used_facts if f.trait == mp['source']].pop()
+                    relationships.append(Relationship(source=Fact(mp['source'], guid),
+                                                      edge=mp['edge'],
+                                                      target=Fact(mp['target'], match.group(1))))
         return relationships
 
     @property

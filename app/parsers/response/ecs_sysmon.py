@@ -28,12 +28,12 @@ class Parser(BaseParser):
             event = loaded
             for mp in self.mappers:
                 try:
-                    match = self.parse_options[mp.target.split('.').pop()](event)
+                    match = self.parse_options[mp['target'].split('.').pop()](event)
                     if match:
                         guid = self.parse_process_guid(event)
-                        relationships.append(Relationship(source=Fact(mp.source, guid),
-                                                          edge=mp.edge,
-                                                          target=Fact(mp.target, match)))
+                        relationships.append(Relationship(source=Fact(mp['source'], guid),
+                                                          edge=mp['edge'],
+                                                          target=Fact(mp['target'], match)))
                 except Exception as e:
                     self.logger.debug('Problem with mapper: %s - %s ' % (mp, e), exc_info=True)
 

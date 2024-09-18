@@ -23,8 +23,8 @@ class Parser(BaseParser):
                 source = strings[0].strip()
                 target = strings[1].strip()
                 relationships.append(
-                    Relationship(source=Fact(mp.source, source),
-                                 edge=mp.edge,
-                                 target=Fact(mp.target, target))
+                    Relationship(source=Fact(mp['source'], source),
+                                 edge=mp['edge'],
+                                 target=Fact(mp['target'], target))
                 )
         return relationships
