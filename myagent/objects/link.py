@@ -12,13 +12,14 @@ class Link:
         self.used = used if used else []
         self.facts = []
 
+    @staticmethod
     def _load_module(module_type, module_info):
         module = import_module(module_info['module'])
         return getattr(module, module_type)(module_info)
 
     def _parse_link_result(self, result, parser, source_facts):
         blob = result
-        parser_info = dict(module=parser['module'], used_facts=self.used, mappers=parser.parserconfigs,
+        parser_info = dict(module=parser['module'], used_facts=self.used, mappers=parser['parserconfigs'],
                            source_facts=source_facts)
         p_inst = self._load_module('Parser', parser_info)
         return p_inst.parse(blob=blob)
@@ -34,4 +35,4 @@ class Link:
             #         self.create_relationships(relationships, operation)
             #     update_scores(operation, increment=len(relationships), used=self.used, facts=self.facts)
             except Exception as e:
-                print("Error in %s while parsing ability %s: %s" % (parser['module'], self.ability.ability_id, e))
+                print("Error in %s while parsing ability %s: %s" % (parser['module'], self.ability['ability_id'], e))
