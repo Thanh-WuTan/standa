@@ -28,11 +28,21 @@ class Link:
         for parser in self.executor.parsers:
             try:
                 relationships = self._parse_link_result(result, parser, source_facts)
-            #     if len(relationships) > 0 and relationships[0] == PARSER_SIGNALS_FAILURE:
-            #         relationships = []  # Reset relationships if the parser signals failure
-            #     else:
-            #         pass
-            #         self.create_relationships(relationships, operation)
+                if len(relationships) > 0 and relationships[0] == PARSER_SIGNALS_FAILURE:
+                    relationships = []  # Reset relationships if the parser signals failure
+                else:
+                    pass
+                    self.create_relationships(relationships)
             #     update_scores(operation, increment=len(relationships), used=self.used, facts=self.facts)
             except Exception as e:
                 print("Error in %s while parsing ability %s: %s" % (parser['module'], self.ability['ability_id'], e))
+
+    def create_relationships(self, relationships):
+        for relationship in relationships:
+            self.save_fact(relationship.source, relationship.score, relationship.shorthand)
+            self.save_fact(relationship.target, relationship.score, relationship.shorthand)
+            if all((relationship.source.trait, relationship.edge)):
+                self.relationships.append(relationship)
+
+    def save_fact(self, fact, score, relationship):
+        pass
