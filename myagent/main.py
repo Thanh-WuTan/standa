@@ -10,8 +10,9 @@ from objects.fact import *
 from objects.executor import *
 from objects.learner import * 
 
-
-ADV_ID = '4975696e-1d41-11eb-adc1-0242ac120002'
+# 4975696e-1d41-11eb-adc1-0242ac120002
+# 1a98b8e6-18ce-4617-8cc5-e65a1a9d490e
+ADV_ID = '1a98b8e6-18ce-4617-8cc5-e65a1a9d490e'
 PWD = os.path.dirname(__file__)
 DIR = os.path.join(PWD, ADV_ID)
 SOURCE_DIR = os.path.join(DIR, 'sources')
@@ -48,7 +49,7 @@ def Read_Abilities():
 
 
 def main():
-    agent = Agent(platform="windows", username="Thanh", executors=["psh", "cmd"], privilege = 1) 
+    agent = Agent(platform="linux", username="wutan", executors=["sh"], privilege = 1) 
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
     bps = BasePlanningService()
     source = Init_Source() 
@@ -65,6 +66,7 @@ def main():
         for ex in executors:
             executor = Executor(name = ex['name'], platform = ex['platform'], command = ex['command'],
                            parsers = ex['parsers'], timeout = ex['timeout'], payloads = ex['payloads'])
+            
             ex_link = Link(command=ex['command'], ability=ability, executor=executor)
             
             valid_links = bps.add_test_variants(links=[ex_link], agent=agent, facts=source.facts, trim_unset_variables=True, uuid_mapper=uuid_mapper)
@@ -79,8 +81,11 @@ def main():
             if ex.command in ran_command:
                 continue
             ran_command.add(ex.command)
-            # stdout, stderr = ex.run_command()
-            
+            stdout, stderr = ex.run_command()
+            if link.executor.parsers:
+                link.parse(result = stdout, source_facts = list(source.facts))
+            else:
+                pass
 
 if __name__ == '__main__':
 

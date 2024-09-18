@@ -1,15 +1,24 @@
 import os
 import subprocess
-
+from main import ADV_ID
 
 class Executor:
     def __init__(self, name = 'unknown', platform = 'unknown', command = '', parsers = [], timeout = 10, payloads = []):
         self.name = name
         self.platform = platform
         self.command = command
-        self.parser = parsers
+        self.parsers = self._prepare_parsers(parsers)
         self.timeout = timeout
         self.payloads = payloads
+
+    def _prepare_parsers(self, parsers):
+        for parser in parsers:
+            module = parser['module'].split('.') 
+            plugin = module[1]
+            parser_name = module[-1]   
+            parser['module'] = "{adversary_id}.parsers.{plugin}.{parser_name}".format(adversary_id = ADV_ID, plugin=plugin, parser_name=parser_name)    
+        return parsers
+
 
     def replace_payload_dir(self, command, payload_dir):
         for payload in self.payloads:
