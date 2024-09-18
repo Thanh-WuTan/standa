@@ -8,6 +8,7 @@ from objects.link import *
 from objects.source import *
 from objects.fact import *
 from objects.executor import *
+from objects.learner import * 
 
 
 ADV_ID = '4975696e-1d41-11eb-adc1-0242ac120002'
@@ -47,25 +48,20 @@ def Read_Abilities():
 
 
 def main():
-
-    source = Init_Source() 
     agent = Agent(platform="windows", username="Thanh", executors=["psh", "cmd"], privilege = 1) 
-    bps = BasePlanningService()
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
-    cnt = 0
-    for ability in Read_Abilities():
-        cnt+= 1
-        if cnt == 4:
-            break
-
+    bps = BasePlanningService()
+    source = Init_Source() 
+    abilities = Read_Abilities()
+    learner = Learner()
+    learner.build_model(abilities)
+    
+    
+    for ability in abilities:
         if not agent.is_capable_to_run(ability):
-            continue
-        
-        # sorted executors by preference
+            continue        
         executors = agent.find_executors(ability)
-        
         links = []
-
         for ex in executors:
             executor = Executor(name = ex['name'], platform = ex['platform'], command = ex['command'],
                            parsers = ex['parsers'], timeout = ex['timeout'], payloads = ex['payloads'])
@@ -84,13 +80,8 @@ def main():
                 continue
             ran_command.add(ex.command)
             # stdout, stderr = ex.run_command()
-            print("---------------")
-            print(cnt)
-            print("Ability: ", ability['name'])
-            print("Command: ", ex.command)
-            # print("Stdout: ", stdout)
-            # print("Stderr: ", stderr)       
+            
 
 if __name__ == '__main__':
-    
+
     main()
