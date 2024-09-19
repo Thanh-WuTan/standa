@@ -86,7 +86,21 @@ class StandaService:
             uuid_mapper = self.services.get('file_svc').get_payloads()
             json.dump(uuid_mapper, uuid_mapper_file, indent=4)
         return payloads_dir
-
+    
+    async def create_parsers_dir(self, temp_dir, abilities):
+        parsers_dir = os.path.join(temp_dir, 'parsers')
+        os.makedirs(parsers_dir, exist_ok=True)
+        for ability in abilities:
+            for exc in ability['executors']:
+                for parser in exc['parsers']:
+                    module = parser['module'].split('.')
+                    plugin = module[1]
+                    parser_name = module[-1] + '.py'
+                    os.makedirs(os.path.join(parsers_dir, plugin), exist_ok=True)
+                    await self.copy_file(os.path.join(PWD, 'parsers', plugin, parser_name),
+                                   os.path.join(parsers_dir, plugin, parser_name))
+        return parsers_dir
+    
     async def copy_file(self, source, destination):
         try:
             with open(destination, 'wb') as dest_file:
@@ -113,9 +127,11 @@ class StandaService:
         abilities = await self.get_atomic_ordering(adversary_id)
         abilities_dir = await self.create_abilities_dir(temp_dir, abilities)
         payloads_dir = await self.create_payloads_dir(temp_dir, abilities)
+        parsers_dir = await self.create_parsers_dir(temp_dir, abilities)
         objects_dir = await self.copy_folder(temp_dir, 'objects')
         learning_dir = await self.copy_folder(temp_dir, 'learning')
         sources_dir = await self.copy_folder(temp_dir, 'sources')
+        
         main_agent_file = await self.copy_file(os.path.join(MYAGENT_DIR, 'main.py'), os.path.join(temp_dir, 'main.py'))
 
         with open(main_agent_file, 'r') as f:
@@ -124,7 +140,7 @@ class StandaService:
         with open(main_agent_file, 'w') as f:
             f.write(content)
 
-        directories = [abilities_dir, payloads_dir, objects_dir, learning_dir, sources_dir]
+        directories = [abilities_dir, payloads_dir, objects_dir, parsers_dir, learning_dir, sources_dir]
         
         # Create the zip file
         zip_path = os.path.join(temp_dir, adversary_id + ".zip")
