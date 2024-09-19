@@ -1,0 +1,43 @@
+ability_id: 9849d956-37ea-49f2-a8b5-f2ca080b315d
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Check to see if GoLang is installed
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: which go
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: darwin
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: which go
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: Check Go
+plugin: stockpile
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1518
+technique_name: Software Discovery

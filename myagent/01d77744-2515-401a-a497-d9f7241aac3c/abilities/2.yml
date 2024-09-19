@@ -1,0 +1,56 @@
+ability_id: 6e1a53c0-7352-4899-be35-fa7f364d5722
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Print the current working directory on the system
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: pwd
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: darwin
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: pwd
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: pwd
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Print Working Directory
+plugin: stockpile
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1083
+technique_name: File and Directory Discovery

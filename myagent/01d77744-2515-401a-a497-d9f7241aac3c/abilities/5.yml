@@ -1,0 +1,56 @@
+ability_id: e8017c46-acb8-400c-a4b5-b3362b5b5baa
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: View network configuration info for host
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: sudo ifconfig
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: darwin
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: sudo ifconfig
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: ipconfig
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Network Interface Configuration
+plugin: stockpile
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1016
+technique_name: System Network Configuration Discovery
