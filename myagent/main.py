@@ -84,14 +84,17 @@ def main():
             ran_command.add(ex.command)
             
             stdout, stderr = ex.run_command()
-            if link.executor.parsers:
-                link.parse(result = stdout, source = source)
-            else:
-                learner.learn(source, link, stdout)
             print("----------------")
             print("Ability: ", ability['name'])
             print("Executed command: ", ex.command)
             print("stdout: ", stdout)
+            print("stderr: ", stderr)
+            print("")
+            if link.executor.parsers:
+                link.parse(result = stdout, source = source)
+            else: 
+                learner.learn(source, link, stdout)
+            
 if __name__ == '__main__':
 
     main()

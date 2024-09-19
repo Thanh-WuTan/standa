@@ -33,12 +33,17 @@ class Learner:
     def learn(self, source, link, blob):
         facts = source.facts
         found_facts = []
+        print("learn is called")
         for parser in self.parsers:
             try:
                 for fact in parser.parse(blob):
                     found_facts.append(fact)
             except Exception as e:
                 print("Error: ", e)
+        print("Facts found: ", end = ' ')
+        for fact in found_facts:
+            print(fact.trait, ' ', fact.value, end = ' , ')
+        print()
         update_scores(increment=len(found_facts), used=facts, source=source)
         self._store_results(link, found_facts)
 

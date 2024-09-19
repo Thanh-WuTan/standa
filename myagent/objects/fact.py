@@ -38,3 +38,4 @@ class Fact:
         for char in escape_ref[executor]['special']:
             escaped_value = escaped_value.replace(char, (escape_ref[executor]['escape_prefix'] + char))
         return escaped_value
+    
