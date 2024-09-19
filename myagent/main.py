@@ -10,9 +10,7 @@ from objects.fact import *
 from objects.executor import *
 from objects.learner import * 
 
-# 4975696e-1d41-11eb-adc1-0242ac120002
-# 1a98b8e6-18ce-4617-8cc5-e65a1a9d490e
-ADV_ID = '01d77744-2515-401a-a497-d9f7241aac3c'
+ADV_ID = 'adversary_id'
 PWD = os.path.dirname(__file__)
 DIR = os.path.join(PWD, ADV_ID)
 SOURCE_DIR = os.path.join(DIR, 'sources')
@@ -46,10 +44,8 @@ def Read_Abilities():
         abilities.append(ability)
     return abilities
 
-
-
 def main():
-    agent = Agent(platform="linux", username="wutan", executors=["sh"], privilege = 1) 
+    agent = Agent(platform="linux") 
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
     bps = BasePlanningService()
     source = Init_Source() 

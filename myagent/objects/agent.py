@@ -8,10 +8,9 @@ class Agent:
                     exe_name='#{exe_name}', upstream_dest='#{upstream_dest}',
                     payload=re.compile('#{payload:(.*?)}', flags=re.DOTALL))
     
-    def __init__(self, platform = "unknown", username = "unknown", executors = [], privilege = 0):
+    def __init__(self, platform = "unknown", privilege = 0):
         self.platform = platform
-        self.username = username
-        self.executors = executors
+        self.executors = ['sh'] if platform == 'linux' else ['psh', 'cmd']
         self.privilege = privilege
   
     
