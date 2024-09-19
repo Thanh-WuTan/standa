@@ -1,0 +1,57 @@
+ability_id: 68b588bc-002a-42dc-bac7-9189f944065b
+access: {}
+additional_info: {}
+buckets:
+- defensive-evasion
+delete_payload: true
+description: Staging PNG for Lateral Movement
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "$username=\"#{profile_user}\";\nif ( $(test-path -path \"C:\\Users\\$username\\\
+    Downloads\\monkey.png\") -eq $false ) {\n  copy-item monkey.png -Destination \"\
+    C:\\Users\\$username\\Downloads\\\\\" -Force;\n  if ($? -eq $True) {\n    write-host\
+    \ \"[+] Successfully copied monkey.png!\";\n    get-childitem -path \"C:\\Users\\\
+    $username\\Downloads\\\\\";\n    exit 0;\n  } else {\n    write-host \"[+] Failed\
+    \ to copy monkey.png.\";\n    exit 1;\n  }\n\n  } else {\n    write-host \"[*]\
+    \ monkey.png already exists within C:\\users\\$username\\Downloads...\"\n  }"
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - monkey.png
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "$username=\"#{profile_user}\";\nif ( $(test-path -path \"C:\\Users\\$username\\\
+    Downloads\\monkey.png\") -eq $false ) {\n  copy-item monkey.png -Destination \"\
+    C:\\Users\\$username\\Downloads\\\\\" -Force;\n  if ($? -eq $True) {\n    write-host\
+    \ \"[+] Successfully copied monkey.png!\";\n    get-childitem -path \"C:\\Users\\\
+    $username\\Downloads\\\\\";\n    exit 0;\n  } else {\n    write-host \"[+] Failed\
+    \ to copy monkey.png.\";\n    exit 1;\n  }\n\n  } else {\n    write-host \"[*]\
+    \ monkey.png already exists within C:\\users\\$username\\Downloads...\"\n  }"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - monkey.png
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Staging monkey PNG
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defensive-evasion
+technique_id: T1036.005
+technique_name: 'Masquerading: Match Legitimate Name or Location'

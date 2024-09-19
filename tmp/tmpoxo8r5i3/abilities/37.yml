@@ -1,0 +1,49 @@
+ability_id: e7cab9bb-3e3a-4d93-99cc-3593c1dc8c6d
+access: {}
+additional_info: {}
+buckets:
+- credential-access
+delete_payload: true
+description: Obtain credentials from Chrome Dumper
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path \"C:\\Program\
+    \ Files\\SysinternalsSuite\";\n./accesschk.exe -accepteula .;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path \"C:\\Program\
+    \ Files\\SysinternalsSuite\";\n./accesschk.exe -accepteula .;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Credentials In Files- Chrome
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: credential-access
+technique_id: T1003
+technique_name: Credential Dumping

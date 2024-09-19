@@ -10,59 +10,15 @@ class StandaApi:
         self.myplugin_svc = StandaService(services)
 
     @check_authorization
-    async def download_adversary_profile(self, request):
+    async def download(self, request):
         try:
             adversary_id = request.match_info.get('adversary_id')
-            profile = await self.myplugin_svc.get_adversary_profile(adversary_id)
-        except Exception as e:
-            print("Error: ", e)
-            return web.Response(text=str(e), status=500)
-        
-        if not profile:
-            return web.Response(text='Adversary not found', status=404)
-        
-        content = f"Adversary ID: {profile['adversary_id']}\nName: {profile['name']}\nDescription: {profile['description']}\nObjective: {profile['objective']}\nPlugin: {profile['plugin']}\nAtomic ordering: {profile['atomic_ordering']}"
-
-        return web.Response(
-            text=content,
-            headers={
-                'Content-Disposition': f'attachment; filename="{profile["name"]}.txt"'
-            }
-        )
-        
-    @check_authorization
-    async def download_atomic_ordering(self, request): 
-        try:
-            adversary_id = request.match_info.get('adversary_id')
-            atomic_ordering = await self.myplugin_svc.get_atomic_ordering(adversary_id)
-            
-            if not atomic_ordering:
-                return web.Response(text='Atomic ordering not found', status=404)
-            
-            zip_path = await self.myplugin_svc.create_zip_containing_abilities(atomic_ordering)
-             
+            zip_path = await self.myplugin_svc.download_standalone_agent(adversary_id)
+            if not zip_path:
+                return web.Response(text='Agent not found', status=404)
             return web.FileResponse(zip_path, headers={
-                'Content-Disposition': f'attachment; filename="{adversary_id}_abilities.zip"'
+                'Content-Disposition': f'attachment; filename="{adversary_id}.zip"'
             })
-        
-        except Exception as e:
-            print("Error: ", e)
-            return web.Response(text=str(e), status=500)
-
-    @check_authorization
-    async def something(self, request):
-        try:
-            something = await self.myplugin_svc.do_something()
-            return web.Response(text=json.dumps(something), content_type='application/json')
-        except Exception as e:
-            print("Error: ", e)
-            return web.Response(text=str(e), status=500)
-
-    @check_authorization
-    async def get_parsers(self, request):
-        try:
-            parsers = await self.myplugin_svc.get_all_parsers()
-            return web.Response(text=json.dumps(parsers), content_type='application/json')
         except Exception as e:
             print("Error: ", e)
             return web.Response(text=str(e), status=500)

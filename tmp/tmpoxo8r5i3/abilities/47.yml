@@ -1,0 +1,49 @@
+ability_id: 95564347-e77a-4a89-b08f-dcafa5468f2c
+access: {}
+additional_info: {}
+buckets:
+- execution
+delete_payload: true
+description: Custom PowerShell script to perform AD triage for domain bound computers.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path \"C:\\Program\
+    \ Files\\SysinternalsSuite\";\n. .\\psversion.ps1;\nAd-Search Computer Name *;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path \"C:\\Program\
+    \ Files\\SysinternalsSuite\";\n. .\\psversion.ps1;\nAd-Search Computer Name *;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Remote System Discovery (T1018)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: execution
+technique_id: T1059.001
+technique_name: 'Command and Scripting Interpreter: PowerShell'

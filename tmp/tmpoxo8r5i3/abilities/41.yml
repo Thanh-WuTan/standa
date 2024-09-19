@@ -1,0 +1,51 @@
+ability_id: a81ea4ad-bc9f-49a7-82d4-4466df641487
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: Load custom PowerShell module and take screenshots.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\\psversion.ps1\"\
+    ;)) {\n  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite\\psversion.ps1\
+    \ does not exist. Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path\
+    \ \"C:\\Program Files\\SysinternalsSuite\";\n. .\\psversion.ps1;\nInvoke-ScreenCapture;\
+    \ Start-Sleep -Seconds 3; View-Job -JobName \"Screenshot\";"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\\psversion.ps1\"\
+    ;)) {\n  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite\\psversion.ps1\
+    \ does not exist. Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path\
+    \ \"C:\\Program Files\\SysinternalsSuite\";\n. .\\psversion.ps1;\nInvoke-ScreenCapture;\
+    \ Start-Sleep -Seconds 3; View-Job -JobName \"Screenshot\";"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Screen Capturing
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1113
+technique_name: Screen Capture

@@ -95,7 +95,7 @@
         const adversaryId = selectElement.value;
 
         if (adversaryId !== "None") {
-            const url = `/plugin/standa/download/adversary_profile/${adversaryId}`;
+            const url = `/plugin/standa/download/${adversaryId}`;
             window.location.href = url;
         } else {
             alert('Please select an adversary profile.');

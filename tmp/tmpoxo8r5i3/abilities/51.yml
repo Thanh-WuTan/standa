@@ -1,0 +1,49 @@
+ability_id: 0b1841bd-ef8b-475c-bce7-8fcb2860984a
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: Native API call(s) were used to collect a screenshot.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\Get-Screenshot.ps1 -Verbose -Force;
+
+    Get-Screenshot;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - Get-Screenshot.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\Get-Screenshot.ps1 -Verbose -Force;
+
+    Get-Screenshot;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - Get-Screenshot.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Screen Capture (T1113)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1113
+technique_name: Screen Capture

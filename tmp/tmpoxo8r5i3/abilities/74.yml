@@ -1,0 +1,49 @@
+ability_id: b1dcc53a-c86c-46ba-8a3d-e1da74a8db3c
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: Perform e-mail collection from custom PowerShell module.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepSeventeen_email.ps1;
+
+    Write-Host "Emails Collected";'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepSeventeen_email.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepSeventeen_email.ps1;
+
+    Write-Host "Emails Collected";'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepSeventeen_email.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Collect E-mails
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1114.001
+technique_name: 'Email Collection: Local Email Collection'

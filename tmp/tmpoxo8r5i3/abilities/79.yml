@@ -1,0 +1,43 @@
+ability_id: afb8d8f7-d059-4825-95ae-c5727e2db320
+access: {}
+additional_info: {}
+buckets:
+- persistence
+delete_payload: true
+description: Trigger RegKey persistence by rebooting the machine
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: Restart-Computer -Force;
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: Restart-Computer -Force;
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Triggering Persistent
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: persistence
+technique_id: T1218.011
+technique_name: 'Signed Binary Proxy Execution: Rundll32'

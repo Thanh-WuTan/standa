@@ -1,0 +1,55 @@
+ability_id: 9b5b5aec-32ff-4d74-8555-727b50ab15f6
+access: {}
+additional_info: {}
+buckets:
+- defensive-evasion
+delete_payload: true
+description: Cleanup files related to Operation
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysInternalsSuite\";)) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysInternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\nSet-Location -path \"C:\\Program Files\\\
+    SysInternalsSuite\";\ngci $env:userprofile\\Desktop;\n.\\sdelete64.exe /accepteula\
+    \ \"$env:USERPROFILE\\Desktop\\\u202Ecod.3aka3.scr\";\n.\\sdelete64.exe /accepteula\
+    \ \"$env:APPDATA\\Draft.Zip\";\n.\\sdelete64.exe /accepteula \"$env:USERPROFILE\\\
+    Downloads\\SysInternalsSuite.zip\";"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysInternalsSuite\";)) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysInternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\nSet-Location -path \"C:\\Program Files\\\
+    SysInternalsSuite\";\ngci $env:userprofile\\Desktop;\n.\\sdelete64.exe /accepteula\
+    \ \"$env:USERPROFILE\\Desktop\\\u202Ecod.3aka3.scr\";\n.\\sdelete64.exe /accepteula\
+    \ \"$env:APPDATA\\Draft.Zip\";\n.\\sdelete64.exe /accepteula \"$env:USERPROFILE\\\
+    Downloads\\SysInternalsSuite.zip\";"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Artifact Cleanup - Delete Files
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defensive-evasion
+technique_id: T1070.004
+technique_name: 'Indicator Removal on Host: File Deletion'
