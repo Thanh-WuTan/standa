@@ -1,0 +1,11 @@
+facts:
+- trait: domain
+  value: hospitality
+- trait: domain.admin.username
+  value: kmitnick
+- trait: domain.admin.hash
+  value: c3aa78cd0827b8e8603ac1c8996e6556
+- trait: itadmin.ip.address
+  value: 10.0.1.6
+id: d01ee47f-42b0-5052-bdf5-c6ed60b29628
+name: FIN7 (Emu)

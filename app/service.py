@@ -5,6 +5,9 @@ import yaml
 import pathlib
 import json
 
+PWD = os.path.dirname(__file__)
+MYAGENT_DIR = os.path.join(PWD, '..', 'myagent')
+
 class StandaService:
     def __init__(self, services):
         self.services = services
@@ -83,22 +86,42 @@ class StandaService:
             uuid_mapper = self.services.get('file_svc').get_payloads()
             json.dump(uuid_mapper, uuid_mapper_file, indent=4)
         return payloads_dir
+    
+    async def copy_folder(self, temp_dir, target):
+        destination_dir = os.path.join(temp_dir, target)
+        os.makedirs(destination_dir, exist_ok=True)
+
+        source_dir = os.path.join(MYAGENT_DIR, target) 
+        for file_name in os.listdir(source_dir):
+            source_file = os.path.join(source_dir, file_name)
+            destination_file = os.path.join(destination_dir, file_name)
+            if os.path.isfile(source_file):
+                try:
+                    with open(destination_file, 'wb') as dest_file:
+                        with open(source_file, 'rb') as src_file:
+                            dest_file.write(src_file.read()) 
+                except Exception as e:
+                    print(f"Error copying {source_file}: {e}")
+        return destination_dir
 
     async def download_standalone_agent(self, adversary_id):
         temp_dir = await self.create_tmp_dir()
         abilities = await self.get_atomic_ordering(adversary_id)
         abilities_dir = await self.create_abilities_dir(temp_dir, abilities)
         payloads_dir = await self.create_payloads_dir(temp_dir, abilities)
-        
+        objects_dir = await self.copy_folder(temp_dir, 'objects')
+        learning_dir = await self.copy_folder(temp_dir, 'learning')
+        sources_dir = await self.copy_folder(temp_dir, 'sources')
+
+        directories = [abilities_dir, payloads_dir, objects_dir, learning_dir, sources_dir]
+
         # Create the zip file
         zip_path = os.path.join(temp_dir, adversary_id + ".zip")
              
         with zipfile.ZipFile(zip_path, 'w') as zip_file:
-            for root, _, files in os.walk(abilities_dir):
-                for file in files:
-                    zip_file.write(os.path.join(root, file), arcname=os.path.relpath(os.path.join(root, file), temp_dir))
-            for root, _, files in os.walk(payloads_dir):
-                for file in files:
-                    zip_file.write(os.path.join(root, file), arcname=os.path.relpath(os.path.join(root, file), temp_dir))
+            for dir in directories:
+                for root, _, files in os.walk(dir):
+                    for file in files:
+                        zip_file.write(os.path.join(root, file), arcname=os.path.relpath(os.path.join(root, file), temp_dir))
 
         return zip_path
