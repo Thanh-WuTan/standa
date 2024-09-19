@@ -1,7 +1,10 @@
 import re
 import glob
+import itertools
 
 from importlib import import_module
+from objects.link import update_scores
+from objects.relationship import *
 
 class Learner:
 
@@ -15,7 +18,6 @@ class Learner:
         parsers = []
         for filepath in glob.iglob('%s/**.py' % directory):
             module = import_module(filepath.replace('/', '.').replace('\\', '.').replace('.py', ''))
-            print(module)
             parsers.append(module.Parser())
         return parsers
     
@@ -28,5 +30,29 @@ class Learner:
                         self.model.add(variables)
         self.model = set(self.model)
 
-    def learn(source, link, result):
-        pass
+    def learn(self, source, link, blob):
+        facts = source.facts
+        found_facts = []
+        for parser in self.parsers:
+            try:
+                for fact in parser.parse(blob):
+                    found_facts.append(fact)
+            except Exception as e:
+                print("Error: ", e)
+        update_scores(increment=len(found_facts), used=facts, source=source)
+        self._store_results(link, found_facts)
+
+    def _store_results(self, link, facts, operation=None):
+        facts_covered = []
+        for relationship in self.model:
+            matches = []
+            for fact in facts:
+                if fact.trait in relationship:
+                    matches.append(fact)
+                    facts_covered.append(fact)
+            for pair in itertools.combinations(matches, r=2):
+                if pair[0].trait != pair[1].trait:
+                    link.create_relationships([Relationship(source=pair[0], edge='has', target=pair[1])],
+                                              operation=operation)
+        for f in [x for x in facts if x not in facts_covered]:
+            link.save_fact(operation=operation, fact=f, score=1, relationship=[])

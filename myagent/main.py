@@ -56,12 +56,11 @@ def main():
     abilities = Read_Abilities()
     learner = Learner()
     learner.build_model(abilities)
- 
-    cnt = 0
+  
     for ability in abilities:
         if not agent.is_capable_to_run(ability):
             continue        
-        cnt+= 1
+      
         executors = agent.find_executors(ability)
         links = []
         for ex in executors:
@@ -89,11 +88,10 @@ def main():
                 link.parse(result = stdout, source = source)
             else:
                 learner.learn(source, link, stdout)
-            # print("----------------")
-            # print("cnt = ", cnt)
-            # print("Ability: ", ability['name'])
-            # print("Executed command: ", ex.command)
-            # print("stdout: ", stdout)
+            print("----------------")
+            print("Ability: ", ability['name'])
+            print("Executed command: ", ex.command)
+            print("stdout: ", stdout)
 if __name__ == '__main__':
 
     main()

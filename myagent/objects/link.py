@@ -34,7 +34,7 @@ class Link:
                     relationships = []  # Reset relationships if the parser signals failure
                 else:
                     self.create_relationships(relationships, source)
-                self.update_scores(increment=len(relationships), used=self.used, facts=self.facts, source = source)
+                update_scores(increment=len(relationships), used=self.used, source = source)
             except Exception as e:
                 print("Error in %s while parsing ability %s: %s" % (parser['module'], self.ability['ability_id'], e))
 
@@ -70,12 +70,12 @@ class Link:
         if source:
             source.facts = all_facts
 
-    def update_scores(self, increment, used, facts, source):
-        for uf in used:
-            
-            for found_fact in source.facts:
-                if found_fact.unique == uf.unique:
-                    found_fact.score += increment
-                    break 
+
+def update_scores(increment, used, source):
+    for uf in used:
+        for found_fact in source.facts:
+            if found_fact.unique == uf.unique:
+                found_fact.score += increment
+                break 
 
                 
