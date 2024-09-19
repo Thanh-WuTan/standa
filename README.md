@@ -20,4 +20,7 @@
 1. Clone this repository into the `plugins` directory of your Caldera installation:
    ```bash
    git clone https://github.com/yourusername/standa-caldera-plugin.git plugins/standa
-   
+
+2. Enable the plugin by adding - standa to the list of enabled plugins in either conf/local.yml or conf/default.yml (if running Caldera in insecure mode)
+
+3. Start the Caldera server and navigate to the Standa plugin in the Caldera UI and follow the prompts to generate stand-alone agents.
