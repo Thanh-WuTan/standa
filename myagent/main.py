@@ -1,5 +1,6 @@
 import os
 import yaml  
+import platform
 
 from objects.base_parser import *
 from objects.base_planning import *
@@ -45,7 +46,7 @@ def Read_Abilities():
     return abilities
 
 def main():
-    agent = Agent(platform="linux") 
+    agent = Agent(platform=platform.system()) 
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
     bps = BasePlanningService()
     source = Init_Source() 

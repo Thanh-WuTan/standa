@@ -118,9 +118,14 @@ class StandaService:
         sources_dir = await self.copy_folder(temp_dir, 'sources')
         main_agent_file = await self.copy_file(os.path.join(MYAGENT_DIR, 'main.py'), os.path.join(temp_dir, 'main.py'))
 
+        with open(main_agent_file, 'r') as f:
+            content = f.read() 
+        content = content.replace("ADV_ID = 'adversary_id'", f"ADV_ID = '{adversary_id}'")
+        with open(main_agent_file, 'w') as f:
+            f.write(content)
 
         directories = [abilities_dir, payloads_dir, objects_dir, learning_dir, sources_dir]
-
+        
         # Create the zip file
         zip_path = os.path.join(temp_dir, adversary_id + ".zip")
              
