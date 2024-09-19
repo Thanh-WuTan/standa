@@ -1,6 +1,7 @@
 import os
 import yaml  
 import platform
+import time 
 
 from objects.base_parser import *
 from objects.base_planning import *
@@ -77,21 +78,24 @@ def main():
             ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
             if ex.command in ran_command:
                 continue
+            print("+++++++++++++++++++++++++++++++++")
+            print("Executing Command: ", ex.command)
+
             ran_command.add(ex.command)
-            
             stdout, stderr = ex.run_command()
             if link.executor.parsers:
                 link.parse(result = stdout, source = source)
             else: 
                 learner.learn(source, link, stdout)
             
-            print("---------------------------------")
-            print("Excuted Command: ", ex.command)
+            print("Command Excuted!")
             print("Stdout: ", stdout)
             print("Stderr: ", stderr)
             print("---------------------------------")
             print()
             print()
+
+            time.sleep(2)
 if __name__ == '__main__':
 
     main()
