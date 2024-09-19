@@ -6,7 +6,7 @@ import pathlib
 import json
 
 PWD = os.path.dirname(__file__)
-MYAGENT_DIR = os.path.join(PWD, '..', 'myagent')
+MYAGENT_DIR = os.path.join(PWD, '..', 'agent')
 
 class StandaService:
     def __init__(self, services):
