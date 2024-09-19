@@ -45,9 +45,9 @@ class Learner:
             print(fact.trait, ' ', fact.value, end = ' , ')
         print()
         update_scores(increment=len(found_facts), used=facts, source=source)
-        self._store_results(link, found_facts)
+        self._store_results(link, found_facts, source)
 
-    def _store_results(self, link, facts, operation=None):
+    def _store_results(self, link, facts, source):
         facts_covered = []
         for relationship in self.model:
             matches = []
@@ -57,7 +57,6 @@ class Learner:
                     facts_covered.append(fact)
             for pair in itertools.combinations(matches, r=2):
                 if pair[0].trait != pair[1].trait:
-                    link.create_relationships([Relationship(source=pair[0], edge='has', target=pair[1])],
-                                              operation=operation)
+                    link.create_relationships([Relationship(source=pair[0], edge='has', target=pair[1])])
         for f in [x for x in facts if x not in facts_covered]:
-            link.save_fact(operation=operation, fact=f, score=1, relationship=[])
+            link.save_fact(fact=f, score=1, relationship=[], source=source)
