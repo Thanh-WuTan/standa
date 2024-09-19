@@ -76,8 +76,6 @@ class Link:
             for found_fact in source.facts:
                 if found_fact.unique == uf.unique:
                     found_fact.score += increment
-                    print("?!?!?!?: ", end=' ')
-                    print(found_fact.trait, found_fact.value, found_fact.score)
                     break 
 
                 
