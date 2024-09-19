@@ -1,0 +1,31 @@
+ability_id: faa96e7f-081a-40b7-a743-a6a7f2627ea3
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The net utility is executed via cmd to enumerate members of the local
+  system's administrators group.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: net localgroup administrators
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Permissions Groups Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1069
+technique_name: Permission Groups Discovery

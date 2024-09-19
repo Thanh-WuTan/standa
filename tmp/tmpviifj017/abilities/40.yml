@@ -1,0 +1,53 @@
+ability_id: a4b14c10-49aa-4ae4-b165-d5a37364fe62
+access: {}
+additional_info: {}
+buckets:
+- defensive-evasion
+delete_payload: true
+description: Renaming psversion.txt to psversion.txt to be imported
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysInternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysInternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path \"C:\\Program\
+    \ Files\\SysInternalsSuite\";\nif (test-path -path \".\\psversion.txt\" ) {\n\
+    \  move-item .\\psversion.txt psversion.ps1 -Force;\n}\n  write-host \"[+] File\
+    \ psversion.ps1 staged to be imported.\""
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysInternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysInternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path \"C:\\Program\
+    \ Files\\SysInternalsSuite\";\nif (test-path -path \".\\psversion.txt\" ) {\n\
+    \  move-item .\\psversion.txt psversion.ps1 -Force;\n}\n  write-host \"[+] File\
+    \ psversion.ps1 staged to be imported.\""
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Staging files for PowerShell module imports
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defensive-evasion
+technique_id: T1036.005
+technique_name: 'Masquerading: Match Legitimate Name or Location'

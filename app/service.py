@@ -2,18 +2,14 @@ import zipfile
 import os
 import tempfile
 import yaml
-import aiohttp
 import pathlib
-import re
-from aiohttp import web
+import json
 
 class StandaService:
     def __init__(self, services):
         self.services = services
         self.data_svc = services.get('data_svc')
 
-    
-    
     async def find_payload(self, payload_name):
         cwd = pathlib.Path.cwd()
         payload_dirs = [cwd / 'data' / 'payloads']
@@ -61,21 +57,34 @@ class StandaService:
     async def create_payloads_dir(self, temp_dir, abilities): 
         payloads_dir = os.path.join(temp_dir, 'payloads')
         os.makedirs(payloads_dir, exist_ok=True)
+        
+        payloads = set()
         for ability in abilities:
-            try:
-                for exc in ability['executors']:
-                    for payload in exc['payloads']:
-                        payload_path = await self.find_payload(payload)
-                        if payload_path:
-                            os.makedirs(payloads_dir, exist_ok=True)
-                            payload_save_path = os.path.join(payloads_dir, payload)
-                            with open(payload_save_path, 'wb') as dest_file:
-                                with open(payload_path, 'rb') as src_file:
-                                    dest_file.write(src_file.read())
-                        else:
-                            print(f"Payload '{payload}' not found.")
+            for exc in ability['executors']:
+                for payload in exc['payloads']:
+                    payloads.add(payload)
+        for payload in payloads:
+            try: 
+                payload_path = await self.find_payload(payload)
+                if payload_path:
+                    os.makedirs(payloads_dir, exist_ok=True)
+                    payload_save_path = os.path.join(payloads_dir, payload)
+                    with open(payload_save_path, 'wb') as dest_file:
+                        with open(payload_path, 'rb') as src_file:
+                            dest_file.write(src_file.read())
+                else:
+                    print(f"Payload '{payload}' not found.")
             except Exception as e:
                 print(f"Error creating payload file for '{ability['name']}': {e}")
+
+        # Create uuid_mapper file
+        uuid_mapper_path = os.path.join(payloads_dir, 'uuid_mapper.json')
+        with open(uuid_mapper_path, 'w') as uuid_mapper_file:
+            uuid_mapper = {}
+            for payload in payloads:
+                id, obfuscation_name = self.services.get('file_svc').get_payload_id_from_name(payload)
+                uuid_mapper[id] = {"name": payload, "obfuscation": obfuscation_name}
+            json.dump(uuid_mapper, uuid_mapper_file, indent=4)    
         return payloads_dir
 
     async def download_standalone_agent(self, adversary_id):

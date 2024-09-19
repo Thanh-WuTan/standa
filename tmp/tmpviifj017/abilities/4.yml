@@ -1,0 +1,31 @@
+ability_id: ee08a427-1e1d-4d8a-aeb1-978a7fcf9087
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The ipconfig utility is executed via cmd to enumerate local TCP/IP network
+  configuration information.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: ipconfig /all
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: System Network Configuration Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1016
+technique_name: System Network Configuration Discovery

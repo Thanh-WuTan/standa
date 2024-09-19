@@ -1,0 +1,49 @@
+ability_id: 4a2ad84e-a93a-4b2e-b1f0-c354d6a41278
+access: {}
+additional_info: {}
+buckets:
+- defensive-evasion
+delete_payload: true
+description: Timestomp kxwn.lock
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (!(test-path -path \"$env:appdata\\Microsoft\\kxwn.lock\")) {\n  write-host\
+    \ \"[!] kxwn.lock was not found on this host.\";\n  exit 1;\n} else {\n  . .\\\
+    timestomp.ps1;\n  timestomp -dest \"$env:appdata\\Microsoft\\kxwn.lock\";\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - timestomp.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (!(test-path -path \"$env:appdata\\Microsoft\\kxwn.lock\")) {\n  write-host\
+    \ \"[!] kxwn.lock was not found on this host.\";\n  exit 1;\n} else {\n  . .\\\
+    timestomp.ps1;\n  timestomp -dest \"$env:appdata\\Microsoft\\kxwn.lock\";\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - timestomp.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Timestomp kxwn.lock
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defensive-evasion
+technique_id: T1070.006
+technique_name: 'Indicator Removal on Host: Timestomp'

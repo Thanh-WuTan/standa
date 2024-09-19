@@ -1,0 +1,47 @@
+ability_id: ee4c2eab-be57-434c-a32c-14b77360301a
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: Get contents of clipboard
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "$clip_data=get-clipboard;\nif ($clip_data.Length -gt 0) {\n  write-host\
+    \ \"[+] Clipboard data obtained!\\n\";\n  write-host $clip_data;\n} else {\n \
+    \ write-host \"[!] No clipboard data available!\\n\";\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "$clip_data=get-clipboard;\nif ($clip_data.Length -gt 0) {\n  write-host\
+    \ \"[+] Clipboard data obtained!\\n\";\n  write-host $clip_data;\n} else {\n \
+    \ write-host \"[!] No clipboard data available!\\n\";\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Automated Collection (T1119) - Clipboard (T1115)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1115
+technique_name: Clipboard Data

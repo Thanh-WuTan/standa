@@ -1,0 +1,32 @@
+ability_id: 5c23f638-9cfc-4fc4-9cab-4af628fef70a
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The reg utility is executed via cmd to enumerate a specific Registry
+  key associated with local system policies to ensure that the user will not be prompted
+  for credentials when elevating permissions.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Query Registry
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1012
+technique_name: Query Registry

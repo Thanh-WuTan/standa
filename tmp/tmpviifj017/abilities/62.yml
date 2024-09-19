@@ -1,0 +1,49 @@
+ability_id: 2b5a72b1-01e4-48ae-98b0-2570a7894371
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Detect software on host
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepTwelve.ps1;
+
+    software;'
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepTwelve.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: '. .\stepTwelve.ps1;
+
+    software;'
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepTwelve.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Detect Software
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1518
+technique_name: Software Discovery

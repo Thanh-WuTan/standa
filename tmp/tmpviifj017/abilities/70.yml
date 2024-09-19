@@ -1,0 +1,54 @@
+ability_id: 43aad2d6-d16a-4adb-aa2b-9510a3be4c52
+access: {}
+additional_info: {}
+buckets:
+- persistence
+delete_payload: true
+description: user triage
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Get-WmiObject -Namespace \"root/subscription\" -list | findstr /i \"__Filter\"\
+    ;\nif ($?) {\n  write-host \"[*] WMI script has already executed on this machine.\
+    \ Not loading and executing wmi script.\";\n  exit 1;\n} else {\n  . .\\stepFifteen_wmi.ps1;\n\
+    \  wmi;\n  if ($?) {\n    write-host \"[+] WMI script has successfully executed!\"\
+    ;\n    exit 0;\n  }\n  exit 1;\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepFifteen_wmi.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "Get-WmiObject -Namespace \"root/subscription\" -list | findstr /i \"__Filter\"\
+    ;\nif ($?) {\n  write-host \"[*] WMI script has already executed on this machine.\
+    \ Not loading and executing wmi script.\";\n  exit 1;\n} else {\n  . .\\stepFifteen_wmi.ps1;\n\
+    \  wmi;\n  if ($?) {\n    write-host \"[+] WMI script has successfully executed!\"\
+    ;\n    exit 0;\n  }\n  exit 1;\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepFifteen_wmi.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: WMI Persistence technique
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: persistence
+technique_id: T1546.003
+technique_name: 'Event Triggered Execution: Windows Management Instrumentation Event
+  Subscription'

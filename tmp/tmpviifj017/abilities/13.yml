@@ -1,0 +1,31 @@
+ability_id: 7c2a6e5b-1adb-464f-a581-4677391f8dd6
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The net utility is executed via cmd to enumerate local operating system
+  configuration.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: net config workstation
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: System Information Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1082
+technique_name: System Information Discovery

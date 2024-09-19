@@ -1,0 +1,30 @@
+ability_id: 61221fb9-cb32-46d5-98fd-90567a621526
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The net utility is executed via cmd to enumerate domain user accounts.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: net user /domain
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Account Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1087
+technique_name: Account Discovery

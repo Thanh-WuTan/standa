@@ -1,0 +1,51 @@
+ability_id: 6f1f4768-7099-45d2-a858-b49dc792234e
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Load Stage-2 from Modified Sysinternals Toolset
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysInternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysInternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path \"C:\\Program\
+    \ Files\\SysInternalsSuite\";\nif (!(test-path \".\\readme.ps1\")) {\n  Move-Item\
+    \ .\\readme.txt readme.ps1 -Force;\n}\n. .\\readme.ps1;\nInvoke-Discovery;"
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "if (! $(test-path -path \"C:\\Program Files\\SysInternalsSuite\")) {\n\
+    \  write-host \"[!] The path C:\\Program Files\\SysInternalsSuite does not exist.\
+    \ Execution has stopped.\";\n  exit 1;\n}\n\nSet-Location -path \"C:\\Program\
+    \ Files\\SysInternalsSuite\";\nif (!(test-path \".\\readme.ps1\")) {\n  Move-Item\
+    \ .\\readme.txt readme.ps1 -Force;\n}\n. .\\readme.ps1;\nInvoke-Discovery;"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Loading Stage-2 & Performing Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1082
+technique_name: System Information Discovery

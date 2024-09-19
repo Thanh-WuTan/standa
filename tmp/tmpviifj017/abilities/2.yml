@@ -1,0 +1,31 @@
+ability_id: a5daa530-c640-49bc-aa54-6808789a684a
+access: {}
+additional_info: {}
+buckets:
+- execution
+delete_payload: true
+description: Spawn powershell.exe from cmd.exe
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "powershell.exe;\nif ($?) {\n  write-host \"[*] PowerShell successfully\
+    \ spawned\";\n  exit 0;\n}"
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: PowerShell
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: execution
+technique_id: T1059.001
+technique_name: 'Command and Scripting Interpreter: PowerShell'

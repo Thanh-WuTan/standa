@@ -1,0 +1,114 @@
+{
+    "Invoke-Mimikatz.ps1": {
+        "name": "Invoke-Mimikatz.ps1",
+        "obfuscation": "Invoke-Mimikatz.ps1"
+    },
+    "StealToken.ps1": {
+        "name": "StealToken.ps1",
+        "obfuscation": "StealToken.ps1"
+    },
+    "stepSixteen_SID.ps1": {
+        "name": "stepSixteen_SID.ps1",
+        "obfuscation": "stepSixteen_SID.ps1"
+    },
+    "m.exe": {
+        "name": "m.exe",
+        "obfuscation": "m.exe"
+    },
+    "dmevals.local.pfx": {
+        "name": "dmevals.local.pfx",
+        "obfuscation": "dmevals.local.pfx"
+    },
+    "invoke-winrmsession.ps1": {
+        "name": "invoke-winrmsession.ps1",
+        "obfuscation": "invoke-winrmsession.ps1"
+    },
+    "update.ps1": {
+        "name": "update.ps1",
+        "obfuscation": "update.ps1"
+    },
+    "powerview.ps1": {
+        "name": "powerview.ps1",
+        "obfuscation": "powerview.ps1"
+    },
+    "stepSeventeen_zip.ps1": {
+        "name": "stepSeventeen_zip.ps1",
+        "obfuscation": "stepSeventeen_zip.ps1"
+    },
+    "stepFifteen_wmi.ps1": {
+        "name": "stepFifteen_wmi.ps1",
+        "obfuscation": "stepFifteen_wmi.ps1"
+    },
+    "wipe.ps1": {
+        "name": "wipe.ps1",
+        "obfuscation": "wipe.ps1"
+    },
+    "stepFourteen_bypassUAC.ps1": {
+        "name": "stepFourteen_bypassUAC.ps1",
+        "obfuscation": "stepFourteen_bypassUAC.ps1"
+    },
+    "Modified-SysInternalsSuite.zip": {
+        "name": "Modified-SysInternalsSuite.zip",
+        "obfuscation": "Modified-SysInternalsSuite.zip"
+    },
+    "stepTwelve.ps1": {
+        "name": "stepTwelve.ps1",
+        "obfuscation": "stepTwelve.ps1"
+    },
+    "stepFourteen_credDump.ps1": {
+        "name": "stepFourteen_credDump.ps1",
+        "obfuscation": "stepFourteen_credDump.ps1"
+    },
+    "upload.ps1": {
+        "name": "upload.ps1",
+        "obfuscation": "upload.ps1"
+    },
+    "sandcat.go-windows-upx": {
+        "name": "sandcat.go-windows-upx",
+        "obfuscation": "sandcat.go-windows-upx"
+    },
+    "Invoke-BypassUACTokenManipulation.ps1": {
+        "name": "Invoke-BypassUACTokenManipulation.ps1",
+        "obfuscation": "Invoke-BypassUACTokenManipulation.ps1"
+    },
+    "cod.3aka3.scr": {
+        "name": "cod.3aka3.scr",
+        "obfuscation": "cod.3aka3.scr"
+    },
+    "Invoke-PSInject.ps1": {
+        "name": "Invoke-PSInject.ps1",
+        "obfuscation": "Invoke-PSInject.ps1"
+    },
+    "monkey.png": {
+        "name": "monkey.png",
+        "obfuscation": "monkey.png"
+    },
+    "sandcat.go-windows": {
+        "name": "sandcat.go-windows",
+        "obfuscation": "sandcat.go-windows"
+    },
+    "rar.exe": {
+        "name": "rar.exe",
+        "obfuscation": "rar.exe"
+    },
+    "ps.ps1": {
+        "name": "ps.ps1",
+        "obfuscation": "ps.ps1"
+    },
+    "stepSeventeen_email.ps1": {
+        "name": "stepSeventeen_email.ps1",
+        "obfuscation": "stepSeventeen_email.ps1"
+    },
+    "Get-Screenshot.ps1": {
+        "name": "Get-Screenshot.ps1",
+        "obfuscation": "Get-Screenshot.ps1"
+    },
+    "timestomp.ps1": {
+        "name": "timestomp.ps1",
+        "obfuscation": "timestomp.ps1"
+    },
+    "stepThirteen.ps1": {
+        "name": "stepThirteen.ps1",
+        "obfuscation": "stepThirteen.ps1"
+    }
+}

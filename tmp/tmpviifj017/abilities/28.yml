@@ -1,0 +1,31 @@
+ability_id: 5f4263c4-7ff1-4098-b5f5-f41faa31cf5b
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The netsh utility is executed via cmd to enumerate local firewall configuration
+  information.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: netsh advfirewall show allprofiles
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: System Network Configuration Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1016
+technique_name: System Network Configuration Discovery
