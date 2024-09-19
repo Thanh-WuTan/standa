@@ -7,7 +7,6 @@
 - **Auto-create Stand-Alone Agents**: Generates stand-alone agents from selected adversary profiles.
 - **No Tunnel Required**: Eliminates the need for a communication tunnel between the host and the Caldera C2 server.
 - **Payload Management**: Collects and packages all required payloads and instructions for execution on the host.
-- **Seamless Integration**: Fully integrates into the Caldera framework for easy use.
 
 ## How It Works
 
