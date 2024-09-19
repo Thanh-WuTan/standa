@@ -61,7 +61,7 @@ def main():
         links = []
         for ex in executors:
             executor = Executor(name = ex['name'], platform = ex['platform'], command = ex['command'],
-                           parsers = ex['parsers'], timeout = ex['timeout'], payloads = ex['payloads'])
+                                parsers = ex['parsers'], timeout = ex['timeout'], payloads = ex['payloads'])
             
             ex_link = Link(command=ex['command'], ability=ability, executor=executor)
             
