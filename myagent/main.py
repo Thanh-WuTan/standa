@@ -78,8 +78,10 @@ def main():
             ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
             if ex.command in ran_command:
                 continue
-            print("+++++++++++++++++++++++++++++++++")
-            print("Executing Command: ", ex.command)
+
+            print("+" * 40)
+            print(f"Executing Command: {ex.command}")
+            print("+" * 40)
 
             ran_command.add(ex.command)
             stdout, stderr = ex.run_command()
@@ -88,12 +90,13 @@ def main():
             else: 
                 learner.learn(source, link, stdout)
             
-            print("Command Excuted!")
-            print("Stdout: ", stdout)
-            print("Stderr: ", stderr)
-            print("---------------------------------")
-            print()
-            print()
+            print(f"\n{'='*40}")
+            print(f"Command Executed Successfully!")
+            print(f"{'-'*40}")
+            print(f"Stdout:\n{stdout.strip() if stdout else '<No Output>'}")
+            print(f"{'-'*40}")
+            print(f"Stderr:\n{stderr.strip() if stderr else '<No Errors>'}")
+            print(f"{'='*40}\n")
 
             time.sleep(2)
 if __name__ == '__main__':
