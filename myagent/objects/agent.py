@@ -9,7 +9,7 @@ class Agent:
                     payload=re.compile('#{payload:(.*?)}', flags=re.DOTALL))
     
     def __init__(self, platform = "unknown", privilege = 0):
-        self.platform = platform
+        self.platform = platform.lower()
         self.executors = ['sh'] if platform == 'linux' else ['psh', 'cmd']
         self.privilege = privilege
   
