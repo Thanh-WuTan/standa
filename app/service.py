@@ -86,6 +86,15 @@ class StandaService:
             uuid_mapper = self.services.get('file_svc').get_payloads()
             json.dump(uuid_mapper, uuid_mapper_file, indent=4)
         return payloads_dir
+
+    async def copy_file(self, source, destination):
+        try:
+            with open(destination, 'wb') as dest_file:
+                with open(source, 'rb') as src_file:
+                    dest_file.write(src_file.read())
+        except Exception as e:
+            print(f"Error copying {source}: {e}")
+        return destination
     
     async def copy_folder(self, temp_dir, target):
         destination_dir = os.path.join(temp_dir, target)
@@ -96,12 +105,7 @@ class StandaService:
             source_file = os.path.join(source_dir, file_name)
             destination_file = os.path.join(destination_dir, file_name)
             if os.path.isfile(source_file):
-                try:
-                    with open(destination_file, 'wb') as dest_file:
-                        with open(source_file, 'rb') as src_file:
-                            dest_file.write(src_file.read()) 
-                except Exception as e:
-                    print(f"Error copying {source_file}: {e}")
+                await self.copy_file(source_file, destination_file)
         return destination_dir
 
     async def download_standalone_agent(self, adversary_id):
@@ -112,6 +116,8 @@ class StandaService:
         objects_dir = await self.copy_folder(temp_dir, 'objects')
         learning_dir = await self.copy_folder(temp_dir, 'learning')
         sources_dir = await self.copy_folder(temp_dir, 'sources')
+        main_agent_file = await self.copy_file(os.path.join(MYAGENT_DIR, 'main.py'), os.path.join(temp_dir, 'main.py'))
+
 
         directories = [abilities_dir, payloads_dir, objects_dir, learning_dir, sources_dir]
 
@@ -123,5 +129,5 @@ class StandaService:
                 for root, _, files in os.walk(dir):
                     for file in files:
                         zip_file.write(os.path.join(root, file), arcname=os.path.relpath(os.path.join(root, file), temp_dir))
-
+            zip_file.write(main_agent_file, arcname=os.path.relpath(main_agent_file, temp_dir))
         return zip_path
