@@ -40,10 +40,6 @@ class Learner:
                     found_facts.append(fact)
             except Exception as e:
                 print("Error: ", e)
-        print("Facts found: ", end = ' ')
-        for fact in found_facts:
-            print(fact.trait, ' ', fact.value, end = ' , ')
-        print()
         update_scores(increment=len(found_facts), used=facts, source=source)
         self._store_results(link, found_facts, source)
 
