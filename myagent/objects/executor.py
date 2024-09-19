@@ -16,7 +16,7 @@ class Executor:
             module = parser['module'].split('.') 
             plugin = module[1]
             parser_name = module[-1]   
-            parser['module'] = "{adversary_id}.parsers.{plugin}.{parser_name}".format(adversary_id = ADV_ID, plugin=plugin, parser_name=parser_name)    
+            parser['module'] = "parsers.{plugin}.{parser_name}".format(adversary_id = ADV_ID, plugin=plugin, parser_name=parser_name)    
         return parsers
 
 

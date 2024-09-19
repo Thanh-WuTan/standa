@@ -13,10 +13,9 @@ from objects.learner import *
 
 ADV_ID = 'adversary_id'
 PWD = os.path.dirname(__file__)
-DIR = os.path.join(PWD, ADV_ID)
-SOURCE_DIR = os.path.join(DIR, 'sources')
-ABILTIY_DIR = os.path.join(DIR, 'abilities')
-PAYLOAD_DIR = os.path.join(DIR, 'payloads')
+SOURCE_DIR = os.path.join(PWD, 'sources')
+ABILTIY_DIR = os.path.join(PWD, 'abilities')
+PAYLOAD_DIR = os.path.join(PWD, 'payloads')
 
 def read_yaml(filepath):
     with open(filepath, 'r') as file:
