@@ -21,8 +21,10 @@
         </div>
     </form>
 
-     <!-- DOWNLOAD BUTTON -->
-     <button id="downloadButton">Download Profile</button>
+    <!-- DOWNLOAD BUTTON -->
+    <div class="button-container">
+        <button class="mybutton" id="downloadButton">Download</button>
+    </div>
 </div>
 
 
@@ -55,8 +57,36 @@
     .file-cta {
         background-color: #262626;
     }
+  
+    .mybutton {
+        background-color: #8b00ff;
+        border: 1.5px solid #6b00cc;
+        color: #f6e5ff;
+        padding: 5px 10px;  
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+
+    }
+
+    button#downloadButton {
+        display: inline-block;
+        text-align: center;
+        width: auto;
+    }
+    
+    .mybutton:hover {
+        background-color: #6b00cc;
+        border-color: #4a0099;
+        cursor: pointer;
+    }
+
+    .button-container {
+        text-align: center;
+        margin-top: 15px;
+    }
 </style>
- 
 
 
 <script>
