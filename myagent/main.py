@@ -85,6 +85,13 @@ def main():
             else: 
                 learner.learn(source, link, stdout)
             
+            print("---------------------------------")
+            print("Excuted Command: ", ex.command)
+            print("Stdout: ", stdout)
+            print("Stderr: ", stderr)
+            print("---------------------------------")
+            print()
+            print()
 if __name__ == '__main__':
 
     main()
