@@ -10,7 +10,7 @@ class Agent:
     
     def __init__(self, platform = "unknown", privilege = 0):
         self.platform = platform.lower()
-        self.executors = ['sh'] if platform == 'linux' else ['psh', 'cmd']
+        self.executors = ['sh'] if self.platform == 'linux' else ['psh', 'cmd']
         self.privilege = privilege
   
     
