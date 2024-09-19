@@ -1,0 +1,32 @@
+ability_id: d9c9a941-c0e8-4eed-8cc3-6511ad5b9e15
+access: {}
+additional_info: {}
+buckets:
+- defense-evasion
+delete_payload: true
+description: 'Delete VALUEVAULT plink.exe.
+
+  '
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: del C:\Users\gosta\AppData\Roaming\fsociety.dat C:\Users\Public\Downloads\plink.exe;
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Cleanup on Gosta
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defense-evasion
+technique_id: T1070.004
+technique_name: 'Indicator Removal on Host: File Deletion'

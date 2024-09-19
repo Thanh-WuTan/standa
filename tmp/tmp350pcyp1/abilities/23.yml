@@ -1,0 +1,34 @@
+ability_id: 2f3be960-5c00-4f03-a9c2-da09c31d38d9
+access: {}
+additional_info: {}
+buckets:
+- command-and-control
+delete_payload: true
+description: 'SystemFailureReporter.exe downloads contact.aspx
+
+  '
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: copy  C:\Users\#{initial.target.user}\AppData\Local\SystemFailureReporter\contact.aspx
+    C:\Users\Public\contact.aspx
+  language: null
+  name: cmd
+  parsers: []
+  payloads:
+  - contact.aspx
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Copy webshell to THEBLOCK
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: command-and-control
+technique_id: T1105
+technique_name: Ingress Tool Transfer

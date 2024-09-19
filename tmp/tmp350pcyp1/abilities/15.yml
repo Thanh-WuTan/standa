@@ -1,0 +1,30 @@
+ability_id: e6eb7d18-606e-4889-8924-f75cafa92811
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Gather information about registered local system services
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: sc query
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig System Service Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1007
+technique_name: System Service Discovery

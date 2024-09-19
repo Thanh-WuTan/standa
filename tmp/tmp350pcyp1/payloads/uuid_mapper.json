@@ -1,0 +1,86 @@
+{
+    "dcb15ae4-52fb-4aed-be23-aae69b84f5ce": {
+        "name": "Akagi64.exe",
+        "obfuscation": ""
+    },
+    "7700675a-c8f1-4634-b006-3486014535f4": {
+        "name": "Bypass-UAC.ps1",
+        "obfuscation": ""
+    },
+    "af7f232a-6636-46f9-a10b-148b55c3277b": {
+        "name": "Emulate-Administrator-Tasks.ps1",
+        "obfuscation": ""
+    },
+    "c7841398-8728-494b-9b0c-9fe5fe2524de": {
+        "name": "HostingCLRx64.dll",
+        "obfuscation": ""
+    },
+    "b2dcf04d-517a-4eca-95f2-2c41bc783125": {
+        "name": "Invoke-MemeKatz.ps1",
+        "obfuscation": ""
+    },
+    "37e61603-fb0a-48c4-ae9b-f6542c6b1221": {
+        "name": "Invoke-ReflectivePEInjection.ps1.xored",
+        "obfuscation": ""
+    },
+    "c354cac4-ac7c-4512-8a52-5faf880883bf": {
+        "name": "bookmark.scpt",
+        "obfuscation": ""
+    },
+    "feaf09c6-6337-49dd-b301-7cf015cc7cd4": {
+        "name": "debugger.dll",
+        "obfuscation": ""
+    },
+    "33b38fbf-5897-4021-9f27-9ae3f3f24c12": {
+        "name": "debugger.exe",
+        "obfuscation": ""
+    },
+    "c1e0dda5-1f10-4895-a963-261404bae5f8": {
+        "name": "invoke-mimi.ps1.xored",
+        "obfuscation": ""
+    },
+    "61174873-e8f8-486d-9f9f-12884370dde7": {
+        "name": "minidump.exe",
+        "obfuscation": ""
+    },
+    "14986e59-601d-4c52-9ec1-480090ab6550": {
+        "name": "powerview.ps1.xored",
+        "obfuscation": ""
+    },
+    "2e1834cb-a599-44a3-b5c8-f58df4ab51e6": {
+        "name": "ragdoll.py",
+        "obfuscation": ""
+    },
+    "89102904-1a41-443d-b2cd-1faf2529ae20": {
+        "name": "reflect.ps1",
+        "obfuscation": ""
+    },
+    "4318470d-715b-4355-aa1c-11c489d4c10e": {
+        "name": "scanner.py",
+        "obfuscation": ""
+    },
+    "df945533-2200-451a-a1a9-801b35ae21a9": {
+        "name": "sshpass",
+        "obfuscation": ""
+    },
+    "98c0a4cf-6fc3-446e-9857-fe396a9eafee": {
+        "name": "totallylegit.exe",
+        "obfuscation": ""
+    },
+    "28f9bf43-4f14-4965-9bd9-b70fd6993d8e": {
+        "name": "wifi.ps1",
+        "obfuscation": "obfuscated_payload.ps1"
+    },
+    "9f639067-370a-40ba-b7ac-6f1c15d5a158": {
+        "name": "wifi.sh",
+        "obfuscation": "obfuscated_payload.sh"
+    },
+    "734a5566-6e92-4d39-a37d-59f88ed906e2": {
+        "name": "minidump.go",
+        "obfuscation": ""
+    },
+    "f9403e41-7b9a-416b-95eb-138cf1519668": {
+        "name": "mission.go",
+        "obfuscation": ""
+    }
+}

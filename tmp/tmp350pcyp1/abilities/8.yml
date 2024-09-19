@@ -1,0 +1,31 @@
+ability_id: 3d450711-1062-4276-8bff-bb78ec4f4519
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The net utility is executed via cmd to enumerate the "domain admins"
+  group
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: net group "domain admins" /domain
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig "domain admins" Group Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1069.002
+technique_name: 'Permission Groups Discovery: Domain Groups'

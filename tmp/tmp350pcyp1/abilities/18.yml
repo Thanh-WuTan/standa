@@ -1,0 +1,31 @@
+ability_id: 7971246d-1392-411e-a803-a7946cf9e4d2
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: The net utility is executed via cmd to enumerate detailed information
+  about the Gosta user account
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'net user #{initial.target.user} /domain'
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Targeted "Gosta" Account Discovery
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1087.002
+technique_name: 'Account Discovery: Domain Account'

@@ -1,0 +1,33 @@
+ability_id: 16767c68-a865-46af-a0e4-ff8d742efc3f
+access: {}
+additional_info: {}
+buckets:
+- defense-evasion
+delete_payload: true
+description: 'Gosta Agent kills itself
+
+  '
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: 'curl -s -H "KEY:#{server.api.key}" -H "Content-Type: application/json"
+    -X PATCH http://#{caldera.server.ip}:8888/api/v2/agents/#{paw} -d "{\"watchdog\":1}"'
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Kill Gosta Agent
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: defense-evasion
+technique_id: T1070.004
+technique_name: 'Indicator Removal on Host: File Deletion'

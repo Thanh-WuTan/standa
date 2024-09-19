@@ -1,0 +1,33 @@
+ability_id: dc2efbdd-3ab4-44a0-9839-385540b8a8cc
+access: {}
+additional_info: {}
+buckets:
+- lateral-movement
+delete_payload: true
+description: 'RDP to 10.1.0.6 using xfreerdp
+
+  '
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: exec-background xfreerdp /u:'#{network.domain.name}\#{initial.target.user}'
+    /p:'#{initial.target.password}' /v:localhost:13389 /cert-ignore
+  language: null
+  name: proc
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig RDP to WATERFALLS
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: lateral-movement
+technique_id: T1021.001
+technique_name: 'Remote Services: Remote Desktop Protocol'

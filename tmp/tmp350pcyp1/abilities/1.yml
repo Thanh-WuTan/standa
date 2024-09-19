@@ -1,0 +1,32 @@
+ability_id: ed2471a9-1eeb-4787-a5d8-61f66b278a50
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: "Executes the payload to collect the hostname of the victim machine.\
+  \ \n"
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: cscript /nologo computername.vbs
+  language: null
+  name: cmd
+  parsers: []
+  payloads:
+  - computername.vbs
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Execute VBS payload to collect hostname
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1082
+technique_name: System Information Discovery

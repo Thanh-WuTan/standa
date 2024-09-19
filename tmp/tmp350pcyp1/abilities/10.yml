@@ -1,0 +1,30 @@
+ability_id: 41ce9dd8-dc9f-4fba-8ce9-9ef5aaee3d19
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: View domain account settings and password policy
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: net accounts /domain
+  language: null
+  name: cmd
+  parsers: []
+  payloads: []
+  platform: windows
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig List domain account settings
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1021
+technique_name: Password Policy Discovery

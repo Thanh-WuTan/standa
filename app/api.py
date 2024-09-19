@@ -28,5 +28,3 @@ class StandaApi:
     async def splash(self, request):
         adversaries = await self.services.get('data_svc').locate('adversaries')
         return(dict(adversaries=[a.display for a in adversaries]))
-    
-    

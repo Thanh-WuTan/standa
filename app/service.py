@@ -80,11 +80,8 @@ class StandaService:
         # Create uuid_mapper file
         uuid_mapper_path = os.path.join(payloads_dir, 'uuid_mapper.json')
         with open(uuid_mapper_path, 'w') as uuid_mapper_file:
-            uuid_mapper = {}
-            for payload in payloads:
-                id, obfuscation_name = self.services.get('file_svc').get_payload_id_from_name(payload)
-                uuid_mapper[id] = {"name": payload, "obfuscation": obfuscation_name}
-            json.dump(uuid_mapper, uuid_mapper_file, indent=4)    
+            uuid_mapper = self.services.get('file_svc').get_payloads()
+            json.dump(uuid_mapper, uuid_mapper_file, indent=4)
         return payloads_dir
 
     async def download_standalone_agent(self, adversary_id):

