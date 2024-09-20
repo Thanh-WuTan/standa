@@ -155,8 +155,7 @@ class BasePlanningService:
                 except Exception as ex:
                     print("!!!!!!!")
                     print("Error: ", ex)
-                    print("!!!!!!!")
-                    # logging.error('Could not create test variant: %s.\nLink=%s' % (ex, link.__dict__))
+                    print("!!!!!!!") 
         
         if trim_unset_variables:
             links = self.remove_links_with_unset_variables(links)
