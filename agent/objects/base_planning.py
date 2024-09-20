@@ -123,6 +123,9 @@ class BasePlanningService:
              
         return copy_test, score, used
 
+    def apply_rules(self, facts):
+        return [facts]
+
     def add_test_variants(self, links, agent, facts=(), trim_unset_variables=False, trim_missing_requirements=False, operation=None):
         link_variants = []
         for link in links:
@@ -130,8 +133,8 @@ class BasePlanningService:
             variables = set(x for x in re.findall(self.re_variable, test) if not self.is_global_variable(x, agent))
 
             relevant_facts = self._build_relevant_facts(variables, facts)
-            
-            combos = list(itertools.product(*relevant_facts))
+            valid_facts = [self._trim_by_limit(test, (self.apply_rules(facts=fact_set))[0]) for fact_set in relevant_facts]
+            combos = list(itertools.product(*valid_facts))
 
             if trim_unset_variables:
                 combos = [combo for combo in combos if not self._has_unset_variables(combo, variables)]
@@ -159,7 +162,29 @@ class BasePlanningService:
             links = self.remove_links_with_unset_variables(links)
         return self.sort_links(links + link_variants)
         
+    def _trim_by_limit(self, decoded_test, facts):
+        limited_facts = []
+        for limit in re.findall(self.re_limited, decoded_test):
+            limited = pickle.loads(pickle.dumps(facts))     # nosec
+            trait = re.search(self.re_trait, limit).group(0).split('#{')[-1]
+
+            limit_definitions = re.search(self.re_index, limit).group(0)
+            if limit_definitions:
+                for limiter in limit_definitions.split(','):
+                    limited = self._apply_limiter(trait=trait, limiter=limiter.split('='), facts=limited)
+            if limited:
+                limited_facts.extend(limited)
+        if limited_facts:
+            return limited_facts
+        return facts
     
+    @staticmethod
+    def _apply_limiter(trait, limiter, facts):
+        if limiter[0] == 'max':
+            return sorted([f for f in facts if f.trait == trait], key=lambda k: (-k.score))[:int(limiter[1])]
+        if limiter[0] == 'technique':
+            return [f for f in facts if f.technique_id == limiter[1]]
+
     @staticmethod
     def remove_links_with_unset_variables(links):
         """
