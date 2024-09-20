@@ -56,13 +56,15 @@ class Link:
                     existing_fact = f
                     break
             if not existing_fact:
-                f_gen = Fact(trait = fact.trait, value = fact.value, score = score, relationships = rl)
+                f_gen = Fact(trait=fact.trait, value=fact.value, score=score, relationships=rl, collected_by=[self.paw])
                 self.facts.append(f_gen)
                 all_facts.add(f_gen)
             else:
+                all_facts.remove(existing_fact) 
                 if relationship not in existing_fact.relationships:
                     existing_fact.relationships.append(relationship)
-                all_facts.remove(existing_fact) 
+                if self.paw not in existing_fact.collected_by and existing_fact not in self.used:
+                    existing_fact.collected_by.append(self.paw)
                 all_facts.add(existing_fact)
 
                 existing_local_record = [x for x in self.facts if x.trait == fact.trait and x.value == fact.value]
