@@ -8,11 +8,11 @@ class Agent:
                     exe_name='#{exe_name}', upstream_dest='#{upstream_dest}',
                     payload=re.compile('#{payload:(.*?)}', flags=re.DOTALL))
     
-    def __init__(self, platform = "unknown", privilege = 0):
+    def __init__(self, platform = "unknown", privilege = 0, uuid_mapper = None):
         self.platform = platform.lower()
         self.executors = ['sh'] if self.platform == 'linux' else ['psh', 'cmd']
         self.privilege = privilege
-  
+        self.uuid_mapper = uuid_mapper
     
     def find_executors(self, ability):
         executors = []
@@ -35,28 +35,28 @@ class Agent:
         return False
     
 
-    def get_payload_name_from_uuid(self, uuid, uuid_mapper):
-        if uuid in uuid_mapper:
-            if uuid_mapper[uuid]['obfuscation']:
-                return uuid, uuid_mapper[uuid]['obfuscation']
-            return uuid, uuid_mapper[uuid]['name'] 
+    def get_payload_name_from_uuid(self, uuid):
+        if uuid in self.uuid_mapper:
+            if self.uuid_mapper[uuid]['obfuscation']:
+                return uuid, self.uuid_mapper[uuid]['obfuscation']
+            return uuid, self.uuid_mapper[uuid]['name'] 
         return uuid, uuid
 
-    def _replace_payload_data(self, command, uuid_mapper):
+    def _replace_payload_data(self, command):
         for uuid in re.findall(self.RESERVED['payload'], command):
             if self.is_uuid4(uuid):
-                _, display_name = self.get_payload_name_from_uuid(uuid, uuid_mapper)
+                _, display_name = self.get_payload_name_from_uuid(uuid)
                 command = command.replace('#{payload:%s}' % uuid, display_name)
         return command
 
 
-    def replace(self, command, uuid_mapper):
+    def replace(self, command):
         # command = command.replace(self.RESERVED['server'], self.server)
         # command = command.replace(self.RESERVED['group'], self.group)
         # command = command.replace(self.RESERVED['agent_paw'], self.paw)
         # command = command.replace(self.RESERVED['location'], self.location)
         # command = command.replace(self.RESERVED['exe_name'], self.exe_name)
         # command = command.replace(self.RESERVED['upstream_dest'], self.upstream_dest)
-        command = self._replace_payload_data(command, uuid_mapper) 
+        command = self._replace_payload_data(command) 
         return command
     

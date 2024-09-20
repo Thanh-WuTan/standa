@@ -1,17 +1,13 @@
 import os
 import yaml  
 import platform
-import time 
 
-from objects.base_parser import *
-from objects.base_planning import *
-from objects.agent import *
-from objects.link import *
 from objects.source import *
 from objects.fact import *
-from objects.executor import *
-from objects.learner import * 
 from objects.adversary import *
+from objects.agent import *
+from objects.operation import *
+from objects.learner import *
 
 ADV_ID = 'adversary_id'
 PWD = os.path.dirname(__file__)
@@ -46,61 +42,13 @@ def Read_Abilities():
         abilities.append(ability)
     return abilities
 
-def main():
+if __name__ == '__main__':
     adversary = Adversary(adversary = ADV_ID, abilities=Read_Abilities())
-    agent = Agent(platform=platform.system()) 
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
-    bps = BasePlanningService()
+    agent = Agent(platform=platform.system(), uuid_mapper=uuid_mapper) 
     source = Init_Source() 
+    
     learner = Learner()
     learner.build_model(adversary.abilities)
-  
-    
-    for ability in adversary.abilities:
-        if not agent.is_capable_to_run(ability):
-            continue        
-      
-        executors = agent.find_executors(ability)
-        links = []
-        for ex in executors:
-            executor = Executor(name = ex['name'], platform = ex['platform'], command = ex['command'],
-                                parsers = ex['parsers'], timeout = ex['timeout'], payloads = ex['payloads'])
-            
-            ex_link = Link(command=ex['command'], ability=ability, executor=executor)
-            
-            valid_links = bps.add_test_variants(links=[ex_link], agent=agent, facts=source.facts, trim_unset_variables=True, uuid_mapper=uuid_mapper)
-            
-            if valid_links:
-                links = bps.sort_links(valid_links)
-                break
-
-        ran_command = set()
-        for link in links:
-            ex = link.executor
-            ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
-            if ex.command in ran_command:
-                continue
-
-            print("+" * 40)
-            print(f"Executing Command: {ex.command}")
-            print("+" * 40)
-
-            ran_command.add(ex.command)
-            stdout, stderr = ex.run_command()
-            if link.executor.parsers:
-                link.parse(result = stdout, source = source)
-            else: 
-                learner.learn(source, link, stdout)
-            
-            print(f"\n{'='*40}")
-            print(f"Command Executed Successfully!")
-            print(f"{'-'*40}")
-            print(f"Stdout:\n{stdout.strip() if stdout else '<No Output>'}")
-            print(f"{'-'*40}")
-            print(f"Stderr:\n{stderr.strip() if stderr else '<No Errors>'}")
-            print(f"{'='*40}\n")
-
-            time.sleep(2)
-if __name__ == '__main__':
-
-    main()
+    operation = Operation(adversary=adversary, agents=[agent], source=source, learner=learner)
+    operation.run()

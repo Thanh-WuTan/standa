@@ -43,6 +43,12 @@ class Learner:
         update_scores(increment=len(found_facts), used=facts, source=source)
         self._store_results(link, found_facts, source)
 
+    def _save(self, link, stdout, stderr, source):
+        if link.executor.parsers:
+            link.parse(result = stdout, source = source)
+        else: 
+            self.learn(source, link, stdout)
+
     def _store_results(self, link, facts, source):
         facts_covered = []
         for relationship in self.model:

@@ -98,10 +98,10 @@ class BasePlanningService:
              
         return copy_test, score, used
 
-    def add_test_variants(self, links, agent, facts=(), trim_unset_variables=False, trim_missing_requirements=False, uuid_mapper = {}):
+    def add_test_variants(self, links, agent, facts=(), trim_unset_variables=False, trim_missing_requirements=False):
         link_variants = []
         for link in links:
-            test = agent.replace(link.command, uuid_mapper)
+            test = agent.replace(link.command)
             variables = set(x for x in re.findall(self.re_variable, test) if not self.is_global_variable(x, agent))
 
             relevant_facts = self._build_relevant_facts(variables, facts)
