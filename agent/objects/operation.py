@@ -33,7 +33,8 @@ class Operation:
                 ex_link = Link(command=ex['command'], ability=ability, executor=executor)
                 
                 valid_links = bps.add_test_variants(links=[ex_link], agent=agent, facts=source.facts, 
-                                                    trim_unset_variables=True, trim_missing_requirements=True)
+                                                    trim_unset_variables=True, trim_missing_requirements=True,
+                                                    operation=self)
                 
                 if valid_links:
                     links = bps.sort_links(valid_links)

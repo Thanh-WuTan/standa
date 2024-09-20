@@ -4,6 +4,7 @@ import json
 import copy
 import pickle
 
+from importlib import import_module
 from base64 import b64encode, b64decode
 
 class BasePlanningService:
@@ -30,16 +31,7 @@ class BasePlanningService:
     re_index = re.compile(r'(?<=\[filters\().+?(?=\)\])')
 
     def __init__(self):
-        """Base class for Planning Service
-
-        Args:
-            global_variable_owners: List of objects/classes that expose an is_global_variable() method that accepts
-                an 'unwrapped' variable string (e.g. 'foo.bar.baz' and NOT '#{foo.bar.baz}') and returns True if
-                it is a global variable.
-        """
-        pass
-        # self._global_variable_owners = list(global_variable_owners or ())
-        # self._cached_requirement_modules = {}
+        self._cached_requirement_modules = {}
 
     def is_global_variable(self, variable, agent):
         if variable.startswith('app.'):
@@ -53,6 +45,11 @@ class BasePlanningService:
         if variable == 'origin_link_id':
             return True
         return False 
+    
+    @staticmethod
+    async def load_module(module_type, module_info):
+        module = import_module(module_info['module'])
+        return getattr(module, module_type)(module_info)
     
     @staticmethod
     def encode_string(s):
@@ -76,6 +73,32 @@ class BasePlanningService:
     def _has_unset_variables(self, combo, variable_set):
         variables_present = [any(c.trait in var for c in combo) for var in variable_set]
         return not all(variables_present)
+    
+    def _is_missing_requirements(self, link, combo, operation):
+        copy_used = list(link.used)
+        link.used.extend(combo)
+        missing = not (self._do_enforcements(link, operation))
+        link.used = copy_used
+        return missing
+
+    def _do_enforcements(self, link, operation):
+        """
+        enforce any defined requirements on the link
+        """
+        for req_inst in link.ability['requirements']:
+            for rel_match in req_inst['relationship_match']:
+                requirements_info = dict(module=req_inst['module'], enforcements=rel_match)
+                cache_key = str(requirements_info)
+                print(cache_key)
+                # try:
+                #     if cache_key not in self._cached_requirement_modules:
+                #         self._cached_requirement_modules[cache_key] = self.load_module('Requirement', requirements_info)
+                #     requirement = self._cached_requirement_modules[cache_key]
+                #     if not requirement.enforce(link, operation):
+                #         return False
+                # except Exception as e:
+                #     print("Error while do enforement: ", e)
+        return True
 
     @staticmethod
     def _build_single_test_variant(copy_test, combo, executor):
@@ -98,7 +121,7 @@ class BasePlanningService:
              
         return copy_test, score, used
 
-    def add_test_variants(self, links, agent, facts=(), trim_unset_variables=False, trim_missing_requirements=False):
+    def add_test_variants(self, links, agent, facts=(), trim_unset_variables=False, trim_missing_requirements=False, operation=None):
         link_variants = []
         for link in links:
             test = agent.replace(link.command)
@@ -110,10 +133,9 @@ class BasePlanningService:
 
             if trim_unset_variables:
                 combos = [combo for combo in combos if not self._has_unset_variables(combo, variables)]
-            
-            # The following is important for the case where requirements are defined in the ability:
-            # if trim_missing_requirements:
-            #     combos = [combo for combo in combos if not self._is_missing_requirements(link, combo, operation)]
+    
+            if trim_missing_requirements:
+                combos = [combo for combo in combos if not self._is_missing_requirements(link, combo, operation)]
             
             for combo in combos:
                 try:
