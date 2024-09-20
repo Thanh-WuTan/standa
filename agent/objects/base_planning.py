@@ -90,7 +90,7 @@ class BasePlanningService:
                 module = req_inst['module'].split('.')
                 plugin = module[1]
                 requirement_name = module[-1]
-                requirements_info = dict(module=plugin + '.' + requirement_name, enforcements=rel_match)
+                requirements_info = dict(module="requirements." + plugin + '.' + requirement_name, enforcements=rel_match)
                 cache_key = str(requirements_info)
                 try:
                     if cache_key not in self._cached_requirement_modules:
