@@ -30,7 +30,7 @@ class Operation:
                 executor = Executor(name = ex['name'], platform = ex['platform'], command = ex['command'],
                                     parsers = ex['parsers'], timeout = ex['timeout'], payloads = ex['payloads'])
                 
-                ex_link = Link(command=ex['command'], ability=ability, executor=executor)
+                ex_link = Link(command=ex['command'], ability=ability, executor=executor, paw=agent.paw)
                 
                 valid_links = bps.add_test_variants(links=[ex_link], agent=agent, facts=source.facts, 
                                                     trim_unset_variables=True, trim_missing_requirements=True,

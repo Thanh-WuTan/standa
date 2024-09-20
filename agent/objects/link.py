@@ -3,7 +3,7 @@ from importlib import import_module
 from objects.fact import *
 
 class Link:
-    def __init__(self, host = None, command = '', ability = None, executor = None, score = 0, relationships = [], used = None):
+    def __init__(self, host = None, command = '', ability = None, executor = None, score = 0, relationships = [], used = None, paw = ''):
         self.host = host
         self.command = command
         self.ability = ability
@@ -12,6 +12,7 @@ class Link:
         self.relationships = relationships
         self.used = used if used else []
         self.facts = []
+        self.paw = paw
 
     @staticmethod
     def _load_module(module_type, module_info):
