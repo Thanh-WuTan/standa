@@ -59,7 +59,7 @@ class Operation:
                 print("+" * 40)
 
                 stdout, stderr = ex.run_command()
-                learner._save(link, stdout, stderr, source)
+                learner._save(link, stdout, stderr, self)
                 
                 print(f"\n{'='*40}")
                 print(f"Command Executed Successfully!")
