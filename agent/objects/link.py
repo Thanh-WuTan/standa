@@ -57,11 +57,13 @@ class Link:
                     existing_fact = f
                     break
             if not existing_fact:
-                f_gen = Fact(trait=fact.trait, value=fact.value, score=score, relationships=rl, collected_by=[self.paw])
+                f_gen = Fact(trait=fact.trait, value=fact.value, score=score, relationships=rl, 
+                             collected_by=[self.paw], technique=self.ability['technique_id'])
                 self.facts.append(f_gen)
                 all_facts.add(f_gen)
             else:
                 all_facts.remove(existing_fact) 
+                existing_fact.techinque = self.ability['technique_id']
                 if relationship not in existing_fact.relationships:
                     existing_fact.relationships.append(relationship)
                 if self.paw not in existing_fact.collected_by and existing_fact not in self.used:

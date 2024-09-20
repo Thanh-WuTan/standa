@@ -16,12 +16,13 @@ escape_ref = {
 }
 
 class Fact:
-    def __init__(self, trait, value = None, score = 1, relationships = [], collected_by = []):
+    def __init__(self, trait, value = None, score = 1, relationships = [], collected_by = [], technique = None):
         self.trait = trait
         self.value = value
         self.score = score
         self.relationships = relationships  
         self.collected_by = collected_by
+        self.technique = technique
 
     @staticmethod
     def hash(s):
