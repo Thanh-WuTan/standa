@@ -32,8 +32,7 @@ class Learner:
 
     def learn(self, source, link, blob):
         facts = source.facts
-        found_facts = []
-        print("learn is called")
+        found_facts = [] 
         for parser in self.parsers:
             try:
                 for fact in parser.parse(blob):
