@@ -101,6 +101,19 @@ class StandaService:
                                    os.path.join(parsers_dir, plugin, parser_name))
         return parsers_dir
     
+    async def create_requirements_dir(self, temp_dir, abilities):
+        requirements_dir = os.path.join(temp_dir, 'requirements')
+        os.makedirs(requirements_dir, exist_ok=True)
+        for ability in abilities:
+            for requirement in ability['requirements']:
+                module = requirement['module'].split('.')
+                plugin = module[1]
+                requirement_name = module[-1] + '.py'
+                os.makedirs(os.path.join(requirements_dir, plugin), exist_ok=True)
+                await self.copy_file(os.path.join(PWD, 'requirements', plugin, requirement_name),
+                                     os.path.join(requirements_dir, plugin, requirement_name))
+        return requirements_dir
+
     async def copy_file(self, source, destination):
         try:
             with open(destination, 'wb') as dest_file:
@@ -128,6 +141,7 @@ class StandaService:
         abilities_dir = await self.create_abilities_dir(temp_dir, abilities)
         payloads_dir = await self.create_payloads_dir(temp_dir, abilities)
         parsers_dir = await self.create_parsers_dir(temp_dir, abilities)
+        requirements_dir = await self.create_requirements_dir(temp_dir, abilities)
         objects_dir = await self.copy_folder(temp_dir, 'objects')
         learning_dir = await self.copy_folder(temp_dir, 'learning')
         sources_dir = await self.copy_folder(temp_dir, 'sources')
@@ -140,7 +154,7 @@ class StandaService:
         with open(main_agent_file, 'w') as f:
             f.write(content)
 
-        directories = [abilities_dir, payloads_dir, objects_dir, parsers_dir, learning_dir, sources_dir]
+        directories = [abilities_dir, payloads_dir, objects_dir, parsers_dir, requirements_dir, learning_dir, sources_dir]
         
         # Create the zip file
         zip_path = os.path.join(temp_dir, adversary_id + ".zip")
