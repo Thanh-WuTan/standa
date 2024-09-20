@@ -153,9 +153,7 @@ class BasePlanningService:
                     copy_link.used.extend(used) 
                     link_variants.append(copy_link)
                 except Exception as ex:
-                    print("!!!!!!!")
-                    print("Error: ", ex)
-                    print("!!!!!!!") 
+                    print(f"Error while adding test variants: {ex}")
         
         if trim_unset_variables:
             links = self.remove_links_with_unset_variables(links)
