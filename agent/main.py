@@ -43,7 +43,7 @@ def Read_Abilities():
     return abilities
 
 if __name__ == '__main__':
-    adversary = Adversary(adversary = ADV_ID, abilities=Read_Abilities())
+    adversary = Adversary(adversary_id = ADV_ID, abilities=Read_Abilities())
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
     agent = Agent(platform=platform.system(), uuid_mapper=uuid_mapper) 
     source = Init_Source() 
