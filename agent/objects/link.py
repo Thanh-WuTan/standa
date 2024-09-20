@@ -26,29 +26,29 @@ class Link:
         p_inst = self._load_module('Parser', parser_info)
         return p_inst.parse(blob=blob)
 
-    def parse(self, result, source = None):
-        source_facts = list(source.facts) if source else self.facts
+    def parse(self, result, operation):
+        all_facts = operation.all_facts()
         for parser in self.executor.parsers:
             try:
-                relationships = self._parse_link_result(result, parser, source_facts)
+                relationships = self._parse_link_result(result, parser, all_facts)
                 if len(relationships) > 0 and relationships[0] == PARSER_SIGNALS_FAILURE:
                     relationships = []  # Reset relationships if the parser signals failure
                 else:
-                    self.create_relationships(relationships, source)
-                update_scores(increment=len(relationships), used=self.used, source = source)
+                    self.create_relationships(relationships, operation)
+                update_scores(increment=len(relationships), used=self.used, source = operation)
             except Exception as e:
                 print("Error in %s while parsing ability %s: %s" % (parser['module'], self.ability['ability_id'], e))
 
-    def create_relationships(self, relationships, source):
+    def create_relationships(self, relationships, operation):
         for relationship in relationships:
-            self.save_fact(relationship.source, relationship.score, relationship.shorthand, source)
-            self.save_fact(relationship.target, relationship.score, relationship.shorthand, source)
+            self.save_fact(relationship.source, relationship.score, relationship.shorthand, operation)
+            self.save_fact(relationship.target, relationship.score, relationship.shorthand, operation)
             if all((relationship.source.trait, relationship.edge)):
                 self.relationships.append(relationship)
-                source.relationships.add(relationship)
+                operation.source.relationships.add(relationship)
 
-    def save_fact(self, fact, score, relationship, source):
-        all_facts = source.facts if source else self.facts
+    def save_fact(self, fact, score, relationship, operation):
+        all_facts = operation.all_facts()
         rl = [relationship] if relationship else []
         if all([fact.trait, fact.value]):
             existing_fact = None
@@ -71,13 +71,12 @@ class Link:
                 existing_local_record = [x for x in self.facts if x.trait == fact.trait and x.value == fact.value]
                 if not existing_local_record:
                     self.facts.append(existing_fact)
-        if source:
-            source.facts = all_facts
+        operation.source.facts = all_facts
 
 
-def update_scores(increment, used, source):
+def update_scores(increment, used, operation):
     for uf in used:
-        for found_fact in source.facts:
+        for found_fact in operation.source.facts:
             if found_fact.unique == uf.unique:
                 found_fact.score += increment
                 break 

@@ -30,8 +30,8 @@ class Learner:
                         self.model.add(variables)
         self.model = set(self.model)
 
-    def learn(self, source, link, blob):
-        facts = source.facts
+    def learn(self, operation, link, blob):
+        facts = operation.all_facts()
         found_facts = [] 
         for parser in self.parsers:
             try:
@@ -39,16 +39,16 @@ class Learner:
                     found_facts.append(fact)
             except Exception as e:
                 print("Error: ", e)
-        update_scores(increment=len(found_facts), used=facts, source=source)
-        self._store_results(link, found_facts, source)
+        update_scores(increment=len(found_facts), used=facts, operation=operation)
+        self._store_results(link, found_facts, operation)
 
-    def _save(self, link, stdout, stderr, source):
+    def _save(self, link, stdout, stderr, operation):
         if link.executor.parsers:
-            link.parse(result = stdout, source = source)
+            link.parse(result=stdout, operation=operation)
         else: 
-            self.learn(source, link, stdout)
+            self.learn(operation, link, stdout)
 
-    def _store_results(self, link, facts, source):
+    def _store_results(self, link, facts, operation):
         facts_covered = []
         for relationship in self.model:
             matches = []
@@ -60,4 +60,4 @@ class Learner:
                 if pair[0].trait != pair[1].trait:
                     link.create_relationships([Relationship(source=pair[0], edge='has', target=pair[1])])
         for f in [x for x in facts if x not in facts_covered]:
-            link.save_fact(fact=f, score=1, relationship=[], source=source)
+            link.save_fact(fact=f, score=1, relationship=[], operation=operation)
