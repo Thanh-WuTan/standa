@@ -12,11 +12,12 @@ class Agent:
                     exe_name='#{exe_name}', upstream_dest='#{upstream_dest}',
                     payload=re.compile('#{payload:(.*?)}', flags=re.DOTALL))
     
-    def __init__(self, platform = "unknown", privilege = 0, uuid_mapper = None):
+    def __init__(self, platform = "unknown", server = "unknown", privilege = 0, uuid_mapper = None):
         self.platform = platform.lower()
         self.executors = ['sh'] if self.platform == 'linux' else ['psh', 'cmd']
         self.privilege = privilege
         self.paw = self.generate_name(size=6)
+        self.server = server
         self.uuid_mapper = uuid_mapper
 
     @staticmethod
@@ -60,9 +61,9 @@ class Agent:
 
 
     def replace(self, command):
-        # command = command.replace(self.RESERVED['server'], self.server)
+        command = command.replace(self.RESERVED['server'], self.server)
+        command = command.replace(self.RESERVED['agent_paw'], self.paw)
         # command = command.replace(self.RESERVED['group'], self.group)
-        # command = command.replace(self.RESERVED['agent_paw'], self.paw)
         # command = command.replace(self.RESERVED['location'], self.location)
         # command = command.replace(self.RESERVED['exe_name'], self.exe_name)
         # command = command.replace(self.RESERVED['upstream_dest'], self.upstream_dest)
