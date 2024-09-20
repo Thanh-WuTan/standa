@@ -45,6 +45,7 @@ class Link:
             self.save_fact(relationship.target, relationship.score, relationship.shorthand, source)
             if all((relationship.source.trait, relationship.edge)):
                 self.relationships.append(relationship)
+                source.relationships.add(relationship)
 
     def save_fact(self, fact, score, relationship, source):
         all_facts = source.facts if source else self.facts

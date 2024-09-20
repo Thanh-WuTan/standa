@@ -16,6 +16,10 @@ class Operation:
     def all_facts(self):
         return self.source.facts
 
+    def all_relationships(self):
+        return self.source.relationships
+
+
     def run(self):
         bps = BasePlanningService()
         agent = self.agents[0]
