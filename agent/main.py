@@ -11,6 +11,7 @@ from objects.source import *
 from objects.fact import *
 from objects.executor import *
 from objects.learner import * 
+from objects.adversary import *
 
 ADV_ID = 'adversary_id'
 PWD = os.path.dirname(__file__)
@@ -46,15 +47,16 @@ def Read_Abilities():
     return abilities
 
 def main():
+    adversary = Adversary(adversary = ADV_ID, abilities=Read_Abilities())
     agent = Agent(platform=platform.system()) 
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
     bps = BasePlanningService()
     source = Init_Source() 
-    abilities = Read_Abilities()
     learner = Learner()
-    learner.build_model(abilities)
+    learner.build_model(adversary.abilities)
   
-    for ability in abilities:
+    
+    for ability in adversary.abilities:
         if not agent.is_capable_to_run(ability):
             continue        
       
