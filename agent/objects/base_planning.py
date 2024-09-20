@@ -183,7 +183,7 @@ class BasePlanningService:
         if limiter[0] == 'max':
             return sorted([f for f in facts if f.trait == trait], key=lambda k: (-k.score))[:int(limiter[1])]
         if limiter[0] == 'technique':
-            return [f for f in facts if f.technique_id == limiter[1]]
+            return [f for f in facts if f.technique == limiter[1]]
 
     @staticmethod
     def remove_links_with_unset_variables(links):
