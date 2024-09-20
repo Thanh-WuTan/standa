@@ -2,7 +2,7 @@ from requirements.stockpile.base_requirement import BaseRequirement
 
 class Requirement(BaseRequirement):
 
-    async def enforce(self, link, operation):
+    def enforce(self, link, operation):
         """
         Given a link, check if any of the used facts must comply with paw provenance requirements
         :param link

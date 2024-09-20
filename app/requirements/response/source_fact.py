@@ -2,7 +2,7 @@ from requirements.response.base_requirement import BaseRequirement
 
 class Requirement(BaseRequirement):
 
-    async def enforce(self, link, operation):
+    def enforce(self, link, operation):
         """
         Given a link and the current operation, check if the link's used fact is from the operation's fact source.
         :param link

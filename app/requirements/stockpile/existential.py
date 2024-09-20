@@ -4,7 +4,7 @@ from requirements.stockpile.base_requirement import BaseRequirement
 
 class Requirement(BaseRequirement):
 
-    async def enforce(self, link, operation):
+    def enforce(self, link, operation):
         """
         Given a link and the current operation, check that the operation's knowledge base contains
         at least one fact (and edge) that complies with the requirement.
@@ -12,7 +12,7 @@ class Requirement(BaseRequirement):
         :param operation
         :return: True if it complies, False if it doesn't
         """
-        facts = await operation.all_facts()
+        facts = operation.all_facts()
         filtered_facts = [fact for fact in facts if fact.trait == self.enforcements['source'] and
                                                     link.paw in fact.collected_by]
         if self.enforcements.get('edge', None):

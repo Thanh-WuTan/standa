@@ -2,7 +2,7 @@ from requirements.stockpile.base_requirement import BaseRequirement
 
 class Requirement(BaseRequirement):
 
-    async def enforce(self, link, operation):
+    def enforce(self, link, operation):
         """
         Given a link and the current operation, ensures that a the link does NOT contain any relationships
         that align with the enforcement mechanism
@@ -10,7 +10,7 @@ class Requirement(BaseRequirement):
         :param operation
         :return: True if it complies, False if it doesn't
         """
-        relationships = await operation.all_relationships()
+        relationships = operation.all_relationships()
         for uf in link.used:
             if self.enforcements['source'] == uf.trait:
                 for r in self._get_relationships(uf, relationships):

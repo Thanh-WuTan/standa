@@ -2,7 +2,7 @@ from requirements.stockpile.base_requirement import BaseRequirement
 
 class Requirement(BaseRequirement):
 
-    async def enforce(self, link, operation):
+    def enforce(self, link, operation):
         """
         Given a link and the current operation, ensure that the link does not result in lateral movement onto hosts that
         have already been compromised. The enforcement mechanism is defined per ability
@@ -11,7 +11,7 @@ class Requirement(BaseRequirement):
         :param operation
         :return: True if it complies, False if it doesn't
         """
-        all_hostnames = [agent.host.lower() for agent in await operation.active_agents()]
+        all_hostnames = [agent.host.lower() for agent in operation.active_agents()]
         for uf in link.used:
             if self.enforcements['source'] == uf.trait:
                 target_name = uf.value.split('.')[0].lower()

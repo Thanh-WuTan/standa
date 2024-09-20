@@ -4,7 +4,7 @@ from requirements.stockpile.base_requirement import BaseRequirement
 
 class Requirement(BaseRequirement):
 
-    async def enforce(self, link, operation):
+    def enforce(self, link, operation):
         """
         Given a link and the current operation, check that all facts of a specified type in the
         operation have a specified edge.
@@ -12,7 +12,7 @@ class Requirement(BaseRequirement):
         :param operation
         :return: True if it complies, False if it doesn't
         """
-        facts = await operation.all_facts()
+        facts = operation.all_facts()
         matching_facts = [fact for fact in facts if fact.trait == self.enforcements['source'] and
                                                     link.paw in fact.collected_by]
         matching_edges = [fact for fact in matching_facts if self._in_relationship_substring(self.enforcements['edge'], fact.relationships)]
