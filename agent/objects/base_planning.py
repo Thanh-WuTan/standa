@@ -87,17 +87,19 @@ class BasePlanningService:
         """
         for req_inst in link.ability['requirements']:
             for rel_match in req_inst['relationship_match']:
-                requirements_info = dict(module=req_inst['module'], enforcements=rel_match)
+                module = req_inst['module'].split('.')
+                plugin = module[1]
+                requirement_name = module[-1]
+                requirements_info = dict(module=plugin + '.' + requirement_name, enforcements=rel_match)
                 cache_key = str(requirements_info)
-                print(cache_key)
-                # try:
-                #     if cache_key not in self._cached_requirement_modules:
-                #         self._cached_requirement_modules[cache_key] = self.load_module('Requirement', requirements_info)
-                #     requirement = self._cached_requirement_modules[cache_key]
-                #     if not requirement.enforce(link, operation):
-                #         return False
-                # except Exception as e:
-                #     print("Error while do enforement: ", e)
+                try:
+                    if cache_key not in self._cached_requirement_modules:
+                        self._cached_requirement_modules[cache_key] = self.load_module('Requirement', requirements_info)
+                    requirement = self._cached_requirement_modules[cache_key]
+                    if not requirement.enforce(link, operation):
+                        return False
+                except Exception as e:
+                    print("Error while do enforement: ", e)
         return True
 
     @staticmethod
