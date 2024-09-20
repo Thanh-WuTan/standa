@@ -1,0 +1,5 @@
+facts:
+- trait: file.sensitive.extension
+  value: py
+id: abcdefgh-4cd7-5fb7-9424-ae23f61218be
+name: Thief
