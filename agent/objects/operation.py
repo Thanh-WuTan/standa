@@ -13,6 +13,8 @@ class Operation:
         self.source = source
         self.learner = learner  
     
+    def all_facts(self):
+        return self.source.facts
 
     def run(self):
         bps = BasePlanningService()
