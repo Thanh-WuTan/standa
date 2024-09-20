@@ -1,7 +1,7 @@
 from plugins.standa.app.api import StandaApi
 
-name = 'Abilities'
-description = 'A sample plugin for demonstration purposes'
+name = 'Standa'
+description = 'A plugin that auto-generates stand-alone agents from selected adversary profile, enabling agents to operate independently from the Caldera C2 server.'
 address = '/plugin/standa/gui'
 
 
