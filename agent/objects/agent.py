@@ -1,4 +1,8 @@
 import re
+import string
+
+from random import randint, choice
+
 
 class Agent: 
 
@@ -12,7 +16,12 @@ class Agent:
         self.platform = platform.lower()
         self.executors = ['sh'] if self.platform == 'linux' else ['psh', 'cmd']
         self.privilege = privilege
+        self.paw = self.generate_name(size=6)
         self.uuid_mapper = uuid_mapper
+
+    @staticmethod
+    def generate_name(size=16):
+        return ''.join(choice(string.ascii_lowercase) for _ in range(size))
     
     def find_executors(self, ability):
         executors = []
