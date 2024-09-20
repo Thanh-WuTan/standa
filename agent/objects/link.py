@@ -35,7 +35,7 @@ class Link:
                     relationships = []  # Reset relationships if the parser signals failure
                 else:
                     self.create_relationships(relationships, operation)
-                update_scores(increment=len(relationships), used=self.used, source = operation)
+                update_scores(increment=len(relationships), used=self.used, operation=operation)
             except Exception as e:
                 print("Error in %s while parsing ability %s: %s" % (parser['module'], self.ability['ability_id'], e))
 
