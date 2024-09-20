@@ -104,6 +104,15 @@ class StandaService:
     async def create_requirements_dir(self, temp_dir, abilities):
         requirements_dir = os.path.join(temp_dir, 'requirements')
         os.makedirs(requirements_dir, exist_ok=True)
+        
+        os.makedirs(os.path.join(requirements_dir, 'response'), exist_ok=True) 
+        await self.copy_file(os.path.join(PWD, 'requirements', 'response', 'base_requirement.py'),
+                             os.path.join(requirements_dir, 'response', 'base_requirement.py'))
+       
+        os.makedirs(os.path.join(requirements_dir, 'stockpile'), exist_ok=True)       
+        await self.copy_file(os.path.join(PWD, 'requirements', 'stockpile', 'base_requirement.py'),
+                             os.path.join(requirements_dir, 'stockpile', 'base_requirement.py'))
+
         for ability in abilities:
             for requirement in ability['requirements']:
                 module = requirement['module'].split('.')
@@ -112,6 +121,8 @@ class StandaService:
                 os.makedirs(os.path.join(requirements_dir, plugin), exist_ok=True)
                 await self.copy_file(os.path.join(PWD, 'requirements', plugin, requirement_name),
                                      os.path.join(requirements_dir, plugin, requirement_name))
+
+        
         return requirements_dir
 
     async def copy_file(self, source, destination):
