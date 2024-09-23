@@ -131,7 +131,15 @@ class StandaService:
         sources_dir = os.path.join(temp_dir, 'sources')
         os.makedirs(sources_dir, exist_ok=True)
         try:
-            source = await self.data_svc.locate('sources', match=dict(source_id=source_id))[0].display
+            sources = [s.display for s in await self.data_svc.locate('sources')]
+            source = None
+            for s in sources:
+                if s['id'] == source_id:
+                    source = s
+                    break
+            if source is None:
+                print(f"Source '{source_id}' not found.")
+                return None
             source_file = os.path.join(sources_dir, '{source_id}.yml'.format(source_id=source_id))
             with open(source_file, 'w') as f:
                 yaml.dump(source, f)
