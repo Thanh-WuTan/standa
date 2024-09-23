@@ -15,9 +15,6 @@ class StandaApi:
             adversary_id = request.query.get('adversary')
             source_id = request.query.get('source')
             platform = request.query.get('platform')
-            print("adversary_id: ", adversary_id)
-            print("source_id: ", source_id)
-            print("platform: ", platform)
             if not adversary_id or not source_id or not platform:
                 return web.HTTPBadRequest(reason="Missing required query parameters")
             zip_path = await self.myplugin_svc.download_standalone_agent(adversary_id, source_id, platform)

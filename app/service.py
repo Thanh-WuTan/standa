@@ -33,7 +33,11 @@ class StandaService:
         return temp_dir
     
     async def get_atomic_ordering(self, adversary_id):
-        adversary = await self.data_svc.locate('adversaries', match=dict(adversary_id=adversary_id))
+        try:
+            adversary = await self.data_svc.locate('adversaries', match=dict(adversary_id=adversary_id))
+        except Exception as e:
+            print(f"Error locating adversary '{adversary_id}': {e}")
+            return None
         if not adversary:
             return None
         profile = adversary[0].display
@@ -121,9 +125,20 @@ class StandaService:
                 os.makedirs(os.path.join(requirements_dir, plugin), exist_ok=True)
                 await self.copy_file(os.path.join(PWD, 'requirements', plugin, requirement_name),
                                      os.path.join(requirements_dir, plugin, requirement_name))
-
-        
         return requirements_dir
+
+    async def create_sources_dir(self, temp_dir, source_id):
+        sources_dir = os.path.join(temp_dir, 'sources')
+        os.makedirs(sources_dir, exist_ok=True)
+        try:
+            source = await self.data_svc.locate('sources', match=dict(source_id=source_id))[0].display
+            source_file = os.path.join(sources_dir, '{source_id}.yml'.format(source_id=source_id))
+            with open(source_file, 'w') as f:
+                yaml.dump(source, f)
+        except Exception as e:
+            print(f"Error locating source '{source_id}': {e}")
+            return None
+        return sources_dir
 
     async def copy_file(self, source, destination):
         try:
@@ -153,15 +168,16 @@ class StandaService:
         payloads_dir = await self.create_payloads_dir(temp_dir, abilities)
         parsers_dir = await self.create_parsers_dir(temp_dir, abilities)
         requirements_dir = await self.create_requirements_dir(temp_dir, abilities)
+        sources_dir = await self.create_sources_dir(temp_dir, source_id)
         objects_dir = await self.copy_folder(temp_dir, 'objects')
         learning_dir = await self.copy_folder(temp_dir, 'learning')
-        sources_dir = await self.copy_folder(temp_dir, 'sources')
         
         main_agent_file = await self.copy_file(os.path.join(MYAGENT_DIR, 'main.py'), os.path.join(temp_dir, 'main.py'))
 
         with open(main_agent_file, 'r') as f:
             content = f.read() 
         content = content.replace("ADV_ID = 'adversary_id'", f"ADV_ID = '{adversary_id}'")
+        content = content.replace("platform='selected_platform'", f"platform='{platform}'")
         with open(main_agent_file, 'w') as f:
             f.write(content)
 
