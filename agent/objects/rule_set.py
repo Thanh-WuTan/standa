@@ -1,11 +1,13 @@
-import re
-from enum import Enum
+import re 
 import ipaddress
 
 
-class RuleAction(Enum):
+class RuleAction():
     ALLOW = 1
     DENY = 0
+    def __init__(self, value, name):
+        self.value = value
+        self.name = name
 
 
 class Rule:
@@ -50,7 +52,7 @@ class RuleSet:
 
     @staticmethod
     def _rule_judgement(action):
-        if action.value == RuleAction.DENY.value:
+        if action.value == RuleAction.DENY:
             return False
         return True
 

@@ -35,7 +35,9 @@ def Init_Source():
         source.relationships = content['relationships']
         source.rules = []
         for r in content['rules']:
-            rule = Rule(action=r['action'], trait=r['trait'], match=r['match'])
+            name = r['action']
+            value = 1 if name == 'ALLOW' else 0
+            rule = Rule(action=RuleAction(value=value, name=name), trait=r['trait'], match=r['match'])
             source.rules.append(rule)
     return source
 
@@ -54,6 +56,7 @@ if __name__ == '__main__':
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
     agent = Agent(platform='linux', uuid_mapper=uuid_mapper) 
     source = Init_Source() 
+    
     learner = Learner()
     learner.build_model(adversary.abilities)
     operation = Operation(adversary=adversary, agents=[agent], source=source, learner=learner)
