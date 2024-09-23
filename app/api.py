@@ -12,8 +12,15 @@ class StandaApi:
     @check_authorization
     async def download(self, request):
         try:
-            adversary_id = request.match_info.get('adversary_id')
-            zip_path = await self.myplugin_svc.download_standalone_agent(adversary_id)
+            adversary_id = request.query.get('adversary')
+            source_id = request.query.get('source')
+            platform = request.query.get('platform')
+            print("adversary_id: ", adversary_id)
+            print("source_id: ", source_id)
+            print("platform: ", platform)
+            if not adversary_id or not source_id or not platform:
+                return web.HTTPBadRequest(reason="Missing required query parameters")
+            zip_path = await self.myplugin_svc.download_standalone_agent(adversary_id, source_id, platform)
             if not zip_path:
                 return web.Response(text='Agent not found', status=404)
             return web.FileResponse(zip_path, headers={
@@ -26,5 +33,8 @@ class StandaApi:
     @check_authorization
     @template('standa.html')
     async def splash(self, request):
-        adversaries = await self.services.get('data_svc').locate('adversaries')
-        return(dict(adversaries=[a.display for a in adversaries]))
+        adversaries = [a.display for a in await self.services.get('data_svc').locate('adversaries')]
+        sources = [s.display for s in await self.services.get('data_svc').locate('sources')]
+
+        return dict(adversaries=adversaries, sources=sources)
+        

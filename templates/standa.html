@@ -5,23 +5,51 @@
 
     <hr>
 
-    <!-- ADVERSARY SELECTION -->
+    <!-- ADVERSARY SELECTION --> 
     <form autocomplete="off">
         <div id="select-adversary" class="field has-addons">
-            <label class="label" for="profile-select">Select a profile &nbsp;&nbsp;&nbsp;</label>
+            <label class="label" for="profile-select">Select an adversary profile &nbsp;&nbsp;&nbsp;</label>
             <div class="control is-expanded">
                 <div class="select is-fullwidth">
                     <select id="profile-select" x-model="selectedAdversary">
                         <option value="None">Select an adversary profile</option>
                         {% for adv in adversaries %}
-                        <option value={{ adv.adversary_id }}> {{ adv.name }}</option>
+                        <option value="{{ adv.adversary_id }}"> {{ adv.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
         </div>
-    </form>
 
+        <!-- SOURCE SELECTION -->
+        <div id="select-source" class="field has-addons">
+            <label class="label" for="source-select">Select a source &nbsp;&nbsp;&nbsp;</label>
+            <div class="control is-expanded">
+                <div class="select is-fullwidth">
+                    <select id="source-select" x-model="selectedSource">
+                        <option value="None">Select a source</option>
+                        {% for source in sources %}
+                        <option value="{{ source.id }}">{{ source.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- PLATFORM SELECTION -->
+        <div id="select-platform" class="field has-addons">
+            <label class="label" for="platform-select">Select a platform &nbsp;&nbsp;&nbsp;</label>
+            <div class="control is-expanded">
+                <div class="select is-fullwidth">
+                    <select id="platform-select" x-model="selectedPlatform">
+                        <option value="None">Select a platform</option>
+                        <option value="windows">Windows</option>
+                        <option value="linux">Linux</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
     <!-- DOWNLOAD BUTTON -->
     <div class="button-container">
         <button class="mybutton" id="downloadButton">Download</button>
@@ -38,9 +66,10 @@
         border: 0 !important;
     }
 
-    #select-adversary {
+    #select-adversary, #select-source, #select-platform {
         max-width: 800px;
         margin: 0 auto;
+        margin-bottom: 15px;
     }
 
     .code {
@@ -92,14 +121,19 @@
 
 <script>
     document.getElementById('downloadButton').addEventListener('click', function() {
-        const selectElement = document.getElementById('profile-select');
-        const adversaryId = selectElement.value;
+        const adversaryElement = document.getElementById('profile-select');
+        const sourceElement = document.getElementById('source-select');
+        const platformElement = document.getElementById('platform-select');
+        
+        const adversaryId = adversaryElement.value;
+        const sourceId = sourceElement.value;
+        const platform = platformElement.value;
 
-        if (adversaryId !== "None") {
-            const url = `/plugin/standa/download/${adversaryId}`;
+        if (adversaryId !== "None" && sourceId !== "None" && platform !== "None") {
+            const url = `/plugin/standa/download?adversary=${adversaryId}&source=${sourceId}&platform=${platform}`;
             window.location.href = url;
         } else {
-            alert('Please select an adversary profile.');
+            alert('Please select an adversary profile, source, and platform.');
         }
     });
 </script>

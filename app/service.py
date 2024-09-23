@@ -146,7 +146,7 @@ class StandaService:
                 await self.copy_file(source_file, destination_file)
         return destination_dir
 
-    async def download_standalone_agent(self, adversary_id):
+    async def download_standalone_agent(self, adversary_id, source_id, platform):
         temp_dir = await self.create_tmp_dir()
         abilities = await self.get_atomic_ordering(adversary_id)
         abilities_dir = await self.create_abilities_dir(temp_dir, abilities)

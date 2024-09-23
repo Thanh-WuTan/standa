@@ -9,4 +9,4 @@ async def enable(services):
     app = services.get('app_svc').application
     fetcher = StandaApi(services)
     app.router.add_route('*', '/plugin/standa/gui', fetcher.splash)  
-    app.router.add_route('GET', '/plugin/standa/download/{adversary_id}', fetcher.download)  
+    app.router.add_route('GET', '/plugin/standa/download', fetcher.download)
