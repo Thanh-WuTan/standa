@@ -10,7 +10,7 @@ from objects.operation import *
 from objects.learner import *
 from objects.rule_set import *
 
-ADV_ID = '1a98b8e6-18ce-4617-8cc5-e65a1a9d490e'
+ADV_ID = 'adversary_id'
 PWD = os.path.dirname(__file__)
 SOURCE_DIR = os.path.join(PWD, 'sources')
 ABILTIY_DIR = os.path.join(PWD, 'abilities')
@@ -54,7 +54,7 @@ def Read_Abilities():
 if __name__ == '__main__':
     adversary = Adversary(adversary_id = ADV_ID, abilities=Read_Abilities())
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
-    agent = Agent(platform='linux', uuid_mapper=uuid_mapper) 
+    agent = Agent(platform='selected_platform', uuid_mapper=uuid_mapper) 
     source = Init_Source() 
     
     learner = Learner()
