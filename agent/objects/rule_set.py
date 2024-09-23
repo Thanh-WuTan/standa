@@ -12,44 +12,44 @@ class RuleSet:
     def __init__(self, rules):
         self.rules = rules
 
-    async def is_fact_allowed(self, fact):
+    def is_fact_allowed(self, fact):
         allowed = True
-        for rule in await self._applicable_rules(fact):
-            if await self._is_ip_rule_match(rule, fact):
-                allowed = await self._rule_judgement(rule.action)
+        for rule in self._applicable_rules(fact):
+            if self._is_ip_rule_match(rule, fact):
+                allowed = self._rule_judgement(rule.action)
                 continue
-            if await self._is_regex_rule_match(rule, fact):
-                allowed = await self._rule_judgement(rule.action)
+            if self._is_regex_rule_match(rule, fact):
+                allowed = self._rule_judgement(rule.action)
         return allowed
 
-    async def _applicable_rules(self, fact):
+    def _applicable_rules(self, fact):
         applicable_rules = []
         for rule in self.rules:
             if rule.trait == fact.trait:
                 applicable_rules.append(rule)
         return applicable_rules
 
-    async def apply_rules(self, facts):
-        if await self._has_rules():
+    def apply_rules(self, facts):
+        if self._has_rules():
             valid_facts = []
             for fact in facts:
-                if await self.is_fact_allowed(fact):
+                if self.is_fact_allowed(fact):
                     valid_facts.append(fact)
-            return [valid_facts]
+            return valid_facts
         else:
-            return [facts]
+            return facts
 
-    async def _has_rules(self):
+    def _has_rules(self):
         return len(self.rules)
 
     @staticmethod
-    async def _rule_judgement(action):
+    def _rule_judgement(action):
         if action.value == RuleAction.DENY.value:
             return False
         return True
 
     @staticmethod
-    async def _is_ip_network(value):
+    def _is_ip_network(value):
         try:
             ipaddress.IPv4Network(value)
             return True
@@ -58,7 +58,7 @@ class RuleSet:
         return False
 
     @staticmethod
-    async def _is_ip_address(value):
+    def _is_ip_address(value):
         try:
             ipaddress.IPv4Address(value)
             return True
@@ -67,10 +67,10 @@ class RuleSet:
         return False
 
     @staticmethod
-    async def _is_regex_rule_match(rule, fact):
+    def _is_regex_rule_match(rule, fact):
         return re.match(rule.match, fact.value)
 
-    async def _is_ip_rule_match(self, rule, fact):
+    def _is_ip_rule_match(self, rule, fact):
         """ We only match string-equivalent IP addresses, string-equivalent subnets in CIDR notation, and IP address
         facts to the subnet rules where the address is a member of the subnet. Matching non-equivalent subnets is
         complicated, because of the following general case:
@@ -85,10 +85,10 @@ class RuleSet:
         This being the case, Caldera does not match on non-equivalent subnets.
         """
         if rule.match != '.*':
-            is_fact_address = await self._is_ip_address(fact.value)
-            is_fact_network = await self._is_ip_network(fact.value)
-            is_rule_address = await self._is_ip_address(rule.match)
-            is_rule_network = await self._is_ip_network(rule.match)
+            is_fact_address = self._is_ip_address(fact.value)
+            is_fact_network = self._is_ip_network(fact.value)
+            is_rule_address = self._is_ip_address(rule.match)
+            is_rule_network = self._is_ip_network(rule.match)
 
             if is_fact_address and is_rule_address:
                 return fact.value == rule.match

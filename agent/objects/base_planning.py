@@ -1,11 +1,11 @@
 import re
-import itertools
-import json
+import itertools 
 import copy
 import pickle
 
 from importlib import import_module
-from base64 import b64encode, b64decode
+from base64 import b64encode
+from objects.rule_set import *
 
 class BasePlanningService:
     # Matches facts/variables.
@@ -128,13 +128,16 @@ class BasePlanningService:
 
     def add_test_variants(self, links, agent, facts=(), rules=(), trim_unset_variables=False, trim_missing_requirements=False, operation=None):
         link_variants = []
-        # rule_set = RuleSet(rules=rules)
+        rule_set = RuleSet(rules=rules)
         for link in links:
             test = agent.replace(link.command)
             variables = set(x for x in re.findall(self.re_variable, test) if not self.is_global_variable(x, agent))
 
             relevant_facts = self._build_relevant_facts(variables, facts)
-            valid_facts = [self._trim_by_limit(test, (self.apply_rules(facts=fact_set))[0]) for fact_set in relevant_facts]
+            valid_facts = [self._trim_by_limit(
+                test,
+                (rule_set.apply_rules(facts=fact_set))[0]
+            ) for fact_set in relevant_facts]
             combos = list(itertools.product(*valid_facts))
 
             if trim_unset_variables:
