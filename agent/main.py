@@ -23,13 +23,15 @@ def read_yaml(filepath):
 
 def Init_Source():
     source = Source()
-    for filename in os.listdir(SOURCE_DIR):
+    for filename in os.listdir(SOURCE_DIR): # one source file
         assert(filename.endswith('.yml'))
         filepath = os.path.join(SOURCE_DIR, filename)
         content = read_yaml(filepath)
         for fact in content['facts']:
             f = Fact(trait=fact['trait'], value=fact['value'])
             source.facts.add(f)
+        source.relationships = content['relationships']
+        source.rules = content['rules']
     return source
 
 def Read_Abilities():

@@ -7,11 +7,14 @@ from objects.link import *
 
 
 class Operation:
-    def __init__(self, adversary=None, agents=None, source=None, learner=None):
+    def __init__(self, adversary=None, agents=None, source=None, learner=None, rules=[]):
         self.adversary = adversary
         self.agents = agents if agents else []
         self.source = source
         self.learner = learner  
+        self.rules = rules
+        if source:
+            self.rules = source.rules
     
     def all_facts(self):
         return self.source.facts
@@ -38,7 +41,7 @@ class Operation:
                 
                 ex_link = Link(command=ex['command'], ability=ability, executor=executor, paw=agent.paw)
                 
-                valid_links = bps.add_test_variants(links=[ex_link], agent=agent, facts=source.facts, 
+                valid_links = bps.add_test_variants(links=[ex_link], agent=agent, facts=source.facts, rules=self.rules,
                                                     trim_unset_variables=True, trim_missing_requirements=True,
                                                     operation=self)
                 

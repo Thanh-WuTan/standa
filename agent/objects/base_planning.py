@@ -126,8 +126,9 @@ class BasePlanningService:
     def apply_rules(self, facts):
         return [facts]
 
-    def add_test_variants(self, links, agent, facts=(), trim_unset_variables=False, trim_missing_requirements=False, operation=None):
+    def add_test_variants(self, links, agent, facts=(), rules=(), trim_unset_variables=False, trim_missing_requirements=False, operation=None):
         link_variants = []
+        # rule_set = RuleSet(rules=rules)
         for link in links:
             test = agent.replace(link.command)
             variables = set(x for x in re.findall(self.re_variable, test) if not self.is_global_variable(x, agent))
