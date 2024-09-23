@@ -8,8 +8,9 @@ from objects.adversary import *
 from objects.agent import *
 from objects.operation import *
 from objects.learner import *
+from objects.rule_set import *
 
-ADV_ID = 'adversary_id'
+ADV_ID = '1a98b8e6-18ce-4617-8cc5-e65a1a9d490e'
 PWD = os.path.dirname(__file__)
 SOURCE_DIR = os.path.join(PWD, 'sources')
 ABILTIY_DIR = os.path.join(PWD, 'abilities')
@@ -23,15 +24,19 @@ def read_yaml(filepath):
 
 def Init_Source():
     source = Source()
-    for filename in os.listdir(SOURCE_DIR): # one source file
+    for filename in os.listdir(SOURCE_DIR):
         assert(filename.endswith('.yml'))
         filepath = os.path.join(SOURCE_DIR, filename)
         content = read_yaml(filepath)
         for fact in content['facts']:
             f = Fact(trait=fact['trait'], value=fact['value'])
+            
             source.facts.add(f)
         source.relationships = content['relationships']
-        source.rules = content['rules']
+        source.rules = []
+        for r in content['rules']:
+            rule = Rule(action=r['action'], trait=r['trait'], match=r['match'])
+            source.rules.append(rule)
     return source
 
 def Read_Abilities():
@@ -47,9 +52,8 @@ def Read_Abilities():
 if __name__ == '__main__':
     adversary = Adversary(adversary_id = ADV_ID, abilities=Read_Abilities())
     uuid_mapper = json.load(open(os.path.join(PAYLOAD_DIR, 'uuid_mapper.json')))
-    agent = Agent(platform='selected_platform', uuid_mapper=uuid_mapper) 
+    agent = Agent(platform='linux', uuid_mapper=uuid_mapper) 
     source = Init_Source() 
-    
     learner = Learner()
     learner.build_model(adversary.abilities)
     operation = Operation(adversary=adversary, agents=[agent], source=source, learner=learner)

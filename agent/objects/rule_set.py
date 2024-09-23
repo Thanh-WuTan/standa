@@ -8,6 +8,12 @@ class RuleAction(Enum):
     DENY = 0
 
 
+class Rule:
+    def __init__(self, action='', trait='', match=''):
+        self.action = action
+        self.trait = trait
+        self.match = match
+
 class RuleSet:
     def __init__(self, rules):
         self.rules = rules
