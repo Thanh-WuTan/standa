@@ -136,7 +136,7 @@ class BasePlanningService:
             relevant_facts = self._build_relevant_facts(variables, facts)
             valid_facts = [self._trim_by_limit(
                 test,
-                (rule_set.apply_rules(facts=fact_set))[0]
+                (rule_set.apply_rules(facts=fact_set))
             ) for fact_set in relevant_facts]
             combos = list(itertools.product(*valid_facts))
 
