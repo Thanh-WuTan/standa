@@ -26,12 +26,17 @@ class Executor:
         return command
 
     def run_command(self):
-        if self.name == 'cmd' and self.platform == 'windows':
-            result = subprocess.run(['cmd', '/c', self.command], capture_output=True, text=True)
-        elif self.name == 'psh' and self.platform == 'windows':
-            result = subprocess.run(['powershell', '-Command', self.command], capture_output=True, text=True)
-        elif self.name == 'sh' and self.platform == 'linux':
-            result = subprocess.run(['sh', '-c', self.command], capture_output=True, text=True)
+        try:
+            if self.name == 'cmd' and self.platform == 'windows':
+                result = subprocess.run(['cmd', '/c', self.command], capture_output=True, text=True)
+            elif self.name == 'psh' and self.platform == 'windows':
+                result = subprocess.run(['powershell', '-Command', self.command], capture_output=True, text=True)
+            elif self.name == 'sh' and self.platform == 'linux':
+                result = subprocess.run(['sh', '-c', self.command], capture_output=True, text=True, timeout=self.timeout)
+            else:
+                raise ValueError(f"Unsupported executor or platform: {self.name} on {self.platform}")
+            return result.stdout, result.stderr
+        except subprocess.TimeoutExpired:
+            return "", 'Command execution timed out'
         else:
-            raise ValueError(f"Unsupported executor or platform: {self.name} on {self.platform}")
-        return result.stdout, result.stderr
+            return "", 'Command execution failed'
