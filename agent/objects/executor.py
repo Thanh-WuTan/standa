@@ -28,9 +28,9 @@ class Executor:
     def run_command(self):
         try:
             if self.name == 'cmd' and self.platform == 'windows':
-                result = subprocess.run(['cmd', '/c', self.command], capture_output=True, text=True)
+                result = subprocess.run(['cmd', '/c', self.command], capture_output=True, text=True, timeout=self.timeout)
             elif self.name == 'psh' and self.platform == 'windows':
-                result = subprocess.run(['powershell', '-Command', self.command], capture_output=True, text=True)
+                result = subprocess.run(['powershell', '-Command', self.command], capture_output=True, text=True, timeout=self.timeout)
             elif self.name == 'sh' and self.platform == 'linux':
                 result = subprocess.run(['sh', '-c', self.command], capture_output=True, text=True, timeout=self.timeout)
             else:
