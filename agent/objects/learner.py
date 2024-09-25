@@ -4,7 +4,7 @@ import itertools
 
 from importlib import import_module
 from objects.link import update_scores
-from objects.relationship import *
+from objects.relationship import Relationship
 
 class Learner:
 

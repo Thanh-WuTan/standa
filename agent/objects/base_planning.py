@@ -5,7 +5,7 @@ import pickle
 
 from importlib import import_module
 from base64 import b64encode
-from objects.rule_set import *
+from objects.rule_set import RuleSet
 
 class BasePlanningService:
     # Matches facts/variables.

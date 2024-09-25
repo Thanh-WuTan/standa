@@ -1,6 +1,6 @@
 from objects.base_parser import PARSER_SIGNALS_FAILURE
 from importlib import import_module
-from objects.fact import *
+from objects.fact import Fact
 
 class Link:
     def __init__(self, host = None, command = '', ability = None, executor = None, score = 0, relationships = [], used = None, paw = ''):

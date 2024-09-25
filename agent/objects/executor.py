@@ -2,7 +2,7 @@ import os
 import subprocess
 from main import ADV_ID
 
-from objects.result import *
+from objects.result import Result, get_current_timestamp
 
 class Executor:
     def __init__(self, name = 'unknown', platform = 'unknown', command = '', parsers = [], timeout = 10, payloads = []):
