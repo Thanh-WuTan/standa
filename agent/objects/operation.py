@@ -44,7 +44,8 @@ class Operation:
                     links = bps.sort_links(valid_links)
                     break
             ran_command = set()
-            procedure = []
+            procedure = {}
+            procedure["step"] = []
             for step_order, link in enumerate(links, start=1):
                 ex = link.executor
                 ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
