@@ -4,6 +4,7 @@ from main import PAYLOAD_DIR
 from objects.base_planning import *
 from objects.executor import *
 from objects.link import * 
+from objects.attire_logging import *
 
 
 class Operation:
@@ -23,7 +24,7 @@ class Operation:
         return self.source.relationships
 
     def run(self):
-        procedures = []
+        attire = Attire(agent=self.agents[0])
         bps = BasePlanningService()
         agent = self.agents[0]
         source = self.source
@@ -44,8 +45,7 @@ class Operation:
                     links = bps.sort_links(valid_links)
                     break
             ran_command = set()
-            procedure = {}
-            procedure["step"] = []
+            steps = []
             for step_order, link in enumerate(links, start=1):
                 ex = link.executor
                 ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
@@ -53,6 +53,8 @@ class Operation:
                     continue
                 ran_command.add(ex.command)
                 result = ex.run_command()
-                learner._save(link=link, result=result, operation=self, executor=ex, procedure=procedure, step_order=step_order)
-            procedures.append(procedure)
-     
+                steps.append(learner._save(link=link, result=result, operation=self, executor=ex, step_order=step_order))
+            attire.add_procedure(steps, ability, order)
+
+        with open(f"{agent.paw}.json", 'w') as file:
+            json.dump(attire.content, file, indent=4)

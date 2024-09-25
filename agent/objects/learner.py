@@ -42,7 +42,7 @@ class Learner:
         update_scores(increment=len(found_facts), used=facts, operation=operation)
         self._store_results(link, found_facts, operation)
 
-    def _save(self, link, result, operation, executor, procedure, step_order):
+    def _save(self, link, result, operation, executor, step_order):
         if link.executor.parsers:
             link.parse(result.stdout, operation)
         else: 
@@ -67,8 +67,7 @@ class Learner:
                 }
             ]
         }
-       
-        procedure['step'].append(step)
+        return step
 
 
     def _store_results(self, link, facts, operation):
