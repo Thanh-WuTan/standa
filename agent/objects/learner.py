@@ -42,11 +42,11 @@ class Learner:
         update_scores(increment=len(found_facts), used=facts, operation=operation)
         self._store_results(link, found_facts, operation)
 
-    def _save(self, link, stdout, stderr, operation):
+    def _save(self, link, result, operation):
         if link.executor.parsers:
-            link.parse(result=stdout, operation=operation)
+            link.parse(result.stdout, operation)
         else: 
-            self.learn(operation, link, stdout)
+            self.learn(operation, link, result.stdout)
 
     def _store_results(self, link, facts, operation):
         facts_covered = []

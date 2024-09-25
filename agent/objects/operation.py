@@ -51,7 +51,7 @@ class Operation:
                 if ex.command in ran_command:
                     continue
                 ran_command.add(ex.command)
-                stdout, stderr = ex.run_command()
-                learner._save(link, stdout, stderr, self)
+                result = ex.run_command()
+                learner._save(link, result, self)
             
             procedures.append(procedure)

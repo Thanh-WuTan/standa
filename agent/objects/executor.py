@@ -2,6 +2,8 @@ import os
 import subprocess
 from main import ADV_ID
 
+from object.result import *
+
 class Executor:
     def __init__(self, name = 'unknown', platform = 'unknown', command = '', parsers = [], timeout = 10, payloads = []):
         self.name = name
@@ -26,17 +28,24 @@ class Executor:
         return command
 
     def run_command(self):
+        time_start = get_current_timestamp().replace("Z", ".000Z")
         try:
             if self.name == 'cmd' and self.platform == 'windows':
-                result = subprocess.run(['cmd', '/c', self.command], capture_output=True, text=True, timeout=self.timeout)
+                res = subprocess.run(['cmd', '/c', self.command], capture_output=True, text=True, timeout=self.timeout)
             elif self.name == 'psh' and self.platform == 'windows':
-                result = subprocess.run(['powershell', '-Command', self.command], capture_output=True, text=True, timeout=self.timeout)
+                res = subprocess.run(['powershell', '-Command', self.command], capture_output=True, text=True, timeout=self.timeout)
             elif self.name == 'sh' and self.platform == 'linux':
-                result = subprocess.run(['sh', '-c', self.command], capture_output=True, text=True, timeout=self.timeout)
+                res = subprocess.run(['sh', '-c', self.command], capture_output=True, text=True, timeout=self.timeout)
             else:
                 raise ValueError(f"Unsupported executor or platform: {self.name} on {self.platform}")
-            return result.stdout, result.stderr
+            result = Result(time_start=time_start, time_stop=get_current_timestamp().replace("Z", ".000Z"), 
+                            stdout=res.stdout, stderr=res.stderr)
+            return result
         except subprocess.TimeoutExpired:
-            return "", 'Command execution timed out'
+            result = Result(time_start=time_start, time_stop=get_current_timestamp().replace("Z", ".000Z"), 
+                            stdout="", stderr="Command execution timed out")
+            return result
         else:
-            return "", 'Command execution failed'
+            result = Result(time_start=time_start, time_stop=get_current_timestamp().replace("Z", ".000Z"),
+                            stdout=res.stdout, stderr=res.stderr)
+            return result
