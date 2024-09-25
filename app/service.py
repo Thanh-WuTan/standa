@@ -29,6 +29,7 @@ class StandaService:
     async def create_tmp_dir(self):
         current_dir = os.path.dirname(__file__)
         tmp_parent_dir = os.path.join(current_dir, '..', 'tmp')
+        os.makedirs(tmp_parent_dir, exist_ok=True)
         temp_dir = tempfile.mkdtemp(dir=tmp_parent_dir)
         return temp_dir
     
