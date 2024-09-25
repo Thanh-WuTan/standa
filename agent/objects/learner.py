@@ -42,11 +42,34 @@ class Learner:
         update_scores(increment=len(found_facts), used=facts, operation=operation)
         self._store_results(link, found_facts, operation)
 
-    def _save(self, link, result, operation):
+    def _save(self, link, result, operation, executor, procedure, step_order):
         if link.executor.parsers:
             link.parse(result.stdout, operation)
         else: 
             self.learn(operation, link, result.stdout)
+        
+        step = {
+            "command": executor.command,
+            "executor": executor.name,
+            "order": step_order,
+            "time-start": result.time_start,
+            "time-stop": result.time_stop,
+            "output": [
+                {
+                    "content": result.stdout,
+                    "level": "STDOUT",
+                    "type": "console"
+                },
+                {
+                    "content": result.stderr,
+                    "level": "STDERR",
+                    "type": "console"
+                }
+            ]
+        }
+       
+        procedure['step'].append(step)
+
 
     def _store_results(self, link, facts, operation):
         facts_covered = []

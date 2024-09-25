@@ -52,6 +52,6 @@ class Operation:
                     continue
                 ran_command.add(ex.command)
                 result = ex.run_command()
-                learner._save(link, result, self)
-            
+                learner._save(link=link, result=result, operation=self, executor=ex, procedure=procedure, step_order=step_order)
             procedures.append(procedure)
+     
