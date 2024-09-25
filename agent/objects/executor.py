@@ -2,7 +2,7 @@ import os
 import subprocess
 from main import ADV_ID
 
-from object.result import *
+from objects.result import *
 
 class Executor:
     def __init__(self, name = 'unknown', platform = 'unknown', command = '', parsers = [], timeout = 10, payloads = []):
