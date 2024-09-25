@@ -1,3 +1,5 @@
+import json
+
 from objects.result import get_current_timestamp
 
 class Attire:
@@ -36,3 +38,8 @@ class Attire:
             "steps": steps
         }
         self.content["procedures"].append(procedure)
+
+    def create_attire_file(self):
+        with open('attire.json', 'w') as f:
+            json.dump(self.content, f, indent=4)
+        return True

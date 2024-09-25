@@ -55,6 +55,4 @@ class Operation:
                 result = ex.run_command()
                 steps.append(learner._save(link=link, result=result, operation=self, executor=ex, step_order=step_order))
             attire.add_procedure(steps, ability, order)
-
-        with open(f"{agent.paw}.json", 'w') as file:
-            json.dump(attire.content, file, indent=4)
+        attire.create_attire_file()
