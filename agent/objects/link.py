@@ -37,7 +37,7 @@ class Link:
                     self.create_relationships(relationships, operation)
                 update_scores(increment=len(relationships), used=self.used, operation=operation)
             except Exception as e:
-                print("Error in %s while parsing ability %s: %s" % (parser['module'], self.ability['ability_id'], e))
+                print("Error in %s while parsing: %s" % (parser['module'], e))
 
     def create_relationships(self, relationships, operation):
         for relationship in relationships:

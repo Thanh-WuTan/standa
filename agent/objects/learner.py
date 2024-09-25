@@ -38,7 +38,7 @@ class Learner:
                 for fact in parser.parse(blob):
                     found_facts.append(fact)
             except Exception as e:
-                print("Error: ", e)
+                print("Error while parsing: %s" % (e))
         update_scores(increment=len(found_facts), used=facts, operation=operation)
         self._store_results(link, found_facts, operation)
 
