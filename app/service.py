@@ -62,6 +62,20 @@ class StandaService:
         return abilities_dir
 
     async def create_payloads_dir(self, temp_dir, abilities): 
+
+        def get_payloads(file_svc):
+            payloads = {}
+            for t in ['standard_payloads', 'special_payloads']:
+                for k, v in file_svc.get_config(prop=t, name='payloads').items():
+                    obfuscation_name = ''
+                    if v.get('obfuscation_name'):
+                        obfuscation_name = v['obfuscation_name'][0]
+                    id = v['id']   
+                    payloads[id] = {
+                        'name': k,
+                        'obfuscation': obfuscation_name,
+                    }
+            return payloads
         payloads_dir = os.path.join(temp_dir, 'payloads')
         os.makedirs(payloads_dir, exist_ok=True)
         
@@ -87,7 +101,7 @@ class StandaService:
         # Create uuid_mapper file
         uuid_mapper_path = os.path.join(payloads_dir, 'uuid_mapper.json')
         with open(uuid_mapper_path, 'w') as uuid_mapper_file:
-            uuid_mapper = self.services.get('file_svc').get_payloads()
+            uuid_mapper = get_payloads(self.services.get('file_svc'))
             json.dump(uuid_mapper, uuid_mapper_file, indent=4)
         return payloads_dir
     
