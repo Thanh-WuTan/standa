@@ -17,6 +17,9 @@ class Operation:
         if source:
             self.rules = source.rules
     
+    def active_agents(self):
+        return self.agents
+
     def all_facts(self):
         return self.source.facts
 
