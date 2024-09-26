@@ -216,3 +216,79 @@ class StandaService:
                         zip_file.write(os.path.join(root, file), arcname=os.path.relpath(os.path.join(root, file), temp_dir))
             zip_file.write(main_agent_file, arcname=os.path.relpath(main_agent_file, temp_dir))
         return zip_path
+
+    async def get_parser_modules(self):
+        app_svc = self.services.get('app_svc')
+        plugins_directory = os.path.join(PWD, '..', '..')
+        standa_parsers_directory = os.path.join(plugins_directory, 'standa', 'app', 'parsers')
+        os.makedirs(standa_parsers_directory, exist_ok=True)
+        for plugin in app_svc.get_config('plugins'):
+            if plugin == 'standa':
+                continue
+            plugin_parsers_dir = os.path.join(plugins_directory, plugin, 'app', 'parsers')
+            if not os.path.isdir(plugin_parsers_dir):
+                continue
+            os.makedirs(os.path.join(standa_parsers_directory, plugin), exist_ok=True)  
+            for filename in os.listdir(plugin_parsers_dir):
+                source_file = os.path.join(plugin_parsers_dir, filename)
+                destination_file = os.path.join(standa_parsers_directory, plugin, filename)
+                if os.path.isfile(source_file):  # Ensure it's a file
+                    with open(source_file, 'r') as src:
+                        content = src.read()
+                    # Perform replacements
+                    content = content.replace(
+                        'from app.objects.secondclass.c_fact import Fact',
+                        'from objects.fact import *'
+                    ).replace(
+                        'from app.objects.secondclass.c_relationship import Relationship',
+                        'from objects.relationship import *'
+                    ).replace(
+                        'from app.utility.base_parser import BaseParser',
+                        'from objects.base_parser import *'
+                    ).replace(
+                        'mp.source', "mp['source']"
+                    ).replace(
+                        'mp.target', "mp['target']"
+                    ).replace(
+                        'mp.edge', "mp['edge']"
+                    )
+                    with open(destination_file, 'w') as dst:
+                        dst.write(content)
+                        
+    async def get_requirements_modules(self):
+        app_svc = self.services.get('app_svc')
+        plugins_directory = os.path.join(PWD, '..', '..')
+        standa_requirements_directory = os.path.join(plugins_directory, 'standa', 'app', 'requirements')
+        os.makedirs(standa_requirements_directory, exist_ok=True)
+        for plugin in app_svc.get_config('plugins'):
+            if plugin == 'standa':
+                continue
+            plugin_requirements_dir = os.path.join(plugins_directory, plugin, 'app', 'requirements')
+            if not os.path.isdir(plugin_requirements_dir):
+                continue
+            os.makedirs(os.path.join(standa_requirements_directory, plugin), exist_ok=True)  
+            for filename in os.listdir(plugin_requirements_dir):
+                source_file = os.path.join(plugin_requirements_dir, filename)
+                destination_file = os.path.join(standa_requirements_directory, plugin, filename)
+                if os.path.isfile(source_file):
+                    with open(source_file, 'r') as src:
+                        content = src.read()
+                    content = content.replace(
+                        'from plugins.stockpile.app.requirements.base_requirement import BaseRequirement',
+                        'from requirements.stockpile.base_requirement import BaseRequirement'
+                    ).replace(
+                        'from plugins.response.app.requirements.base_requirement import BaseRequirement',
+                        'from requirements.response.base_requirement import BaseRequirement'
+                    ).replace(
+                        'from app.objects.c_operation import Operation',
+                        'from objects.operation import *'
+                    ).replace(
+                        'from app.objects.secondclass.c_link import Link',
+                        'from objects.link import *'
+                    ).replace(
+                        'async ', ''  # Remove the 'async' keyword
+                    ).replace(
+                        'await ', ''  # Remove the 'await' keyword
+                    )
+                    with open(destination_file, 'w') as dst:
+                        dst.write(content)
