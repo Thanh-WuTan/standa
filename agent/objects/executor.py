@@ -41,11 +41,7 @@ class Executor:
             result = Result(time_start=time_start, time_stop=get_current_timestamp().replace("Z", ".000Z"), 
                             stdout=res.stdout, stderr=res.stderr)
             return result
-        except subprocess.TimeoutExpired:
+        except Exception as e:
             result = Result(time_start=time_start, time_stop=get_current_timestamp().replace("Z", ".000Z"), 
-                            stdout="", stderr="Command execution timed out")
-            return result
-        else:
-            result = Result(time_start=time_start, time_stop=get_current_timestamp().replace("Z", ".000Z"),
-                            stdout=res.stdout, stderr=res.stderr)
+                            stdout="", stderr=str(e))
             return result
