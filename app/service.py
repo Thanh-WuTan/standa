@@ -203,7 +203,9 @@ class StandaService:
         content = content.replace("platform='selected_platform'", f"platform='{platform}'")
         with open(main_agent_file, 'w') as f:
             f.write(content)
-
+        
+        requirements_file = await self.copy_file(os.path.join(MYAGENT_DIR, 'requirements.txt'), os.path.join(temp_dir, 'requirements.txt'))
+        
         directories = [abilities_dir, payloads_dir, objects_dir, parsers_dir, requirements_dir, learning_dir, sources_dir]
         
         # Create the zip file
@@ -215,6 +217,7 @@ class StandaService:
                     for file in files:
                         zip_file.write(os.path.join(root, file), arcname=os.path.relpath(os.path.join(root, file), temp_dir))
             zip_file.write(main_agent_file, arcname=os.path.relpath(main_agent_file, temp_dir))
+            zip_file.write(requirements_file, arcname=os.path.relpath(requirements_file, temp_dir))
         return zip_path
 
     async def get_parser_modules(self):
