@@ -60,7 +60,7 @@ class Operation:
                     continue
                 ran_command.add(ex.command)
                 print("-" * 60)
-                print("Executing %d/%d link" % (step_order, len(links)))
+                print("Executing the %d-th link" % (step_order))
                 print("Command: %s" % link.command)
                 result = ex.run_command()
                 steps.append(learner._save(link=link, result=result, operation=self, executor=ex, step_order=step_order))
