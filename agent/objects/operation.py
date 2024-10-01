@@ -34,7 +34,7 @@ class Operation:
         learner = self.learner 
         for order, ability in enumerate(self.adversary.abilities, start=1):
             print("=" * 60)
-            print("Running the %d/%d ability %s" % (order, len(ability), ability['name']))
+            print("Running the %d/%d ability %s" % (order, len(self.adversary.abilities), ability['name']))
             if not agent.is_capable_to_run(ability):
                 print("Abilitty is not capable to run")
                 print("=" * 60)
