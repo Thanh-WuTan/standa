@@ -33,7 +33,11 @@ class Operation:
         source = self.source
         learner = self.learner 
         for order, ability in enumerate(self.adversary.abilities, start=1):
+            print("=" * 60)
+            print("Running the %d/%d ability %s" % (order, len(ability), ability['name']))
             if not agent.is_capable_to_run(ability):
+                print("Abilitty is not capable to run")
+                print("=" * 60)
                 continue
             executors = agent.find_executors(ability)
             links = []  
@@ -55,7 +59,12 @@ class Operation:
                 if ex.command in ran_command:
                     continue
                 ran_command.add(ex.command)
+                print("-" * 60)
+                print("Executing %d/%d link" % (step_order, len(links)))
+                print("Command: %s" % link.command)
                 result = ex.run_command()
                 steps.append(learner._save(link=link, result=result, operation=self, executor=ex, step_order=step_order))
-            attire.add_procedure(steps, ability, order)
+                print("Stdout: %s" % result.stdout)
+                print("Stderr: %s" % result.stderr)
+            attire.add_procedure(steps, ability, order) 
         attire.create_attire_file()
