@@ -1,6 +1,7 @@
 import re
 import string
-
+import ctypes
+import os
 from random import randint, choice
 
 
@@ -15,10 +16,32 @@ class Agent:
     def __init__(self, platform = "unknown", server = "unknown", privilege = 0, uuid_mapper = None):
         self.platform = platform.lower()
         self.executors = ['sh'] if self.platform == 'linux' else ['psh', 'cmd']
-        self.privilege = privilege
+        self.privilege = self.check_privilege()
         self.paw = self.generate_name(size=6)
         self.server = server
         self.uuid_mapper = uuid_mapper
+    
+    @staticmethod
+    def is_admin_windows():
+        try:
+            return ctypes.windll.shell32.IsUserAnAdmin()
+        except Exception as e:
+            return False
+
+    @staticmethod
+    def is_root_linux():
+        try:
+            return os.geteuid() == 0
+        except AttributeError as e:
+            return False
+
+    def check_privilege(self):
+        ret = False
+        if self.platform == 'windows':
+            ret = self.is_admin_windows()
+        elif self.platform == 'linux':
+            ret = self.is_root_linux()
+        return ret
 
     @staticmethod
     def generate_name(size=16):
