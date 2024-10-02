@@ -62,8 +62,8 @@ class StandaService:
                 print(f"Error creating ability file for '{ability['name']}': {e}")
         return abilities_dir
 
-    async def create_payloads_dir(self, temp_dir, abilities): 
-        def get_payloads(file_svc):
+    async def get_required_payloads(self, temp_dir, abilities): 
+        def get_all_payloads(file_svc):
             payloads = {}
             for t in ['standard_payloads', 'special_payloads']:
                 for k, v in file_svc.get_config(prop=t, name='payloads').items():
@@ -76,8 +76,6 @@ class StandaService:
                         'obfuscation': obfuscation_name,
                     }
             return payloads
-        payloads_dir = temp_dir
-        os.makedirs(payloads_dir, exist_ok=True)
         
         payloads = set()
         for ability in abilities:
@@ -88,8 +86,8 @@ class StandaService:
             try: 
                 payload_path = await self.find_payload(payload)
                 if payload_path:
-                    os.makedirs(payloads_dir, exist_ok=True)
-                    payload_save_path = os.path.join(payloads_dir, payload)
+                    os.makedirs(temp_dir, exist_ok=True)
+                    payload_save_path = os.path.join(temp_dir, payload)
                     with open(payload_save_path, 'wb') as dest_file:
                         with open(payload_path, 'rb') as src_file:
                             dest_file.write(src_file.read())
@@ -99,11 +97,13 @@ class StandaService:
                 print(f"Error creating payload file for '{ability['name']}': {e}")
 
         # Create uuid_mapper file
-        uuid_mapper_path = os.path.join(payloads_dir, 'uuid_mapper.json')
+        uuid_mapper_path = os.path.join(temp_dir, 'uuid_mapper.json')
         with open(uuid_mapper_path, 'w') as uuid_mapper_file:
-            uuid_mapper = get_payloads(self.services.get('file_svc'))
+            uuid_mapper = get_all_payloads(self.services.get('file_svc'))
             json.dump(uuid_mapper, uuid_mapper_file, indent=4)
-        return payloads_dir
+        
+        payloads.add('uuid_mapper.json')
+        return payloads
     
     async def create_parsers_dir(self, temp_dir, abilities):
         parsers_dir = os.path.join(temp_dir, 'parsers')
@@ -187,7 +187,6 @@ class StandaService:
         temp_dir = await self.create_tmp_dir()
         abilities = await self.get_atomic_ordering(adversary_id)
         abilities_dir = await self.create_abilities_dir(temp_dir, abilities)
-        payloads_dir = await self.create_payloads_dir(temp_dir, abilities)
         parsers_dir = await self.create_parsers_dir(temp_dir, abilities)
         requirements_dir = await self.create_requirements_dir(temp_dir, abilities)
         sources_dir = await self.create_sources_dir(temp_dir, source_id)
@@ -205,8 +204,10 @@ class StandaService:
         
         requirements_file = await self.copy_file(os.path.join(MYAGENT_DIR, 'requirements.txt'), os.path.join(temp_dir, 'requirements.txt'))
         
-        directories = [abilities_dir, payloads_dir, objects_dir, parsers_dir, requirements_dir, learning_dir, sources_dir]
         
+        directories = [abilities_dir, objects_dir, parsers_dir, requirements_dir, learning_dir, sources_dir]
+        
+        payloads = await self.get_required_payloads(temp_dir, abilities)
         # Create the zip file
         zip_path = os.path.join(temp_dir, adversary_id + ".zip")
              
@@ -217,6 +218,9 @@ class StandaService:
                         zip_file.write(os.path.join(root, file), arcname=os.path.relpath(os.path.join(root, file), temp_dir))
             zip_file.write(main_agent_file, arcname=os.path.relpath(main_agent_file, temp_dir))
             zip_file.write(requirements_file, arcname=os.path.relpath(requirements_file, temp_dir))
+            for payload in payloads:
+                payload_file_name = os.path.join(temp_dir, payload)
+                zip_file.write(payload_file_name, arcname=os.path.relpath(payload_file_name, temp_dir))
         return zip_path
 
     async def get_parser_modules(self):

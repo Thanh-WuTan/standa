@@ -55,7 +55,7 @@ class Operation:
             steps = []
             for step_order, link in enumerate(links, start=1):
                 ex = link.executor
-                ex.command = ex.replace_payload_dir(link.command, PAYLOAD_DIR)
+                ex.command = link.command
                 if ex.command in ran_command:
                     continue
                 ran_command.add(ex.command)

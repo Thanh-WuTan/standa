@@ -14,7 +14,7 @@ ADV_ID = 'adversary_id'
 PWD = os.path.dirname(__file__)
 SOURCE_DIR = os.path.join(PWD, 'sources')
 ABILTIY_DIR = os.path.join(PWD, 'abilities')
-PAYLOAD_DIR = os.path.join(PWD, 'payloads')
+PAYLOAD_DIR = os.path.join(PWD)
 
 def read_yaml(filepath):
     with open(filepath, 'r') as file:
