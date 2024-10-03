@@ -9,9 +9,9 @@ class Attire:
             "execution-data": {
                 "execution-command": "python calderalone.py",
                 "execution-id": agent.paw,
-                "execution-source": "Calder-alone",
+                "execution-source": "Standa",
                 "execution-category": {
-                    "name": "Calder-alone",
+                    "name": "Standa",
                     "abbreviation": "CDA"
                 },
                 "target": {
