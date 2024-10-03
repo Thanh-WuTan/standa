@@ -77,7 +77,7 @@ class StandaService:
                         'obfuscation': obfuscation_name,
                     }
             return payloads
-        payloads_dir = os.path.join(temp_dir, 'payloads')
+        payloads_dir = os.path.join(temp_dir)
         os.makedirs(payloads_dir, exist_ok=True)
         
         payloads = set()
