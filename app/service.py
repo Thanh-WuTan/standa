@@ -63,7 +63,6 @@ class StandaService:
         return abilities_dir
 
     async def create_payloads_dir(self, temp_dir, abilities): 
-
         def get_payloads(file_svc):
             payloads = {}
             for t in ['standard_payloads', 'special_payloads']:
@@ -77,7 +76,7 @@ class StandaService:
                         'obfuscation': obfuscation_name,
                     }
             return payloads
-        payloads_dir = os.path.join(temp_dir)
+        payloads_dir = temp_dir
         os.makedirs(payloads_dir, exist_ok=True)
         
         payloads = set()
